@@ -11,9 +11,9 @@ test coverage.
 This project investigates whether Large Language Models (LLMs) can
 assist software engineers by automatically converting natural-language
 software requirements into structured test cases for embedded systems.
-The project will focus on generating test cases in **Given-When-Then**
-format and evaluating the quality of the generated results using
-different prompting strategies.
+
+The project focuses on generating test cases in **Given-When-Then**
+format and experimentally comparing different prompting strategies.
 
 ## Problem Statement
 
@@ -34,14 +34,16 @@ The main research question is:
 > accurate test cases from natural-language software requirements for
 > embedded systems?**
 
-A secondary question is whether different prompting strategies improve
-the quality and consistency of generated test cases.
+A secondary research question is:
+
+> **Do structured and few-shot prompting strategies improve the quality
+> and consistency of generated test cases compared with a basic
+> zero-shot prompt?**
 
 ## Proposed Method
 
-The project will develop a Python-based prototype that accepts a
-natural-language software requirement and uses an LLM to generate one or
-more structured test cases.
+The project uses a Python-based prototype that accepts natural-language
+software requirements and uses an LLM to generate structured test cases.
 
 ### Workflow
 
@@ -60,83 +62,148 @@ Example expected output:
 -   **When:** Battery SOC falls below 10%.
 -   **Then:** The system displays the low-battery warning.
 
-### Prompting Strategies
+## Prompting Strategies
 
-The project will compare several prompting strategies:
+The experiment compares three prompting strategies while keeping the
+requirement dataset, model, and output format consistent.
 
-1.  **Basic / Zero-Shot Prompt** --- directly ask the LLM to generate a
-    test case.
-2.  **Structured Prompt** --- explicitly ask the LLM to identify
-    preconditions, triggers, expected results, and boundary conditions.
-3.  **Few-Shot Prompt** --- provide example requirements and
-    corresponding test cases before asking the model to process a new
-    requirement.
+### 1. Zero-Shot Prompt
 
-Generated test cases will be compared with manually prepared reference
-test cases.
+The LLM is directly asked to generate a Given-When-Then test case
+without receiving example test cases.
 
-### Evaluation Criteria
+This strategy provides the experimental baseline.
 
-The evaluation may include:
+### 2. Structured Prompt
 
--   Correct identification of preconditions
--   Correct identification of triggering conditions
--   Correct expected system behavior
--   Coverage of relevant boundary or negative cases
--   Clarity and testability of the generated test
--   Presence of unsupported or hallucinated behavior
+The LLM receives additional instructions for identifying:
 
-The experimental results will be used to compare prompting approaches
-and identify strengths and limitations of LLM-generated test cases.
+-   Required initial states and preconditions
+-   Specific triggering events or transitions
+-   Expected system behavior
+-   Threshold and timing conditions
+-   Unsupported assumptions or behaviors that should not be introduced
 
-## Data Sources
+The goal is to determine whether explicit reasoning structure improves
+the generated test cases.
 
-The project will primarily use a **synthetic dataset of embedded-system
-software requirements** created specifically for this project.
+### 3. Few-Shot Prompt
 
-The initial dataset contains 50 synthetic requirements covering
-representative embedded-system behaviors such as:
+The LLM is provided with several example requirement-to-test-case pairs
+before processing a new requirement.
 
--   System states and state transitions
--   Sensor values and thresholds
--   Warning and notification behavior
--   Timing conditions
--   Input/output behavior
--   Charging and energy management
--   Thermal management
--   Diagnostics and communication
+The goal is to determine whether examples improve the consistency and
+quality of the generated Given-When-Then structure.
 
-Each requirement includes a manually created reference test case in
-Given-When-Then format for use as a baseline during evaluation.
+## Dataset
 
-The project will **not use proprietary, confidential, or
+The project uses a **synthetic dataset of 30 embedded-system software
+requirements** created specifically for this experiment.
+
+The dataset is balanced by difficulty:
+
+  Difficulty     Requirements
+  ------------ --------------
+  Easy                     10
+  Medium                   10
+  Hard                     10
+  **Total**            **30**
+
+The requirements cover representative embedded-system behaviors
+including system states and transitions, thresholds, warnings, timing,
+I/O, charging, energy management, thermal management, diagnostics,
+communication, safety interlocks, and sensor plausibility.
+
+Each requirement contains a manually prepared reference test case
+consisting of `reference_given`, `reference_when`, and `reference_then`.
+These references are not provided to the LLM during generation and are
+used only for evaluation.
+
+The project does **not use proprietary, confidential, or
 company-specific software requirements or source code**.
 
-If publicly available requirements, research papers, open-source
-datasets, libraries, or models are used later, they will be documented
-and properly cited in the repository and final report.
+## Experimental Design
+
+The same 30 requirements will be processed using each of the three
+prompting strategies.
+
+``` text
+                         30 Requirements
+                               |
+              +----------------+----------------+
+              |                |                |
+              v                v                v
+          Zero-Shot        Structured       Few-Shot
+          30 Tests          30 Tests         30 Tests
+              |                |                |
+              +----------------+----------------+
+                               |
+                               v
+                       90 Generated Tests
+                               |
+                               v
+                           Evaluation
+```
+
+## Evaluation Criteria
+
+Generated test cases will be compared with the manually prepared
+reference test cases using:
+
+1.  **Precondition Correctness**
+2.  **Trigger Correctness**
+3.  **Expected Behavior Correctness**
+4.  **Condition / Boundary Coverage**
+5.  **Unsupported Behavior / Hallucination**
+
+The same evaluation criteria will be applied to all prompting
+strategies. Quantitative results will be supplemented with qualitative
+analysis of representative successful and unsuccessful generations.
+
+## Current Experimental Results
+
+### Zero-Shot Baseline
+
+The initial Zero-Shot experiment has been completed using **GPT-5.6**.
+
+**30 of 30 requirements were successfully processed.**
+
+Initial review indicates that most generated tests correctly identify
+the precondition, trigger, and expected behavior. Some multi-condition
+requirements produced valid tests but placed triggering conditions in
+the Given statement rather than clearly identifying the primary
+transition in the When statement.
+
+These cases will be compared with Structured and Few-Shot results to
+determine whether additional prompting guidance improves test-case
+structure.
+
+No final performance conclusions will be made until all three strategies
+have been evaluated using the same rubric.
 
 ## Expected Outcome
 
-The expected outcome is a working prototype that demonstrates how an LLM
-can assist with converting software requirements into structured test
-cases.
+The expected outcome is a working prototype demonstrating how an LLM can
+assist with converting software requirements into structured test cases.
 
-The project will also provide an experimental comparison of prompting
-strategies and identify situations in which LLM-generated test cases are
-useful, incomplete, or potentially unreliable.
+The project will compare Zero-Shot, Structured, and Few-Shot prompting
+and identify situations in which generated test cases are accurate and
+useful, as well as cases where they may be incomplete, poorly
+structured, or introduce unsupported assumptions.
 
-A simple interactive demonstration may be developed so a user can enter
-a requirement and view generated Given-When-Then test cases.
+A simple interactive demonstration may also allow a user to enter a
+requirement, select a prompting strategy, and view the generated
+Given-When-Then test case.
 
-## Planned Technologies
+## Technologies
 
 -   Python
--   Large Language Model API
--   Jupyter Notebook and/or Python scripts
--   Pandas for experiment and evaluation data
--   GitHub for source control and project documentation
--   Optional lightweight UI framework for the final demo
+-   OpenAI LLM API
+-   GPT-5.6
+-   CSV-based experiment datasets
+-   Python scripts for generation and evaluation
+-   Git and GitHub
+-   Optional Streamlit interface for the final demonstration
 
 ## Repository Structure
 
@@ -146,29 +213,81 @@ requirement-test-generator/
 ├── data/
 │   └── requirements.csv
 ├── src/
+│   ├── generator.py
+│   └── evaluator.py          # Planned
 ├── experiments/
 ├── results/
+│   ├── zero_shot_results.csv
+│   ├── structured_results.csv    # Planned
+│   └── few_shot_results.csv      # Planned
 ├── demo/
 └── report/
 ```
 
 ## Project Status
 
-**Current Phase:** Initial project definition and dataset preparation.
+**Current Phase: Prompt Strategy Experiments**
 
-### Planned Next Steps
+### Completed
 
-1.  Review and refine the synthetic requirements dataset.
-2.  Define the final reference test-case format.
-3.  Implement the baseline LLM test-case generator.
-4.  Implement structured and few-shot prompting strategies.
-5.  Finalize the evaluation rubric.
-6.  Run experiments and analyze results.
-7.  Develop a demonstration interface.
-8.  Prepare the final report and presentation.
+-   [x] Defined the project problem and research questions
+-   [x] Created the initial GitHub repository and README
+-   [x] Created the synthetic embedded-system requirements dataset
+-   [x] Reduced the experimental dataset to 30 requirements
+-   [x] Balanced the dataset across Easy, Medium, and Hard requirements
+-   [x] Created manual Given-When-Then reference test cases
+-   [x] Implemented the Python LLM test-case generator
+-   [x] Implemented the Zero-Shot prompting baseline
+-   [x] Validated the generator using initial sample requirements
+-   [x] Completed Zero-Shot generation for all 30 requirements
+-   [x] Saved Zero-Shot experimental results
+
+### Next Steps
+
+1.  **Implement Structured Prompting**
+    -   Add explicit instructions for separating preconditions,
+        triggers, and expected behavior.
+    -   Test on a small number of requirements.
+    -   Run all 30 requirements.
+    -   Save to `results/structured_results.csv`.
+2.  **Implement Few-Shot Prompting**
+    -   Select representative example requirement/test-case pairs.
+    -   Do not expose the reference answer for the requirement currently
+        being tested.
+    -   Test on sample requirements and then all 30.
+    -   Save to `results/few_shot_results.csv`.
+3.  **Finalize the Evaluation Rubric**
+    -   Define consistent scoring rules for all five evaluation
+        criteria.
+    -   Apply the same rubric to all strategies.
+4.  **Evaluate the 90 Generated Test Cases**
+    -   Compare generated tests with reference tests.
+    -   Calculate quantitative results.
+    -   Identify representative successful and unsuccessful examples.
+5.  **Analyze and Visualize Results**
+    -   Compare average quality scores.
+    -   Analyze trigger and expected-behavior correctness.
+    -   Analyze boundary/condition coverage and hallucination.
+    -   Create tables and charts.
+6.  **Develop the Demonstration**
+    -   Create a lightweight interface for requirement input.
+    -   Allow prompting-strategy selection.
+    -   Display generated Given-When-Then output.
+7.  **Prepare the Final Report**
+    -   Document data, methods, experiments, results, limitations, and
+        conclusions.
+    -   Include quantitative and qualitative analysis.
+8.  **Prepare the Final Presentation and Demo**
+    -   Present the problem, solution, prompting strategies, results,
+        and limitations.
+    -   Demonstrate the working generator.
 
 ## Citations and Acknowledgements
 
 References to external models, libraries, research papers, datasets, and
 other resources used in this project will be documented here as the
 project develops.
+
+OpenAI models and APIs are used for LLM-based test-case generation.
+Additional libraries, tools, and research references will be added as
+they are incorporated into the project.
