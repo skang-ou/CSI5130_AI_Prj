@@ -181,6 +181,23 @@ structure.
 No final performance conclusions will be made until all three strategies
 have been evaluated using the same rubric.
 
+### Structured Prompting
+
+Structured Prompting has been implemented and run on the same 30 requirements
+using `gpt-5.6`, the same system instruction, and the same JSON output format.
+The prompt explicitly separates preconditions, triggering events, and expected
+behavior, while preserving guards, thresholds, timing, and logical conditions.
+
+- **Sample check: 4 of 4 successful** across Easy, Medium, and Hard requirements.
+- **Full run: 30 of 30 successful**, saved to `results/structured_results.csv`.
+- All 30 IDs match the dataset; generated fields are nonempty.
+- The Zero-Shot baseline file remains unchanged.
+- These checks confirm generation completion, not measured accuracy.
+
+**60 of 90 planned unique test cases are now saved.** Few-Shot generation and
+shared-rubric evaluation remain. See `experiments/structured_run.md` for the
+sample selection, execution settings, and verification record.
+
 ## Expected Outcome
 
 The expected outcome is a working prototype demonstrating how an LLM can
@@ -205,6 +222,41 @@ Given-When-Then test case.
 -   Git and GitHub
 -   Optional Streamlit interface for the final demonstration
 
+## Running the Generator
+
+Run commands from the repository root using a Python environment with the
+`openai` package installed. Set `OPENAI_API_KEY` privately in that environment.
+Do not commit or display the key.
+
+```bash
+python src/generator.py --strategy zero_shot
+python src/generator.py --strategy structured
+```
+
+The default model remains `gpt-5.6`. Both strategies use the same system
+instruction, API call, JSON format, and requirement dataset. Only the task
+prompt changes. Reference test-case fields are excluded from both prompts.
+
+Without `--output`, results go to `results/zero_shot_results.csv` or
+`results/structured_results.csv` according to the selected strategy.
+Omitting `--strategy` preserves the Zero-Shot default. A run replaces its
+output file, so use a separate path for sample runs:
+
+```bash
+python src/generator.py --strategy structured --limit 3 --output experiments/structured_quick_check.csv
+python src/generator.py --strategy structured --input experiments/structured_sample_requirements.csv --output experiments/structured_sample_results.csv
+```
+
+The second command reproduces the four-requirement sample selection
+(REQ-002, REQ-018, REQ-021, REQ-030), covering all difficulty levels.
+New API calls may produce different wording. API usage may incur charges.
+
+Offline regression checks:
+
+```bash
+python -m unittest discover -s tests -v
+```
+
 ## Repository Structure
 
 ``` text
@@ -216,9 +268,12 @@ requirement-test-generator/
 │   ├── generator.py
 │   └── evaluator.py          # Planned
 ├── experiments/
+│   ├── structured_sample_requirements.csv
+│   ├── structured_sample_results.csv
+│   └── structured_run.md
 ├── results/
 │   ├── zero_shot_results.csv
-│   ├── structured_results.csv    # Planned
+│   ├── structured_results.csv
 │   └── few_shot_results.csv      # Planned
 ├── demo/
 └── report/
@@ -227,6 +282,8 @@ requirement-test-generator/
 ## Project Status
 
 **Current Phase: Prompt Strategy Experiments**
+
+Numbered tasks keep their original numbers when moved from Next Steps to Completed.
 
 ### Completed
 
@@ -242,14 +299,16 @@ requirement-test-generator/
 -   [x] Completed Zero-Shot generation for all 30 requirements
 -   [x] Saved Zero-Shot experimental results
 
+1.  **Implement Structured Prompting** — Completed
+    -   [x] Added explicit instructions for separating preconditions,
+        triggers, and expected behavior.
+    -   [x] Tested on four requirements across all difficulty levels.
+    -   [x] Ran all 30 requirements successfully.
+    -   [x] Saved and checked `results/structured_results.csv`.
+    -   [x] Passed five offline regression tests for strategy selection and prompt isolation.
+
 ### Next Steps
 
-1.  **Implement Structured Prompting**
-    -   Add explicit instructions for separating preconditions,
-        triggers, and expected behavior.
-    -   Test on a small number of requirements.
-    -   Run all 30 requirements.
-    -   Save to `results/structured_results.csv`.
 2.  **Implement Few-Shot Prompting**
     -   Select representative example requirement/test-case pairs.
     -   Do not expose the reference answer for the requirement currently

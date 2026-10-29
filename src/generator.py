@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """
-Zero-Shot LLM Test-Case Generator
+LLM Test-Case Generator
 Project: LLM-Based Software Requirement-to-Test-Case Generator for Embedded Systems
 
 Reads synthetic requirements from data/requirements.csv, sends ONLY the requirement
-text to an OpenAI model using a zero-shot prompt, and writes generated Given/When/Then
-test cases to results/zero_shot_results.csv.
+text to an OpenAI model using zero-shot or structured prompting, and writes generated
+Given/When/Then test cases to a strategy-specific results CSV.
 
 Reference test-case columns are intentionally NOT included in the prompt.
 They remain independent ground truth for later evaluation.
@@ -51,9 +51,56 @@ Return JSON only, using exactly this format:
 """
 
 
+# Add explicit field-separation and condition-preservation rules without worked
+# examples. Keep the JSON format identical to Zero-Shot for later comparison.
+# These comments sit outside the string and are not sent to the model.
+STRUCTURED_PROMPT = """Convert the following embedded-system software requirement into one
+structured Given-When-Then test case.
+
+Requirement:
+{requirement}
+
+Use these rules to separate the test-case fields:
+1. Given: describe the initial system state and required preconditions before
+   the event under test. Keep persistent guards, such as an operating mode,
+   distinct from the event that triggers the required response.
+2. When: describe the specific input, event, state transition, or elapsed-time
+   condition under test. Do not move that event into Given and replace it
+   with a vague statement such as "the system processes the request".
+   If multiple events are required, preserve their relationship and ordering
+   only as specified by the requirement.
+3. Then: describe the observable required behavior, including every required
+   output or action and any response deadline.
+4. Preserve all relevant guards, logical operators, thresholds, units, and
+   timing conditions. Distinguish strict from inclusive bounds, continuous
+   durations from response deadlines, and necessary from sufficient conditions.
+5. For an inhibition or negative requirement, exercise the prohibited request
+   or event and state the required absence of the behavior. Do not infer
+   behavior for other conditions that the requirement does not specify.
+6. Use only supported setup conditions. Do not invent thresholds, delays,
+   prerequisite lists, recovery behavior, or additional system functionality.
+   Do not turn an "only if" necessary condition into a sufficient condition.
+7. Return one test case, not a suite. Check that its Given, When, and Then
+   describe a coherent scenario without contradicting the requirement.
+
+Return JSON only, using exactly this format:
+{{
+  "given": "precondition(s) before the trigger occurs",
+  "when": "trigger or event being tested",
+  "then": "expected system behavior"
+}}
+"""
+
+# Map CLI strategy names to prompt templates; reuse the same API call and parser.
+PROMPT_TEMPLATES = {
+    "zero_shot": ZERO_SHOT_PROMPT,
+    "structured": STRUCTURED_PROMPT,
+}
+
+
 def parse_args():  # Define the command-line interface and return the selected options.
     parser = argparse.ArgumentParser(  # Create the parser that also supplies automatic --help output.
-        description="Generate zero-shot Given-When-Then test cases from requirements."  # Describe the program in --help output.
+        description="Generate Given-When-Then tests with zero-shot or structured prompting."
     )  # Finish this function call.
     parser.add_argument(  # Register the following command-line option.
         "--input",  # Name the command-line option being registered.
@@ -64,8 +111,8 @@ def parse_args():  # Define the command-line interface and return the selected o
     parser.add_argument(  # Register the following command-line option.
         "--output",  # Name the command-line option being registered.
         type=Path,  # Convert the option value to this Python type.
-        default=DEFAULT_OUTPUT,  # Use this value when the option is omitted.
-        help="Output CSV file (default: results/zero_shot_results.csv)",  # Describe this option in --help output.
+        default=None,  # Resolve the default path after the strategy is known.
+        help="Output CSV (default: results/<strategy>_results.csv).",
     )  # Finish this function call.
     parser.add_argument(  # Register the following command-line option.
         "--model",  # Name the command-line option being registered.
@@ -84,7 +131,27 @@ def parse_args():  # Define the command-line interface and return the selected o
         default=0.0,  # Use this value when the option is omitted.
         help="Optional delay in seconds between API calls.",  # Describe this option in --help output.
     )  # Finish this function call.
-    return parser.parse_args()  # Parse command-line arguments into an argparse Namespace.
+    # Restrict selection to implemented strategies and preserve the baseline default.
+    parser.add_argument(
+        "--strategy",
+        choices=tuple(PROMPT_TEMPLATES),
+        default="zero_shot",
+        help="Prompting strategy (default: zero_shot).",
+    )
+    args = parser.parse_args()
+    # Reject invalid sample sizes and delays before making any API calls.
+    if args.limit is not None and args.limit <= 0:
+        parser.error("--limit must be greater than zero")
+    if args.delay < 0:
+        parser.error("--delay must not be negative")
+    # Separate default result files keep Structured runs from replacing the baseline.
+    # An explicit --output path takes precedence, including for small sample runs.
+    if args.output is None:
+        args.output = (
+            DEFAULT_OUTPUT if args.strategy == "zero_shot"
+            else Path("results/structured_results.csv")
+        )
+    return args
 
 
 def load_requirements(csv_path: Path):  # Read requirement rows and validate the required CSV columns.
@@ -134,8 +201,10 @@ def extract_json(text: str):  # Decode model output and normalize the three test
     }  # Finish this dictionary.
 
 
-def generate_test_case(client: OpenAI, model: str, requirement: str):  # Request one test case for one requirement through the supplied client.
-    prompt = ZERO_SHOT_PROMPT.format(requirement=requirement)  # Insert only the requirement text into the prompt template.
+def generate_test_case(client: OpenAI, model: str, requirement: str, strategy: str = "zero_shot"):
+    # Existing callers that omit strategy continue using the original Zero-Shot prompt.
+    # Only requirement text enters the template; reference columns never enter the prompt.
+    prompt = PROMPT_TEMPLATES[strategy].format(requirement=requirement)
 
     response = client.responses.create(  # Send a request to the OpenAI Responses API.
         model=model,  # Select the model supplied by the caller.
@@ -189,7 +258,7 @@ def main():  # Coordinate argument parsing, generation, saving, and reporting.
 
     print(f"Loaded {total} requirement(s) from {args.input}")  # Display progress, configuration, or a summary in the terminal.
     print(f"Model: {args.model}")  # Display progress, configuration, or a summary in the terminal.
-    print("Prompt strategy: Zero-Shot")  # Display progress, configuration, or a summary in the terminal.
+    print(f"Prompt strategy: {args.strategy}")
     print("-" * 60)  # Display progress, configuration, or a summary in the terminal.
 
     for index, row in enumerate(requirements, start=1):  # Process each requirement with a one-based progress counter.
@@ -207,13 +276,14 @@ def main():  # Coordinate argument parsing, generation, saving, and reporting.
             "generated_when": "",  # Generated trigger or event; initialize or copy this output field.
             "generated_then": "",  # Generated expected behavior; initialize or copy this output field.
             "model": args.model,  # Model used for generation; initialize or copy this output field.
-            "prompt_strategy": "zero_shot",  # Prompting strategy label; initialize or copy this output field.
+            "prompt_strategy": args.strategy,  # Record which prompt produced this row for evaluation.
             "status": "",  # Generation outcome; initialize or copy this output field.
             "error": "",  # Failure message, if any; initialize or copy this output field.
         }  # Finish this dictionary.
 
         try:  # Attempt the following operations and handle failures below.
-            generated = generate_test_case(client, args.model, requirement)  # Request and parse the test case for this requirement.
+            # Apply the selected prompt while sharing model settings and output parsing.
+            generated = generate_test_case(client, args.model, requirement, args.strategy)
             result_row["generated_given"] = generated["given"]  # Store the generated preconditions.
             result_row["generated_when"] = generated["when"]  # Store the generated trigger or event.
             result_row["generated_then"] = generated["then"]  # Store the generated expected behavior.

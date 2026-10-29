@@ -1,0 +1,5 @@
+requirement_id,category,difficulty,requirement
+REQ-002,Energy Management,Easy,"When battery SOC falls below 10% while the vehicle is in Drive, the system shall display a low-battery warning."
+REQ-018,Charging,Medium,"When a charging request is received and the connector is locked successfully, the system shall enable charging."
+REQ-021,Diagnostics,Hard,"If battery voltage is below 300 V for at least 500 ms while the high-voltage system is active, the system shall set a low-voltage diagnostic fault."
+REQ-030,Safety Interlock,Hard,"If any prerequisite for high-voltage contactor enablement becomes invalid before contactor closure is confirmed, the system shall abort the contactor closing sequence."
