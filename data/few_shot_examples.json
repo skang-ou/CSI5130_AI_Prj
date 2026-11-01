@@ -1,0 +1,30 @@
+[
+  {
+    "example_id": "EX-001",
+    "requirement": "When greenhouse air humidity exceeds 75%, the controller shall activate ventilation.",
+    "given": "Greenhouse air humidity is at or below 75%.",
+    "when": "Greenhouse air humidity rises above 75%.",
+    "then": "The controller activates ventilation."
+  },
+  {
+    "example_id": "EX-002",
+    "requirement": "When an emergency-stop input is asserted while a packaging actuator is running, the controller shall deactivate the actuator output within 40 ms.",
+    "given": "The packaging actuator is running and the emergency-stop input is not asserted.",
+    "when": "The emergency-stop input is asserted.",
+    "then": "The controller deactivates the actuator output within 40 ms of the input assertion."
+  },
+  {
+    "example_id": "EX-003",
+    "requirement": "If coolant flow remains below 2 L/min continuously for at least 750 ms while machining is active, the controller shall set a low-flow fault.",
+    "given": "Machining is active and the low-flow fault is not set.",
+    "when": "Coolant flow remains below 2 L/min continuously for at least 750 ms.",
+    "then": "The controller sets the low-flow fault."
+  },
+  {
+    "example_id": "EX-004",
+    "requirement": "If the irrigation reservoir contains less than 8 L of water, the controller shall reject a request to start irrigation.",
+    "given": "The irrigation reservoir contains less than 8 L of water.",
+    "when": "A request to start irrigation is received.",
+    "then": "The controller rejects the irrigation request."
+  }
+]

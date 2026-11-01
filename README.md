@@ -194,9 +194,28 @@ behavior, while preserving guards, thresholds, timing, and logical conditions.
 - The Zero-Shot baseline file remains unchanged.
 - These checks confirm generation completion, not measured accuracy.
 
-**60 of 90 planned unique test cases are now saved.** Few-Shot generation and
-shared-rubric evaluation remain. See `experiments/structured_run.md` for the
-sample selection, execution settings, and verification record.
+See `experiments/structured_run.md` for the sample selection, execution settings,
+and verification record.
+
+### Few-Shot Prompting
+
+Few-Shot Prompting has been implemented using four independently authored
+requirement/test-case demonstrations in `data/few_shot_examples.json`. They
+cover threshold crossing, a guarded event with a response deadline, a sustained
+condition, and an inhibited request. They are separate from the 30 evaluation
+requirements and do not use their reference answers.
+
+- **Sample check: 4 of 4 successful**, using the same sample IDs as Structured.
+- **Full run: 30 of 30 successful**, saved to `results/few_shot_results.csv`.
+- Same model argument (`gpt-5.6`), system instruction, API settings, and output format.
+- All 30 IDs match the dataset; generated fields are nonempty.
+- Both earlier result files and the evaluation dataset remain unchanged.
+- Ten offline regression tests pass, including reference-answer exclusion and
+  normalized overlap rejection before applying a sample limit.
+
+**All 90 planned requirement/strategy outputs are now saved.** This confirms
+generation completion, not measured accuracy. Common-rubric evaluation and
+comparative analysis remain. See `experiments/few_shot_run.md` for details.
 
 ## Expected Outcome
 
@@ -231,23 +250,30 @@ Do not commit or display the key.
 ```bash
 python src/generator.py --strategy zero_shot
 python src/generator.py --strategy structured
+python src/generator.py --strategy few_shot
 ```
 
-The default model remains `gpt-5.6`. Both strategies use the same system
+The default model remains `gpt-5.6`. All three strategies use the same system
 instruction, API call, JSON format, and requirement dataset. Only the task
-prompt changes. Reference test-case fields are excluded from both prompts.
+prompt changes. Evaluation reference fields are excluded from all prompts. Few-Shot adds four
+independently authored demonstrations from `data/few_shot_examples.json`; they
+are separate from the 30 evaluation requirements. The loader rejects duplicate
+examples and case/whitespace-normalized overlap with the full input dataset,
+including rows outside `--limit`. This is a text-overlap safeguard, not a general
+semantic similarity detector.
 
-Without `--output`, results go to `results/zero_shot_results.csv` or
-`results/structured_results.csv` according to the selected strategy.
+Without `--output`, results go to `results/<strategy>_results.csv`
+according to the selected strategy.
 Omitting `--strategy` preserves the Zero-Shot default. A run replaces its
 output file, so use a separate path for sample runs:
 
 ```bash
 python src/generator.py --strategy structured --limit 3 --output experiments/structured_quick_check.csv
 python src/generator.py --strategy structured --input experiments/structured_sample_requirements.csv --output experiments/structured_sample_results.csv
+python src/generator.py --strategy few_shot --input experiments/few_shot_sample_requirements.csv --output experiments/few_shot_sample_results.csv
 ```
 
-The second command reproduces the four-requirement sample selection
+The second and third commands reproduce the four-requirement sample selection
 (REQ-002, REQ-018, REQ-021, REQ-030), covering all difficulty levels.
 New API calls may produce different wording. API usage may incur charges.
 
@@ -263,25 +289,29 @@ python -m unittest discover -s tests -v
 requirement-test-generator/
 ├── README.md
 ├── data/
-│   └── requirements.csv
+│   ├── requirements.csv
+│   └── few_shot_examples.json
 ├── src/
 │   ├── generator.py
 │   └── evaluator.py          # Planned
 ├── experiments/
 │   ├── structured_sample_requirements.csv
 │   ├── structured_sample_results.csv
-│   └── structured_run.md
+│   ├── structured_run.md
+│   ├── few_shot_sample_requirements.csv
+│   ├── few_shot_sample_results.csv
+│   └── few_shot_run.md
 ├── results/
 │   ├── zero_shot_results.csv
 │   ├── structured_results.csv
-│   └── few_shot_results.csv      # Planned
+│   └── few_shot_results.csv
 ├── demo/
 └── report/
 ```
 
 ## Project Status
 
-**Current Phase: Prompt Strategy Experiments**
+**Current Phase: Evaluation Rubric and Test-Case Evaluation**
 
 Numbered tasks keep their original numbers when moved from Next Steps to Completed.
 
@@ -307,14 +337,16 @@ Numbered tasks keep their original numbers when moved from Next Steps to Complet
     -   [x] Saved and checked `results/structured_results.csv`.
     -   [x] Passed five offline regression tests for strategy selection and prompt isolation.
 
+2.  **Implement Few-Shot Prompting** — Completed
+    -   [x] Created four independent example requirement/test-case pairs.
+    -   [x] Excluded evaluation reference answers and checked demonstration overlap.
+    -   [x] Tested on four sample requirements across all difficulty levels.
+    -   [x] Ran all 30 requirements successfully.
+    -   [x] Saved and checked `results/few_shot_results.csv`.
+    -   [x] Passed ten offline regression tests across all strategies.
+
 ### Next Steps
 
-2.  **Implement Few-Shot Prompting**
-    -   Select representative example requirement/test-case pairs.
-    -   Do not expose the reference answer for the requirement currently
-        being tested.
-    -   Test on sample requirements and then all 30.
-    -   Save to `results/few_shot_results.csv`.
 3.  **Finalize the Evaluation Rubric**
     -   Define consistent scoring rules for all five evaluation
         criteria.

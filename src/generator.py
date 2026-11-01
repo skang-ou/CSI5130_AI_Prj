@@ -3,9 +3,9 @@
 LLM Test-Case Generator
 Project: LLM-Based Software Requirement-to-Test-Case Generator for Embedded Systems
 
-Reads synthetic requirements from data/requirements.csv, sends ONLY the requirement
-text to an OpenAI model using zero-shot or structured prompting, and writes generated
-Given/When/Then test cases to a strategy-specific results CSV.
+Reads synthetic requirements from data/requirements.csv and generates Given/When/Then
+tests using zero-shot, structured, or few-shot prompting. Few-Shot adds independent
+demonstrations from data/few_shot_examples.json. Results use strategy-specific CSVs.
 
 Reference test-case columns are intentionally NOT included in the prompt.
 They remain independent ground truth for later evaluation.
@@ -24,6 +24,8 @@ from openai import OpenAI  # Import the OpenAI API client.
 DEFAULT_MODEL = "gpt-5.6"  # Set the default model identifier; --model can override it.
 DEFAULT_INPUT = Path("data/requirements.csv")  # Use this input path relative to the current working directory.
 DEFAULT_OUTPUT = Path("results/zero_shot_results.csv")  # Use this output path relative to the current working directory.
+# Resolve demonstration data relative to this source file rather than the shell's directory.
+DEFAULT_EXAMPLES = Path(__file__).resolve().parents[1] / "data/few_shot_examples.json"
 
 # The next three literal lines set the role, restrict input to the requirement,
 # and prohibit unsupported behavior. Comments stay outside the model instructions.
@@ -91,16 +93,28 @@ Return JSON only, using exactly this format:
 }}
 """
 
+# Few-Shot adds independent demonstrations to the baseline task and JSON format.
+# Unlike Structured, it does not add the explicit seven-rule instruction block.
+FEW_SHOT_PROMPT = """Use the following independent examples as demonstrations of the output format.
+Generate an answer only for the target requirement after the examples.
+The examples are not additional requirements to test.
+
+{examples}
+
+Target task:
+""" + ZERO_SHOT_PROMPT
+
 # Map CLI strategy names to prompt templates; reuse the same API call and parser.
 PROMPT_TEMPLATES = {
     "zero_shot": ZERO_SHOT_PROMPT,
     "structured": STRUCTURED_PROMPT,
+    "few_shot": FEW_SHOT_PROMPT,
 }
 
 
 def parse_args():  # Define the command-line interface and return the selected options.
     parser = argparse.ArgumentParser(  # Create the parser that also supplies automatic --help output.
-        description="Generate Given-When-Then tests with zero-shot or structured prompting."
+        description="Generate Given-When-Then tests with zero-shot, structured, or few-shot prompting."
     )  # Finish this function call.
     parser.add_argument(  # Register the following command-line option.
         "--input",  # Name the command-line option being registered.
@@ -144,12 +158,12 @@ def parse_args():  # Define the command-line interface and return the selected o
         parser.error("--limit must be greater than zero")
     if args.delay < 0:
         parser.error("--delay must not be negative")
-    # Separate default result files keep Structured runs from replacing the baseline.
+    # Separate default result files keep strategy runs from replacing each other.
     # An explicit --output path takes precedence, including for small sample runs.
     if args.output is None:
         args.output = (
             DEFAULT_OUTPUT if args.strategy == "zero_shot"
-            else Path("results/structured_results.csv")
+            else Path(f"results/{args.strategy}_results.csv")
         )
     return args
 
@@ -201,10 +215,57 @@ def extract_json(text: str):  # Decode model output and normalize the three test
     }  # Finish this dictionary.
 
 
-def generate_test_case(client: OpenAI, model: str, requirement: str, strategy: str = "zero_shot"):
+def load_few_shot_examples(path: Path = DEFAULT_EXAMPLES, evaluated_requirements=()):
+    """Load separate demonstrations and reject exact normalized dataset overlap."""
+    # Read independently authored examples, never evaluation CSV reference columns.
+    examples = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(examples, list) or not examples:
+        raise ValueError("Few-Shot examples must be a nonempty JSON list.")
+
+    # Case and whitespace changes must not bypass the answer-leakage check.
+    normalize = lambda text: " ".join(text.casefold().split())
+    excluded = {normalize(text) for text in evaluated_requirements}
+    seen = set()  # Track demonstration requirements already encountered in this file.
+    for example in examples:
+        if not isinstance(example, dict):
+            raise ValueError("Each Few-Shot example must be a JSON object.")
+        # Validate both the example input and all three answer fields before formatting.
+        for field in ("requirement", "given", "when", "then"):
+            if not isinstance(example.get(field), str) or not example[field].strip():
+                raise ValueError(f"Few-Shot example needs nonempty text for '{field}'.")
+        normalized = normalize(example["requirement"])
+        # Exact normalized overlap is rejected; this does not detect semantic paraphrases.
+        if normalized in excluded:
+            raise ValueError("Few-Shot examples overlap with evaluation requirements.")
+        if normalized in seen:
+            raise ValueError("Few-Shot examples contain duplicate requirements.")
+        seen.add(normalized)
+    return examples
+
+
+def generate_test_case(client: OpenAI, model: str, requirement: str, strategy: str = "zero_shot", examples=None):
     # Existing callers that omit strategy continue using the original Zero-Shot prompt.
-    # Only requirement text enters the template; reference columns never enter the prompt.
-    prompt = PROMPT_TEMPLATES[strategy].format(requirement=requirement)
+    # Only target text and, for Few-Shot, independent demonstrations enter the prompt.
+    # Evaluation reference columns never enter any prompt.
+    if strategy == "few_shot":
+        # main() validates the fixed examples against the entire input dataset first.
+        # Direct callers still get an overlap check against their target requirement.
+        if examples is None:
+            examples = load_few_shot_examples(evaluated_requirements=[requirement])
+        if any(" ".join(e["requirement"].casefold().split()) == " ".join(requirement.casefold().split()) for e in examples):
+            raise ValueError("Few-Shot examples overlap with the target requirement.")
+        # Preserve file order so every target receives the same demonstrations.
+        # Serialize only answer fields; example IDs are bookkeeping, not model inputs.
+        demonstrations = "\n\n".join(
+            f"Example {index}\nRequirement:\n{example['requirement']}\nOutput:\n"
+            + json.dumps({key: example[key] for key in ("given", "when", "then")}, ensure_ascii=False)
+            for index, example in enumerate(examples, start=1)
+        )
+        # Substitute the examples and target once; JSON braces inside examples stay literal.
+        prompt = FEW_SHOT_PROMPT.format(requirement=requirement, examples=demonstrations)
+    else:
+        # Keep earlier strategy prompts unchanged for a consistent experimental baseline.
+        prompt = PROMPT_TEMPLATES[strategy].format(requirement=requirement)
 
     response = client.responses.create(  # Send a request to the OpenAI Responses API.
         model=model,  # Select the model supplied by the caller.
@@ -250,6 +311,14 @@ def main():  # Coordinate argument parsing, generation, saving, and reporting.
     client = OpenAI()  # Create an API client using environment-based configuration.
     requirements = load_requirements(args.input)  # Load and validate the selected input CSV.
 
+    # Validate before applying --limit so held-out rows cannot become demonstrations.
+    # Only the requirement column participates; reference answers never enter prompts.
+    # Load once per Few-Shot batch and reuse the validated list for every target.
+    examples = (
+        load_few_shot_examples(evaluated_requirements=[row["requirement"] for row in requirements])
+        if args.strategy == "few_shot" else None
+    )
+
     if args.limit is not None:  # Apply a row limit only when the option was supplied.
         requirements = requirements[: args.limit]  # Keep the slice selected by the limit using Python slicing rules.
 
@@ -283,7 +352,7 @@ def main():  # Coordinate argument parsing, generation, saving, and reporting.
 
         try:  # Attempt the following operations and handle failures below.
             # Apply the selected prompt while sharing model settings and output parsing.
-            generated = generate_test_case(client, args.model, requirement, args.strategy)
+            generated = generate_test_case(client, args.model, requirement, args.strategy, examples=examples)
             result_row["generated_given"] = generated["given"]  # Store the generated preconditions.
             result_row["generated_when"] = generated["when"]  # Store the generated trigger or event.
             result_row["generated_then"] = generated["then"]  # Store the generated expected behavior.
