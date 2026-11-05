@@ -1,0 +1,109 @@
+{
+  "rubric_id": "requirement-test-quality",
+  "version": "1.0",
+  "finalized_date": "2026-11-18",
+  "documentation": "evaluation/rubric.md",
+  "strategies": [
+    "zero_shot",
+    "structured",
+    "few_shot"
+  ],
+  "source_of_truth": "Original requirement; manual references are comparison aids.",
+  "allowed_scores": [
+    0,
+    1,
+    2
+  ],
+  "unreviewed_score": null,
+  "na_allowed": false,
+  "criteria": [
+    {
+      "id": "precondition_correctness",
+      "name": "Precondition Correctness",
+      "weight": 1,
+      "higher_is_better": true,
+      "anchors": {
+        "2": "Given states the operating mode and initial conditions needed to exercise the chosen scenario. The setup is compatible with the requirement and When.",
+        "1": "The setup is usable but incomplete or imprecise, or it places the main triggering event in Given while a reader can still reconstruct the scenario.",
+        "0": "Given contradicts an essential operating state, makes the trigger impossible, or provides no usable setup when one is necessary."
+      }
+    },
+    {
+      "id": "trigger_correctness",
+      "name": "Precondition Correctness (`precondition_correctness`)\n\n- **2:** Given states the operating mode and initial conditions needed to exercise\n  the chosen scenario. The setup is compatible with the requirement and When.\n- **1:** The setup is usable but incomplete or imprecise, or it places the main\n  triggering event in Given while a reader can still reconstruct the scenario.\n- **0:** Given contradicts an essential operating state, makes the trigger\n  impossible, or provides no usable setup when one is necessary.\n\nScore field placement here. If a required guard appears explicitly in When rather\nthan Given, retain credit for semantic coverage under criterion 4 but consider a\n1 here when it describes a persistent precondition rather than a joint event.\nAn explicit, coherent joint event can legitimately belong entirely in When.\n\nA stated initial value on the opposite side of a threshold can establish a\ncrossing. An inactive warning or unset fault can establish that a new activation\nis observable. These are acceptable test setup choices, not automatic inventions.\nDo not require the reference's exact initial value or every redundant setup detail.\n\n### 2. Trigger Correctness",
+      "weight": 1,
+      "higher_is_better": true,
+      "anchors": {
+        "2": "When identifies a concrete input, event, state transition, evaluation of an input, or elapsed condition that exercises the selected obligation. It preserves relevant ordering and duration. Equivalent triggers are acceptable.",
+        "1": "The trigger is recognizable but vague, partly misplaced in Given, or missing detail needed to reproduce it without changing the scenario's purpose.",
+        "0": "When is absent, unrelated, contradictory, or exercises a different logical or timing condition that cannot establish the selected obligation."
+      }
+    },
+    {
+      "id": "expected_behavior_correctness",
+      "name": "Precondition Correctness (`precondition_correctness`)\n\n- **2:** Given states the operating mode and initial conditions needed to exercise\n  the chosen scenario. The setup is compatible with the requirement and When.\n- **1:** The setup is usable but incomplete or imprecise, or it places the main\n  triggering event in Given while a reader can still reconstruct the scenario.\n- **0:** Given contradicts an essential operating state, makes the trigger\n  impossible, or provides no usable setup when one is necessary.\n\nScore field placement here. If a required guard appears explicitly in When rather\nthan Given, retain credit for semantic coverage under criterion 4 but consider a\n1 here when it describes a persistent precondition rather than a joint event.\nAn explicit, coherent joint event can legitimately belong entirely in When.\n\nA stated initial value on the opposite side of a threshold can establish a\ncrossing. An inactive warning or unset fault can establish that a new activation\nis observable. These are acceptable test setup choices, not automatic inventions.\nDo not require the reference's exact initial value or every redundant setup detail.\n\n### 2. Trigger Correctness (`trigger_correctness`)\n\n- **2:** When identifies a concrete input, event, state transition, evaluation of\n  an input, or elapsed condition that exercises the selected obligation. It\n  preserves relevant ordering and duration. Equivalent triggers are acceptable.\n- **1:** The trigger is recognizable but vague, partly misplaced in Given, or\n  missing detail needed to reproduce it without changing the scenario's purpose.\n- **0:** When is absent, unrelated, contradictory, or exercises a different logical\n  or timing condition that cannot establish the selected obligation.\n\nFor example, receiving a charging request while locking is already successful can\nbe valid. \"The system processes the request\" is weaker when request receipt and\nlock success appear only in Given. Do not require all qualifying conditions to\nchange at once or force the reference's event when another event is valid.\n\n### 3. Expected Behavior Correctness",
+      "weight": 1,
+      "higher_is_better": true,
+      "anchors": {
+        "2": "Then states every observable response required for the selected scenario, with correct polarity, target outputs, and any response deadline.",
+        "1": "Then states the main response but omits part of a multi-action result, required data, or a response deadline, or uses an imprecise observable outcome.",
+        "0": "Then is absent, contradicts the required response, substitutes another action, or asserts an outcome the requirement does not entail for the scenario."
+      }
+    },
+    {
+      "id": "condition_boundary_coverage",
+      "name": "Precondition Correctness (`precondition_correctness`)\n\n- **2:** Given states the operating mode and initial conditions needed to exercise\n  the chosen scenario. The setup is compatible with the requirement and When.\n- **1:** The setup is usable but incomplete or imprecise, or it places the main\n  triggering event in Given while a reader can still reconstruct the scenario.\n- **0:** Given contradicts an essential operating state, makes the trigger\n  impossible, or provides no usable setup when one is necessary.\n\nScore field placement here. If a required guard appears explicitly in When rather\nthan Given, retain credit for semantic coverage under criterion 4 but consider a\n1 here when it describes a persistent precondition rather than a joint event.\nAn explicit, coherent joint event can legitimately belong entirely in When.\n\nA stated initial value on the opposite side of a threshold can establish a\ncrossing. An inactive warning or unset fault can establish that a new activation\nis observable. These are acceptable test setup choices, not automatic inventions.\nDo not require the reference's exact initial value or every redundant setup detail.\n\n### 2. Trigger Correctness (`trigger_correctness`)\n\n- **2:** When identifies a concrete input, event, state transition, evaluation of\n  an input, or elapsed condition that exercises the selected obligation. It\n  preserves relevant ordering and duration. Equivalent triggers are acceptable.\n- **1:** The trigger is recognizable but vague, partly misplaced in Given, or\n  missing detail needed to reproduce it without changing the scenario's purpose.\n- **0:** When is absent, unrelated, contradictory, or exercises a different logical\n  or timing condition that cannot establish the selected obligation.\n\nFor example, receiving a charging request while locking is already successful can\nbe valid. \"The system processes the request\" is weaker when request receipt and\nlock success appear only in Given. Do not require all qualifying conditions to\nchange at once or force the reference's event when another event is valid.\n\n### 3. Expected Behavior Correctness (`expected_behavior_correctness`)\n\n- **2:** Then states every observable response required for the selected scenario,\n  with correct polarity, target outputs, and any response deadline.\n- **1:** Then states the main response but omits part of a multi-action result,\n  required data, or a response deadline, or uses an imprecise observable outcome.\n- **0:** Then is absent, contradicts the required response, substitutes another\n  action, or asserts an outcome the requirement does not entail for the scenario.\n\nA correct statement of Then does not automatically receive zero because Given or\nWhen has a separate structural defect. However, if the chosen scenario makes the\nasserted response logically unsupported, that affects this criterion directly.\n\n### 4. Condition / Boundary Coverage",
+      "weight": 1,
+      "higher_is_better": true,
+      "anchors": {
+        "2": "The complete test preserves all relevant guards, conjunctions, threshold comparisons, units, counts, and timing limits for the selected scenario.",
+        "1": "It preserves the main condition but leaves one relevant condition, bound, unit, or timing relationship implicit or ambiguous.",
+        "0": "It omits an essential combination of conditions or uses a wrong bound, polarity, count, unit, or duration that changes which behavior is required."
+      }
+    },
+    {
+      "id": "unsupported_behavior",
+      "name": "Precondition Correctness (`precondition_correctness`)\n\n- **2:** Given states the operating mode and initial conditions needed to exercise\n  the chosen scenario. The setup is compatible with the requirement and When.\n- **1:** The setup is usable but incomplete or imprecise, or it places the main\n  triggering event in Given while a reader can still reconstruct the scenario.\n- **0:** Given contradicts an essential operating state, makes the trigger\n  impossible, or provides no usable setup when one is necessary.\n\nScore field placement here. If a required guard appears explicitly in When rather\nthan Given, retain credit for semantic coverage under criterion 4 but consider a\n1 here when it describes a persistent precondition rather than a joint event.\nAn explicit, coherent joint event can legitimately belong entirely in When.\n\nA stated initial value on the opposite side of a threshold can establish a\ncrossing. An inactive warning or unset fault can establish that a new activation\nis observable. These are acceptable test setup choices, not automatic inventions.\nDo not require the reference's exact initial value or every redundant setup detail.\n\n### 2. Trigger Correctness (`trigger_correctness`)\n\n- **2:** When identifies a concrete input, event, state transition, evaluation of\n  an input, or elapsed condition that exercises the selected obligation. It\n  preserves relevant ordering and duration. Equivalent triggers are acceptable.\n- **1:** The trigger is recognizable but vague, partly misplaced in Given, or\n  missing detail needed to reproduce it without changing the scenario's purpose.\n- **0:** When is absent, unrelated, contradictory, or exercises a different logical\n  or timing condition that cannot establish the selected obligation.\n\nFor example, receiving a charging request while locking is already successful can\nbe valid. \"The system processes the request\" is weaker when request receipt and\nlock success appear only in Given. Do not require all qualifying conditions to\nchange at once or force the reference's event when another event is valid.\n\n### 3. Expected Behavior Correctness (`expected_behavior_correctness`)\n\n- **2:** Then states every observable response required for the selected scenario,\n  with correct polarity, target outputs, and any response deadline.\n- **1:** Then states the main response but omits part of a multi-action result,\n  required data, or a response deadline, or uses an imprecise observable outcome.\n- **0:** Then is absent, contradicts the required response, substitutes another\n  action, or asserts an outcome the requirement does not entail for the scenario.\n\nA correct statement of Then does not automatically receive zero because Given or\nWhen has a separate structural defect. However, if the chosen scenario makes the\nasserted response logically unsupported, that affects this criterion directly.\n\n### 4. Condition / Boundary Coverage (`condition_boundary_coverage`)\n\n- **2:** The complete test preserves all relevant guards, conjunctions, threshold\n  comparisons, units, counts, and timing limits for the selected scenario.\n- **1:** It preserves the main condition but leaves one relevant condition, bound,\n  unit, or timing relationship implicit or ambiguous.\n- **0:** It omits an essential combination of conditions or uses a wrong bound,\n  polarity, count, unit, or duration that changes which behavior is required.\n\nThis measures **condition and boundary fidelity within one generated scenario**,\nnot exhaustive test-suite coverage. All prompts request one test case. Do not\npenalize an otherwise complete case solely for lacking additional positive,\nnegative, or exact-boundary tests. A symbolic inequality can earn full credit;\na concrete boundary value is not mandatory. If the requirement has no numeric\nboundary, assess its logical and state conditions. Do not infer the inverse of\na one-way implication merely to create an additional negative case.\n\nRead conditions across all three fields. A correctly stated guard in the wrong\nfield can retain coverage credit while losing precondition/trigger structure\ncredit. Correct use of one negative boundary under an \"only if\" requirement can\nalso earn full credit for that scenario; record other untested branches separately.\n\n### 5. Unsupported Behavior / Hallucination",
+      "weight": 1,
+      "higher_is_better": true,
+      "anchors": {
+        "2": "The test adds no unjustified behavior or substantive domain assumption. Minimal, compatible setup choices needed to observe the response are acceptable.",
+        "1": "It adds an unnecessary but noncontradictory setup restriction, or a vague incidental assumption, without materially changing the required behavior.",
+        "0": "It invents a material output, recovery rule, response time, numeric limit, prerequisite definition, or sufficient condition, or adds a contradictory setup."
+      }
+    }
+  ],
+  "aggregation": {
+    "total_score": "sum of five equally weighted criterion scores",
+    "total_min": 0,
+    "total_max": 10,
+    "normalized_score": "total_score / 10",
+    "criterion_mean_range": [
+      0,
+      2
+    ],
+    "strategy_denominator": 30,
+    "difficulty_denominator": 10,
+    "require_all_scores_for_final_summary": true,
+    "missing_scores_are_not_zero": true,
+    "generation_failure_scores": {
+      "precondition_correctness": 0,
+      "trigger_correctness": 0,
+      "expected_behavior_correctness": 0,
+      "condition_boundary_coverage": 0,
+      "unsupported_behavior": 0
+    }
+  },
+  "unsupported_behavior_direction": "2 = no unjustified behavior; 1 = minor unsupported addition; 0 = material invention",
+  "coverage_scope": "Fidelity within the selected single scenario, not exhaustive test-suite coverage",
+  "policy": {
+    "same_rules_for_all_strategies": true,
+    "accept_valid_alternative_scenarios": true,
+    "exact_text_match_is_not_required": true,
+    "reference_discrepancies_require_notes": true,
+    "preserve_source_files": true,
+    "preregistered": false,
+    "independently_validated": false,
+    "score_change_requires_new_version_and_consistent_rescoring": true
+  }
+}

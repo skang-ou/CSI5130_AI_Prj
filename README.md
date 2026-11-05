@@ -160,6 +160,24 @@ The same evaluation criteria will be applied to all prompting
 strategies. Quantitative results will be supplemented with qualitative
 analysis of representative successful and unsuccessful generations.
 
+**Rubric version 1.0 is finalized:** see [evaluation/rubric.md](evaluation/rubric.md)
+for the scoring anchors, interpretation rules, and reference-test cautions.
+Each criterion receives 0 (fails), 1 (partial), or 2 (fully satisfies), with
+equal weights and a total score from 0 to 10. Higher is better for every
+criterion: unsupported behavior receives 2 when no unjustified behavior appears.
+
+The original requirement is authoritative; reference tests are comparison aids.
+Valid alternative scenarios and paraphrases are accepted. Condition/boundary
+coverage measures fidelity within one generated scenario, not exhaustive suite
+coverage. The rubric addresses ambiguous logical conditions and assumptions in
+the references, including REQ-023 and REQ-030.
+
+[evaluation/rubric.json](evaluation/rubric.json) provides the common machine-readable
+configuration. [evaluation/review_plan.json](evaluation/review_plan.json) assigns
+that single version to all 90 requirement/strategy pairs and pins their source
+hashes. All reviews are currently pending: defining and assigning the rubric
+does not mean the outputs have been scored. Task #4 performs that evaluation.
+
 ## Current Experimental Results
 
 ### Zero-Shot Baseline
@@ -214,8 +232,8 @@ requirements and do not use their reference answers.
   normalized overlap rejection before applying a sample limit.
 
 **All 90 planned requirement/strategy outputs are now saved.** This confirms
-generation completion, not measured accuracy. Common-rubric evaluation and
-comparative analysis remain. See `experiments/few_shot_run.md` for details.
+generation completion, not measured accuracy. The common rubric is finalized;
+scoring and comparative analysis remain. See `experiments/few_shot_run.md` for details.
 
 ## Expected Outcome
 
@@ -305,13 +323,17 @@ requirement-test-generator/
 │   ├── zero_shot_results.csv
 │   ├── structured_results.csv
 │   └── few_shot_results.csv
+├── evaluation/
+│   ├── rubric.md
+│   ├── rubric.json
+│   └── review_plan.json
 ├── demo/
 └── report/
 ```
 
 ## Project Status
 
-**Current Phase: Evaluation Rubric and Test-Case Evaluation**
+**Current Phase: Test-Case Evaluation**
 
 Numbered tasks keep their original numbers when moved from Next Steps to Completed.
 
@@ -345,12 +367,14 @@ Numbered tasks keep their original numbers when moved from Next Steps to Complet
     -   [x] Saved and checked `results/few_shot_results.csv`.
     -   [x] Passed ten offline regression tests across all strategies.
 
+3.  **Finalize the Evaluation Rubric** — Completed
+    -   [x] Defined 0/1/2 scoring anchors for all five criteria.
+    -   [x] Fixed equal weights, score direction, and aggregation rules.
+    -   [x] Documented valid alternatives, reference discrepancies, and boundary interpretation.
+    -   [x] Assigned the same rubric version to all 90 outputs; actual scoring remains task #4.
+
 ### Next Steps
 
-3.  **Finalize the Evaluation Rubric**
-    -   Define consistent scoring rules for all five evaluation
-        criteria.
-    -   Apply the same rubric to all strategies.
 4.  **Evaluate the 90 Generated Test Cases**
     -   Compare generated tests with reference tests.
     -   Calculate quantitative results.
