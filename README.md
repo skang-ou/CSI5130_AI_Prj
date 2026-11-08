@@ -175,8 +175,10 @@ the references, including REQ-023 and REQ-030.
 [evaluation/rubric.json](evaluation/rubric.json) provides the common machine-readable
 configuration. [evaluation/review_plan.json](evaluation/review_plan.json) assigns
 that single version to all 90 requirement/strategy pairs and pins their source
-hashes. All reviews are currently pending: defining and assigning the rubric
-does not mean the outputs have been scored. Task #4 performs that evaluation.
+hashes. All 90 reviews are now complete in
+[evaluation/reviews.json](evaluation/reviews.json), with five scores, criterion-level
+rationales, reference notes, and exact evidence snapshots per case. These are
+unblinded, single-reviewer AI-generated judgments without independent human validation.
 
 ## Current Experimental Results
 
@@ -196,8 +198,8 @@ These cases will be compared with Structured and Few-Shot results to
 determine whether additional prompting guidance improves test-case
 structure.
 
-No final performance conclusions will be made until all three strategies
-have been evaluated using the same rubric.
+All three strategies have now been scored under the same rubric. The quantitative
+summary below describes this dataset and AI review, not independently verified accuracy.
 
 ### Structured Prompting
 
@@ -232,8 +234,50 @@ requirements and do not use their reference answers.
   normalized overlap rejection before applying a sample limit.
 
 **All 90 planned requirement/strategy outputs are now saved.** This confirms
-generation completion, not measured accuracy. The common rubric is finalized;
-scoring and comparative analysis remain. See `experiments/few_shot_run.md` for details.
+generation completion, not measured accuracy. Common-rubric scoring is now complete;
+charts and deeper comparative analysis remain. See `experiments/few_shot_run.md`
+for the generation record and the evaluation summary below for the scored results.
+
+### Rubric-Based Evaluation Results
+
+All 90 outputs were reviewed against rubric v1.0 and compared with the manual
+references, treating the original requirement as authoritative. The review is
+AI-generated, unblinded, and has no independent human validation. Scores measure
+single-scenario quality under this rubric, not test-suite completeness or a
+validated accuracy/pass rate.
+
+| Strategy | Scored | Mean score /10 | Full score /30 |
+| --- | ---: | ---: | ---: |
+| zero_shot | 30/30 | 9.7000 | 26 |
+| structured | 30/30 | 10.0000 | 30 |
+| few_shot | 30/30 | 9.8667 | 29 |
+
+Representative findings:
+
+- REQ-002 and REQ-013 preserve their guarded threshold and response deadline.
+- Zero-Shot REQ-018 needs clearer Given/When separation and adds an incidental
+  processing step absent from the requirement.
+- Zero-Shot and Few-Shot REQ-023 incorrectly guarantee acceptance from necessary
+  conditions, agreeing with an unsupported assumption in the manual reference.
+- Structured REQ-023 correctly rejects a command aged exactly 100 ms.
+- Structured receives full credit on all cases in this review; the resulting
+  ceiling does not establish exhaustive coverage or broad superiority.
+
+Artifacts: [case scores](results/evaluation_scores.csv),
+[exact summary statistics](results/evaluation_summary.json), and
+[evaluation report with examples and limitations](results/evaluation_report.md).
+The evaluator validates provenance and computes aggregates; semantic ratings are
+authored judgments stored separately in `evaluation/reviews.json`.
+
+Recompute results offline:
+
+```bash
+python src/evaluator.py
+```
+
+All 16 offline tests pass. Generation outputs, source requirements, rubric anchors
+and weights remain unchanged. A display-label repair in `rubric.json` is recorded
+in `review_plan.json`; it does not change the scoring policy.
 
 ## Expected Outcome
 
@@ -311,7 +355,7 @@ requirement-test-generator/
 │   └── few_shot_examples.json
 ├── src/
 │   ├── generator.py
-│   └── evaluator.py          # Planned
+│   └── evaluator.py
 ├── experiments/
 │   ├── structured_sample_requirements.csv
 │   ├── structured_sample_results.csv
@@ -322,18 +366,22 @@ requirement-test-generator/
 ├── results/
 │   ├── zero_shot_results.csv
 │   ├── structured_results.csv
-│   └── few_shot_results.csv
+│   ├── few_shot_results.csv
+│   ├── evaluation_scores.csv
+│   ├── evaluation_summary.json
+│   └── evaluation_report.md
 ├── evaluation/
 │   ├── rubric.md
 │   ├── rubric.json
-│   └── review_plan.json
+│   ├── review_plan.json
+│   └── reviews.json
 ├── demo/
 └── report/
 ```
 
 ## Project Status
 
-**Current Phase: Test-Case Evaluation**
+**Current Phase: Results Analysis and Visualization**
 
 Numbered tasks keep their original numbers when moved from Next Steps to Completed.
 
@@ -371,14 +419,18 @@ Numbered tasks keep their original numbers when moved from Next Steps to Complet
     -   [x] Defined 0/1/2 scoring anchors for all five criteria.
     -   [x] Fixed equal weights, score direction, and aggregation rules.
     -   [x] Documented valid alternatives, reference discrepancies, and boundary interpretation.
-    -   [x] Assigned the same rubric version to all 90 outputs; actual scoring remains task #4.
+    -   [x] Assigned the same rubric version to all 90 outputs; scoring is recorded under task #4.
+
+4.  **Evaluate the 90 Generated Test Cases** — Completed
+    -   [x] Reviewed all 90 cases against the requirements and manual references.
+    -   [x] Recorded 450 criterion scores with rationales, evidence, and reviewer metadata.
+    -   [x] Calculated strategy/difficulty means and criterion score distributions.
+    -   [x] Documented successful cases, structural weaknesses, and logical errors.
+    -   [x] Preserved source artifacts and disclosed the unblinded AI-review limitations.
+    -   [x] Implemented an offline evaluator; all 16 regression tests pass.
 
 ### Next Steps
 
-4.  **Evaluate the 90 Generated Test Cases**
-    -   Compare generated tests with reference tests.
-    -   Calculate quantitative results.
-    -   Identify representative successful and unsuccessful examples.
 5.  **Analyze and Visualize Results**
     -   Compare average quality scores.
     -   Analyze trigger and expected-behavior correctness.

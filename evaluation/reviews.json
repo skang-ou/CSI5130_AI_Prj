@@ -1,0 +1,3159 @@
+{
+  "rubric_version": "1.0",
+  "method": "AI-generated single-reviewer semantic ratings. No independent human validation, blinding, or inter-rater agreement measurement.",
+  "blinded": false,
+  "independent_human_validation": false,
+  "scoring_method": "Assistant read requirements, references, and all generated cases. Scores are authored judgments, not keyword rules or an external LLM API scoring run.",
+  "records": [
+    {
+      "review_id": "REVIEW-001",
+      "requirement_id": "REQ-001",
+      "strategy": "zero_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Initial speed at or below 120 km/h supports the crossing.",
+        "trigger_correctness": "When crosses strictly above 120 km/h.",
+        "expected_behavior_correctness": "Then requires the overspeed warning.",
+        "condition_boundary_coverage": "The strict 120 km/h limit and warning relation are preserved.",
+        "unsupported_behavior": "The starting speed is a minimal crossing setup; no extra behavior appears."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When vehicle speed exceeds 120 km/h, the system shall display an overspeed warning.",
+      "reference": {
+        "given": "Vehicle speed is at or below 120 km/h.",
+        "when": "Vehicle speed increases above 120 km/h.",
+        "then": "The system displays the overspeed warning."
+      },
+      "generated": {
+        "given": "The vehicle speed is at or below 120 km/h",
+        "when": "The vehicle speed exceeds 120 km/h",
+        "then": "The system displays an overspeed warning"
+      }
+    },
+    {
+      "review_id": "REVIEW-002",
+      "requirement_id": "REQ-001",
+      "strategy": "structured",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Initial speed at or below 120 km/h supports the crossing.",
+        "trigger_correctness": "When crosses strictly above 120 km/h.",
+        "expected_behavior_correctness": "Then requires the overspeed warning.",
+        "condition_boundary_coverage": "The strict 120 km/h limit and warning relation are preserved.",
+        "unsupported_behavior": "The starting speed is a minimal crossing setup; no extra behavior appears."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When vehicle speed exceeds 120 km/h, the system shall display an overspeed warning.",
+      "reference": {
+        "given": "Vehicle speed is at or below 120 km/h.",
+        "when": "Vehicle speed increases above 120 km/h.",
+        "then": "The system displays the overspeed warning."
+      },
+      "generated": {
+        "given": "The vehicle speed does not exceed 120 km/h.",
+        "when": "The vehicle speed increases to greater than 120 km/h.",
+        "then": "The system displays an overspeed warning."
+      }
+    },
+    {
+      "review_id": "REVIEW-003",
+      "requirement_id": "REQ-001",
+      "strategy": "few_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Initial speed at or below 120 km/h supports the crossing.",
+        "trigger_correctness": "When crosses strictly above 120 km/h.",
+        "expected_behavior_correctness": "Then requires the overspeed warning.",
+        "condition_boundary_coverage": "The strict 120 km/h limit and warning relation are preserved.",
+        "unsupported_behavior": "The starting speed is a minimal crossing setup; no extra behavior appears."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When vehicle speed exceeds 120 km/h, the system shall display an overspeed warning.",
+      "reference": {
+        "given": "Vehicle speed is at or below 120 km/h.",
+        "when": "Vehicle speed increases above 120 km/h.",
+        "then": "The system displays the overspeed warning."
+      },
+      "generated": {
+        "given": "Vehicle speed is at or below 120 km/h.",
+        "when": "Vehicle speed rises above 120 km/h.",
+        "then": "The system displays an overspeed warning."
+      }
+    },
+    {
+      "review_id": "REVIEW-004",
+      "requirement_id": "REQ-002",
+      "strategy": "zero_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Drive and SOC at or above 10% establish the required guarded crossing.",
+        "trigger_correctness": "When lowers SOC below 10%.",
+        "expected_behavior_correctness": "Then displays the low-battery warning.",
+        "condition_boundary_coverage": "Both Drive and the strict 10% boundary remain explicit.",
+        "unsupported_behavior": "No response beyond the required warning is introduced."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When battery SOC falls below 10% while the vehicle is in Drive, the system shall display a low-battery warning.",
+      "reference": {
+        "given": "The vehicle is in Drive and battery SOC is at or above 10%.",
+        "when": "Battery SOC falls below 10%.",
+        "then": "The system displays the low-battery warning."
+      },
+      "generated": {
+        "given": "The vehicle is in Drive and the battery SOC is at or above 10%.",
+        "when": "The battery SOC falls below 10%.",
+        "then": "The system displays a low-battery warning."
+      }
+    },
+    {
+      "review_id": "REVIEW-005",
+      "requirement_id": "REQ-002",
+      "strategy": "structured",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Drive and SOC at or above 10% establish the required guarded crossing.",
+        "trigger_correctness": "When lowers SOC below 10%.",
+        "expected_behavior_correctness": "Then displays the low-battery warning.",
+        "condition_boundary_coverage": "Both Drive and the strict 10% boundary remain explicit.",
+        "unsupported_behavior": "No response beyond the required warning is introduced."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When battery SOC falls below 10% while the vehicle is in Drive, the system shall display a low-battery warning.",
+      "reference": {
+        "given": "The vehicle is in Drive and battery SOC is at or above 10%.",
+        "when": "Battery SOC falls below 10%.",
+        "then": "The system displays the low-battery warning."
+      },
+      "generated": {
+        "given": "The vehicle is in Drive and the battery SOC is at or above 10%.",
+        "when": "The battery SOC falls below 10%.",
+        "then": "The system displays a low-battery warning."
+      }
+    },
+    {
+      "review_id": "REVIEW-006",
+      "requirement_id": "REQ-002",
+      "strategy": "few_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Drive and SOC at or above 10% establish the required guarded crossing.",
+        "trigger_correctness": "When lowers SOC below 10%.",
+        "expected_behavior_correctness": "Then displays the low-battery warning.",
+        "condition_boundary_coverage": "Both Drive and the strict 10% boundary remain explicit.",
+        "unsupported_behavior": "No response beyond the required warning is introduced."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When battery SOC falls below 10% while the vehicle is in Drive, the system shall display a low-battery warning.",
+      "reference": {
+        "given": "The vehicle is in Drive and battery SOC is at or above 10%.",
+        "when": "Battery SOC falls below 10%.",
+        "then": "The system displays the low-battery warning."
+      },
+      "generated": {
+        "given": "The vehicle is in Drive and the battery SOC is at or above 10%.",
+        "when": "The battery SOC falls below 10%.",
+        "then": "The system displays a low-battery warning."
+      }
+    },
+    {
+      "review_id": "REVIEW-007",
+      "requirement_id": "REQ-003",
+      "strategy": "zero_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Temperature at or below 50 C permits the specified rise.",
+        "trigger_correctness": "When exceeds the 50 C threshold.",
+        "expected_behavior_correctness": "Then activates battery cooling.",
+        "condition_boundary_coverage": "The strict temperature limit and cooling response are preserved.",
+        "unsupported_behavior": "An initially inactive output, where stated, is an acceptable observation setup."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When battery temperature exceeds 50°C, the system shall activate battery cooling.",
+      "reference": {
+        "given": "Battery temperature is at or below 50°C and cooling is inactive.",
+        "when": "Battery temperature rises above 50°C.",
+        "then": "The system activates battery cooling."
+      },
+      "generated": {
+        "given": "The battery temperature is at or below 50°C and battery cooling is not active",
+        "when": "The battery temperature exceeds 50°C",
+        "then": "The system activates battery cooling"
+      }
+    },
+    {
+      "review_id": "REVIEW-008",
+      "requirement_id": "REQ-003",
+      "strategy": "structured",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Temperature at or below 50 C permits the specified rise.",
+        "trigger_correctness": "When exceeds the 50 C threshold.",
+        "expected_behavior_correctness": "Then activates battery cooling.",
+        "condition_boundary_coverage": "The strict temperature limit and cooling response are preserved.",
+        "unsupported_behavior": "An initially inactive output, where stated, is an acceptable observation setup."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When battery temperature exceeds 50°C, the system shall activate battery cooling.",
+      "reference": {
+        "given": "Battery temperature is at or below 50°C and cooling is inactive.",
+        "when": "Battery temperature rises above 50°C.",
+        "then": "The system activates battery cooling."
+      },
+      "generated": {
+        "given": "The battery temperature is at or below 50°C.",
+        "when": "The battery temperature rises above 50°C.",
+        "then": "The system activates battery cooling."
+      }
+    },
+    {
+      "review_id": "REVIEW-009",
+      "requirement_id": "REQ-003",
+      "strategy": "few_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Temperature at or below 50 C permits the specified rise.",
+        "trigger_correctness": "When exceeds the 50 C threshold.",
+        "expected_behavior_correctness": "Then activates battery cooling.",
+        "condition_boundary_coverage": "The strict temperature limit and cooling response are preserved.",
+        "unsupported_behavior": "An initially inactive output, where stated, is an acceptable observation setup."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When battery temperature exceeds 50°C, the system shall activate battery cooling.",
+      "reference": {
+        "given": "Battery temperature is at or below 50°C and cooling is inactive.",
+        "when": "Battery temperature rises above 50°C.",
+        "then": "The system activates battery cooling."
+      },
+      "generated": {
+        "given": "Battery temperature is at or below 50°C.",
+        "when": "Battery temperature rises above 50°C.",
+        "then": "The system activates battery cooling."
+      }
+    },
+    {
+      "review_id": "REVIEW-010",
+      "requirement_id": "REQ-004",
+      "strategy": "zero_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Speed above 5 km/h and a closed door support an attempted opening.",
+        "trigger_correctness": "When supplies a concrete door-open request.",
+        "expected_behavior_correctness": "Then requires the door to remain closed or not open.",
+        "condition_boundary_coverage": "The strict speed guard and inhibited opening are preserved.",
+        "unsupported_behavior": "The opening request exercises the prohibition without inventing another response."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "If vehicle speed is greater than 5 km/h, the charge-port door shall not open.",
+      "reference": {
+        "given": "Vehicle speed is greater than 5 km/h and the charge-port door is closed.",
+        "when": "A request to open the charge-port door is received.",
+        "then": "The charge-port door remains closed."
+      },
+      "generated": {
+        "given": "The vehicle speed is greater than 5 km/h and the charge-port door is closed",
+        "when": "A request is made to open the charge-port door",
+        "then": "The charge-port door remains closed"
+      }
+    },
+    {
+      "review_id": "REVIEW-011",
+      "requirement_id": "REQ-004",
+      "strategy": "structured",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Speed above 5 km/h and a closed door support an attempted opening.",
+        "trigger_correctness": "When supplies a concrete door-open request.",
+        "expected_behavior_correctness": "Then requires the door to remain closed or not open.",
+        "condition_boundary_coverage": "The strict speed guard and inhibited opening are preserved.",
+        "unsupported_behavior": "The opening request exercises the prohibition without inventing another response."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "If vehicle speed is greater than 5 km/h, the charge-port door shall not open.",
+      "reference": {
+        "given": "Vehicle speed is greater than 5 km/h and the charge-port door is closed.",
+        "when": "A request to open the charge-port door is received.",
+        "then": "The charge-port door remains closed."
+      },
+      "generated": {
+        "given": "The vehicle speed is greater than 5 km/h and the charge-port door is closed.",
+        "when": "A request is made to open the charge-port door.",
+        "then": "The charge-port door does not open."
+      }
+    },
+    {
+      "review_id": "REVIEW-012",
+      "requirement_id": "REQ-004",
+      "strategy": "few_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Speed above 5 km/h and a closed door support an attempted opening.",
+        "trigger_correctness": "When supplies a concrete door-open request.",
+        "expected_behavior_correctness": "Then requires the door to remain closed or not open.",
+        "condition_boundary_coverage": "The strict speed guard and inhibited opening are preserved.",
+        "unsupported_behavior": "The opening request exercises the prohibition without inventing another response."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "If vehicle speed is greater than 5 km/h, the charge-port door shall not open.",
+      "reference": {
+        "given": "Vehicle speed is greater than 5 km/h and the charge-port door is closed.",
+        "when": "A request to open the charge-port door is received.",
+        "then": "The charge-port door remains closed."
+      },
+      "generated": {
+        "given": "Vehicle speed is greater than 5 km/h and the charge-port door is closed.",
+        "when": "A request to open the charge-port door is received.",
+        "then": "The charge-port door does not open."
+      }
+    },
+    {
+      "review_id": "REVIEW-013",
+      "requirement_id": "REQ-005",
+      "strategy": "zero_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Active AC charging establishes the required mode; connector removal implies prior connection.",
+        "trigger_correctness": "When removes the charging connector.",
+        "expected_behavior_correctness": "Then terminates the charging session.",
+        "condition_boundary_coverage": "The active charging guard and removal condition remain explicit.",
+        "unsupported_behavior": "An initially connected connector is compatible setup, not extra behavior."
+      },
+      "reference_notes": "Explicit initial connection is redundant with connector removal; its omission is not a defect.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When AC charging is active and the charging connector is removed, the system shall terminate the charging session.",
+      "reference": {
+        "given": "AC charging is active and the charging connector is connected.",
+        "when": "The charging connector is removed.",
+        "then": "The system terminates the charging session."
+      },
+      "generated": {
+        "given": "AC charging is active",
+        "when": "The charging connector is removed",
+        "then": "The system terminates the charging session"
+      }
+    },
+    {
+      "review_id": "REVIEW-014",
+      "requirement_id": "REQ-005",
+      "strategy": "structured",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Active AC charging establishes the required mode; connector removal implies prior connection.",
+        "trigger_correctness": "When removes the charging connector.",
+        "expected_behavior_correctness": "Then terminates the charging session.",
+        "condition_boundary_coverage": "The active charging guard and removal condition remain explicit.",
+        "unsupported_behavior": "An initially connected connector is compatible setup, not extra behavior."
+      },
+      "reference_notes": "Explicit initial connection is redundant with connector removal; its omission is not a defect.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When AC charging is active and the charging connector is removed, the system shall terminate the charging session.",
+      "reference": {
+        "given": "AC charging is active and the charging connector is connected.",
+        "when": "The charging connector is removed.",
+        "then": "The system terminates the charging session."
+      },
+      "generated": {
+        "given": "AC charging is active and the charging connector is connected.",
+        "when": "The charging connector is removed.",
+        "then": "The system terminates the charging session."
+      }
+    },
+    {
+      "review_id": "REVIEW-015",
+      "requirement_id": "REQ-005",
+      "strategy": "few_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Active AC charging establishes the required mode; connector removal implies prior connection.",
+        "trigger_correctness": "When removes the charging connector.",
+        "expected_behavior_correctness": "Then terminates the charging session.",
+        "condition_boundary_coverage": "The active charging guard and removal condition remain explicit.",
+        "unsupported_behavior": "An initially connected connector is compatible setup, not extra behavior."
+      },
+      "reference_notes": "Explicit initial connection is redundant with connector removal; its omission is not a defect.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When AC charging is active and the charging connector is removed, the system shall terminate the charging session.",
+      "reference": {
+        "given": "AC charging is active and the charging connector is connected.",
+        "when": "The charging connector is removed.",
+        "then": "The system terminates the charging session."
+      },
+      "generated": {
+        "given": "AC charging is active and the charging connector is connected.",
+        "when": "The charging connector is removed.",
+        "then": "The system terminates the charging session."
+      }
+    },
+    {
+      "review_id": "REVIEW-016",
+      "requirement_id": "REQ-006",
+      "strategy": "zero_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Ignition OFF establishes the required initial state.",
+        "trigger_correctness": "When explicitly changes ignition from OFF to ON.",
+        "expected_behavior_correctness": "Then initializes the instrument display.",
+        "condition_boundary_coverage": "Both ends of the ignition transition are preserved.",
+        "unsupported_behavior": "An uninitialized display, where stated, makes initialization observable."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When the ignition state changes from OFF to ON, the instrument display shall initialize.",
+      "reference": {
+        "given": "Ignition is OFF and the instrument display is not initialized.",
+        "when": "Ignition changes from OFF to ON.",
+        "then": "The instrument display initializes."
+      },
+      "generated": {
+        "given": "The ignition state is OFF and the instrument display has not initialized",
+        "when": "The ignition state changes from OFF to ON",
+        "then": "The instrument display initializes"
+      }
+    },
+    {
+      "review_id": "REVIEW-017",
+      "requirement_id": "REQ-006",
+      "strategy": "structured",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Ignition OFF establishes the required initial state.",
+        "trigger_correctness": "When explicitly changes ignition from OFF to ON.",
+        "expected_behavior_correctness": "Then initializes the instrument display.",
+        "condition_boundary_coverage": "Both ends of the ignition transition are preserved.",
+        "unsupported_behavior": "An uninitialized display, where stated, makes initialization observable."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When the ignition state changes from OFF to ON, the instrument display shall initialize.",
+      "reference": {
+        "given": "Ignition is OFF and the instrument display is not initialized.",
+        "when": "Ignition changes from OFF to ON.",
+        "then": "The instrument display initializes."
+      },
+      "generated": {
+        "given": "The ignition state is OFF.",
+        "when": "The ignition state changes from OFF to ON.",
+        "then": "The instrument display initializes."
+      }
+    },
+    {
+      "review_id": "REVIEW-018",
+      "requirement_id": "REQ-006",
+      "strategy": "few_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Ignition OFF establishes the required initial state.",
+        "trigger_correctness": "When explicitly changes ignition from OFF to ON.",
+        "expected_behavior_correctness": "Then initializes the instrument display.",
+        "condition_boundary_coverage": "Both ends of the ignition transition are preserved.",
+        "unsupported_behavior": "An uninitialized display, where stated, makes initialization observable."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When the ignition state changes from OFF to ON, the instrument display shall initialize.",
+      "reference": {
+        "given": "Ignition is OFF and the instrument display is not initialized.",
+        "when": "Ignition changes from OFF to ON.",
+        "then": "The instrument display initializes."
+      },
+      "generated": {
+        "given": "The ignition state is OFF and the instrument display is not initialized.",
+        "when": "The ignition state changes from OFF to ON.",
+        "then": "The instrument display initializes."
+      }
+    },
+    {
+      "review_id": "REVIEW-019",
+      "requirement_id": "REQ-007",
+      "strategy": "zero_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Pressure at or above 28 psi supports a downward crossing.",
+        "trigger_correctness": "When falls strictly below 28 psi.",
+        "expected_behavior_correctness": "Then displays a low tire pressure warning.",
+        "condition_boundary_coverage": "The strict 28 psi condition is preserved.",
+        "unsupported_behavior": "An absent initial warning, where stated, is acceptable observation setup."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When tire pressure falls below 28 psi, the system shall display a low tire pressure warning.",
+      "reference": {
+        "given": "Tire pressure is at or above 28 psi.",
+        "when": "Tire pressure falls below 28 psi.",
+        "then": "The system displays a low tire pressure warning."
+      },
+      "generated": {
+        "given": "The tire pressure is at or above 28 psi",
+        "when": "The tire pressure falls below 28 psi",
+        "then": "The system displays a low tire pressure warning"
+      }
+    },
+    {
+      "review_id": "REVIEW-020",
+      "requirement_id": "REQ-007",
+      "strategy": "structured",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Pressure at or above 28 psi supports a downward crossing.",
+        "trigger_correctness": "When falls strictly below 28 psi.",
+        "expected_behavior_correctness": "Then displays a low tire pressure warning.",
+        "condition_boundary_coverage": "The strict 28 psi condition is preserved.",
+        "unsupported_behavior": "An absent initial warning, where stated, is acceptable observation setup."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When tire pressure falls below 28 psi, the system shall display a low tire pressure warning.",
+      "reference": {
+        "given": "Tire pressure is at or above 28 psi.",
+        "when": "Tire pressure falls below 28 psi.",
+        "then": "The system displays a low tire pressure warning."
+      },
+      "generated": {
+        "given": "The tire pressure is at or above 28 psi and no low tire pressure warning is displayed.",
+        "when": "The tire pressure falls below 28 psi.",
+        "then": "The system displays a low tire pressure warning."
+      }
+    },
+    {
+      "review_id": "REVIEW-021",
+      "requirement_id": "REQ-007",
+      "strategy": "few_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Pressure at or above 28 psi supports a downward crossing.",
+        "trigger_correctness": "When falls strictly below 28 psi.",
+        "expected_behavior_correctness": "Then displays a low tire pressure warning.",
+        "condition_boundary_coverage": "The strict 28 psi condition is preserved.",
+        "unsupported_behavior": "An absent initial warning, where stated, is acceptable observation setup."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When tire pressure falls below 28 psi, the system shall display a low tire pressure warning.",
+      "reference": {
+        "given": "Tire pressure is at or above 28 psi.",
+        "when": "Tire pressure falls below 28 psi.",
+        "then": "The system displays a low tire pressure warning."
+      },
+      "generated": {
+        "given": "Tire pressure is at or above 28 psi.",
+        "when": "Tire pressure falls below 28 psi.",
+        "then": "The system displays a low tire pressure warning."
+      }
+    },
+    {
+      "review_id": "REVIEW-022",
+      "requirement_id": "REQ-008",
+      "strategy": "zero_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Coolant temperature not above 105 C supports the subsequent crossing.",
+        "trigger_correctness": "When exceeds 105 C.",
+        "expected_behavior_correctness": "Then commands the cooling fan ON.",
+        "condition_boundary_coverage": "The strict temperature condition and commanded output remain intact.",
+        "unsupported_behavior": "No extra fan behavior or deadline is introduced."
+      },
+      "reference_notes": "The reference starts the fan OFF; omitting that redundant setup is acceptable.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When coolant temperature exceeds 105°C, the cooling fan shall be commanded ON.",
+      "reference": {
+        "given": "Coolant temperature is at or below 105°C and the cooling fan is OFF.",
+        "when": "Coolant temperature rises above 105°C.",
+        "then": "The cooling fan is commanded ON."
+      },
+      "generated": {
+        "given": "The coolant temperature is at or below 105°C",
+        "when": "The coolant temperature exceeds 105°C",
+        "then": "The cooling fan is commanded ON"
+      }
+    },
+    {
+      "review_id": "REVIEW-023",
+      "requirement_id": "REQ-008",
+      "strategy": "structured",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Coolant temperature not above 105 C supports the subsequent crossing.",
+        "trigger_correctness": "When exceeds 105 C.",
+        "expected_behavior_correctness": "Then commands the cooling fan ON.",
+        "condition_boundary_coverage": "The strict temperature condition and commanded output remain intact.",
+        "unsupported_behavior": "No extra fan behavior or deadline is introduced."
+      },
+      "reference_notes": "The reference starts the fan OFF; omitting that redundant setup is acceptable.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When coolant temperature exceeds 105°C, the cooling fan shall be commanded ON.",
+      "reference": {
+        "given": "Coolant temperature is at or below 105°C and the cooling fan is OFF.",
+        "when": "Coolant temperature rises above 105°C.",
+        "then": "The cooling fan is commanded ON."
+      },
+      "generated": {
+        "given": "The coolant temperature does not exceed 105°C.",
+        "when": "The coolant temperature rises above 105°C.",
+        "then": "The cooling fan is commanded ON."
+      }
+    },
+    {
+      "review_id": "REVIEW-024",
+      "requirement_id": "REQ-008",
+      "strategy": "few_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Coolant temperature not above 105 C supports the subsequent crossing.",
+        "trigger_correctness": "When exceeds 105 C.",
+        "expected_behavior_correctness": "Then commands the cooling fan ON.",
+        "condition_boundary_coverage": "The strict temperature condition and commanded output remain intact.",
+        "unsupported_behavior": "No extra fan behavior or deadline is introduced."
+      },
+      "reference_notes": "The reference starts the fan OFF; omitting that redundant setup is acceptable.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When coolant temperature exceeds 105°C, the cooling fan shall be commanded ON.",
+      "reference": {
+        "given": "Coolant temperature is at or below 105°C and the cooling fan is OFF.",
+        "when": "Coolant temperature rises above 105°C.",
+        "then": "The cooling fan is commanded ON."
+      },
+      "generated": {
+        "given": "Coolant temperature is at or below 105°C.",
+        "when": "Coolant temperature rises above 105°C.",
+        "then": "The cooling fan is commanded ON."
+      }
+    },
+    {
+      "review_id": "REVIEW-025",
+      "requirement_id": "REQ-009",
+      "strategy": "zero_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "An unpressed pedal provides a usable initial state.",
+        "trigger_correctness": "When presses the brake pedal.",
+        "expected_behavior_correctness": "Then activates the brake lamp output.",
+        "condition_boundary_coverage": "The pedal event and corresponding output are retained.",
+        "unsupported_behavior": "An inactive initial lamp, where stated, supports observing activation."
+      },
+      "reference_notes": "The reference starts the lamp inactive; the rubric does not require redundant output-state setup.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When the brake pedal is pressed, the brake lamp output shall be activated.",
+      "reference": {
+        "given": "The brake pedal is not pressed and the brake lamp output is inactive.",
+        "when": "The brake pedal is pressed.",
+        "then": "The brake lamp output is activated."
+      },
+      "generated": {
+        "given": "The brake pedal is not pressed",
+        "when": "The brake pedal is pressed",
+        "then": "The brake lamp output is activated"
+      }
+    },
+    {
+      "review_id": "REVIEW-026",
+      "requirement_id": "REQ-009",
+      "strategy": "structured",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "An unpressed pedal provides a usable initial state.",
+        "trigger_correctness": "When presses the brake pedal.",
+        "expected_behavior_correctness": "Then activates the brake lamp output.",
+        "condition_boundary_coverage": "The pedal event and corresponding output are retained.",
+        "unsupported_behavior": "An inactive initial lamp, where stated, supports observing activation."
+      },
+      "reference_notes": "The reference starts the lamp inactive; the rubric does not require redundant output-state setup.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When the brake pedal is pressed, the brake lamp output shall be activated.",
+      "reference": {
+        "given": "The brake pedal is not pressed and the brake lamp output is inactive.",
+        "when": "The brake pedal is pressed.",
+        "then": "The brake lamp output is activated."
+      },
+      "generated": {
+        "given": "The brake pedal is not pressed before the event under test.",
+        "when": "The brake pedal is pressed.",
+        "then": "The brake lamp output is activated."
+      }
+    },
+    {
+      "review_id": "REVIEW-027",
+      "requirement_id": "REQ-009",
+      "strategy": "few_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "An unpressed pedal provides a usable initial state.",
+        "trigger_correctness": "When presses the brake pedal.",
+        "expected_behavior_correctness": "Then activates the brake lamp output.",
+        "condition_boundary_coverage": "The pedal event and corresponding output are retained.",
+        "unsupported_behavior": "An inactive initial lamp, where stated, supports observing activation."
+      },
+      "reference_notes": "The reference starts the lamp inactive; the rubric does not require redundant output-state setup.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When the brake pedal is pressed, the brake lamp output shall be activated.",
+      "reference": {
+        "given": "The brake pedal is not pressed and the brake lamp output is inactive.",
+        "when": "The brake pedal is pressed.",
+        "then": "The brake lamp output is activated."
+      },
+      "generated": {
+        "given": "The brake pedal is not pressed and the brake lamp output is not activated.",
+        "when": "The brake pedal is pressed.",
+        "then": "The brake lamp output is activated."
+      }
+    },
+    {
+      "review_id": "REVIEW-028",
+      "requirement_id": "REQ-010",
+      "strategy": "zero_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 1
+      },
+      "rationales": {
+        "precondition_correctness": "The unpressed hazard switch supports a concrete press event.",
+        "trigger_correctness": "When identifies the driver pressing the hazard switch.",
+        "expected_behavior_correctness": "Then requires all turn indicator lamps to flash.",
+        "condition_boundary_coverage": "The driver input and all-lamps scope remain explicit.",
+        "unsupported_behavior": "Given adds \"the embedded system is operational\", a minor unnecessary restriction explicitly covered by the rubric's score-1 example."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When the driver presses the hazard switch, all turn indicator lamps shall flash.",
+      "reference": {
+        "given": "Hazard lamps are inactive.",
+        "when": "The driver presses the hazard switch.",
+        "then": "All turn indicator lamps begin flashing."
+      },
+      "generated": {
+        "given": "The embedded system is operational and the hazard switch is not pressed",
+        "when": "The driver presses the hazard switch",
+        "then": "All turn indicator lamps flash"
+      }
+    },
+    {
+      "review_id": "REVIEW-029",
+      "requirement_id": "REQ-010",
+      "strategy": "structured",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "The unpressed hazard switch supports a concrete press event.",
+        "trigger_correctness": "When identifies the driver pressing the hazard switch.",
+        "expected_behavior_correctness": "Then requires all turn indicator lamps to flash.",
+        "condition_boundary_coverage": "The driver input and all-lamps scope remain explicit.",
+        "unsupported_behavior": "No additional system behavior or timing is asserted."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When the driver presses the hazard switch, all turn indicator lamps shall flash.",
+      "reference": {
+        "given": "Hazard lamps are inactive.",
+        "when": "The driver presses the hazard switch.",
+        "then": "All turn indicator lamps begin flashing."
+      },
+      "generated": {
+        "given": "The hazard switch is not pressed.",
+        "when": "The driver presses the hazard switch.",
+        "then": "All turn indicator lamps flash."
+      }
+    },
+    {
+      "review_id": "REVIEW-030",
+      "requirement_id": "REQ-010",
+      "strategy": "few_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "The unpressed hazard switch supports a concrete press event.",
+        "trigger_correctness": "When identifies the driver pressing the hazard switch.",
+        "expected_behavior_correctness": "Then requires all turn indicator lamps to flash.",
+        "condition_boundary_coverage": "The driver input and all-lamps scope remain explicit.",
+        "unsupported_behavior": "No additional system behavior or timing is asserted."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When the driver presses the hazard switch, all turn indicator lamps shall flash.",
+      "reference": {
+        "given": "Hazard lamps are inactive.",
+        "when": "The driver presses the hazard switch.",
+        "then": "All turn indicator lamps begin flashing."
+      },
+      "generated": {
+        "given": "The hazard switch is not pressed.",
+        "when": "The driver presses the hazard switch.",
+        "then": "All turn indicator lamps flash."
+      }
+    },
+    {
+      "review_id": "REVIEW-031",
+      "requirement_id": "REQ-011",
+      "strategy": "zero_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Active DC fast charging and SOC below 80% establish the scenario.",
+        "trigger_correctness": "When reaches 80% SOC.",
+        "expected_behavior_correctness": "Then reduces requested charging power.",
+        "condition_boundary_coverage": "The charging mode, exact threshold and requested-power target are retained.",
+        "unsupported_behavior": "No power value, reduction magnitude or extra deadline is invented."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When DC fast charging is active and battery SOC reaches 80%, the system shall reduce the requested charging power.",
+      "reference": {
+        "given": "DC fast charging is active and battery SOC is below 80%.",
+        "when": "Battery SOC reaches 80%.",
+        "then": "The system reduces the requested charging power."
+      },
+      "generated": {
+        "given": "DC fast charging is active and the battery SOC is below 80%",
+        "when": "The battery SOC reaches 80%",
+        "then": "The system reduces the requested charging power"
+      }
+    },
+    {
+      "review_id": "REVIEW-032",
+      "requirement_id": "REQ-011",
+      "strategy": "structured",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Active DC fast charging and SOC below 80% establish the scenario.",
+        "trigger_correctness": "When reaches 80% SOC.",
+        "expected_behavior_correctness": "Then reduces requested charging power.",
+        "condition_boundary_coverage": "The charging mode, exact threshold and requested-power target are retained.",
+        "unsupported_behavior": "No power value, reduction magnitude or extra deadline is invented."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When DC fast charging is active and battery SOC reaches 80%, the system shall reduce the requested charging power.",
+      "reference": {
+        "given": "DC fast charging is active and battery SOC is below 80%.",
+        "when": "Battery SOC reaches 80%.",
+        "then": "The system reduces the requested charging power."
+      },
+      "generated": {
+        "given": "DC fast charging is active and the battery SOC is below 80%.",
+        "when": "The battery SOC reaches 80%.",
+        "then": "The system reduces the requested charging power."
+      }
+    },
+    {
+      "review_id": "REVIEW-033",
+      "requirement_id": "REQ-011",
+      "strategy": "few_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Active DC fast charging and SOC below 80% establish the scenario.",
+        "trigger_correctness": "When reaches 80% SOC.",
+        "expected_behavior_correctness": "Then reduces requested charging power.",
+        "condition_boundary_coverage": "The charging mode, exact threshold and requested-power target are retained.",
+        "unsupported_behavior": "No power value, reduction magnitude or extra deadline is invented."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When DC fast charging is active and battery SOC reaches 80%, the system shall reduce the requested charging power.",
+      "reference": {
+        "given": "DC fast charging is active and battery SOC is below 80%.",
+        "when": "Battery SOC reaches 80%.",
+        "then": "The system reduces the requested charging power."
+      },
+      "generated": {
+        "given": "DC fast charging is active and battery SOC is below 80%.",
+        "when": "Battery SOC reaches 80%.",
+        "then": "The system reduces the requested charging power."
+      }
+    },
+    {
+      "review_id": "REVIEW-034",
+      "requirement_id": "REQ-012",
+      "strategy": "zero_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Ignition OFF and a nonsleep state support entry into Sleep.",
+        "trigger_correctness": "When specifies 300 continuous seconds without network activity.",
+        "expected_behavior_correctness": "Then enters Sleep mode.",
+        "condition_boundary_coverage": "The ignition guard and continuous idle duration are retained.",
+        "unsupported_behavior": "The nonsleep setup enables observation of entry without inventing behavior."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "The system shall enter Sleep mode if ignition is OFF and no network activity is detected for 300 seconds.",
+      "reference": {
+        "given": "Ignition is OFF and the system is awake.",
+        "when": "No network activity is detected continuously for 300 seconds.",
+        "then": "The system enters Sleep mode."
+      },
+      "generated": {
+        "given": "Ignition is OFF and the system is not in Sleep mode",
+        "when": "No network activity is detected continuously for 300 seconds",
+        "then": "The system enters Sleep mode"
+      }
+    },
+    {
+      "review_id": "REVIEW-035",
+      "requirement_id": "REQ-012",
+      "strategy": "structured",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Ignition OFF and a nonsleep state support entry into Sleep.",
+        "trigger_correctness": "When specifies 300 continuous seconds without network activity.",
+        "expected_behavior_correctness": "Then enters Sleep mode.",
+        "condition_boundary_coverage": "The ignition guard and continuous idle duration are retained.",
+        "unsupported_behavior": "The nonsleep setup enables observation of entry without inventing behavior."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "The system shall enter Sleep mode if ignition is OFF and no network activity is detected for 300 seconds.",
+      "reference": {
+        "given": "Ignition is OFF and the system is awake.",
+        "when": "No network activity is detected continuously for 300 seconds.",
+        "then": "The system enters Sleep mode."
+      },
+      "generated": {
+        "given": "The ignition is OFF and the system is not in Sleep mode.",
+        "when": "No network activity is detected continuously for 300 seconds.",
+        "then": "The system enters Sleep mode."
+      }
+    },
+    {
+      "review_id": "REVIEW-036",
+      "requirement_id": "REQ-012",
+      "strategy": "few_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Ignition OFF and a nonsleep state support entry into Sleep.",
+        "trigger_correctness": "When specifies 300 continuous seconds without network activity.",
+        "expected_behavior_correctness": "Then enters Sleep mode.",
+        "condition_boundary_coverage": "The ignition guard and continuous idle duration are retained.",
+        "unsupported_behavior": "The nonsleep setup enables observation of entry without inventing behavior."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "The system shall enter Sleep mode if ignition is OFF and no network activity is detected for 300 seconds.",
+      "reference": {
+        "given": "Ignition is OFF and the system is awake.",
+        "when": "No network activity is detected continuously for 300 seconds.",
+        "then": "The system enters Sleep mode."
+      },
+      "generated": {
+        "given": "Ignition is OFF and the system is not in Sleep mode.",
+        "when": "No network activity is detected continuously for 300 seconds.",
+        "then": "The system enters Sleep mode."
+      }
+    },
+    {
+      "review_id": "REVIEW-037",
+      "requirement_id": "REQ-013",
+      "strategy": "zero_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Sleep mode establishes the wake-up context.",
+        "trigger_correctness": "When receives a valid wake-up message.",
+        "expected_behavior_correctness": "Then enters Active within 100 ms of that message.",
+        "condition_boundary_coverage": "The valid-message guard and response deadline remain explicit.",
+        "unsupported_behavior": "No additional wake-up action or deadline is invented."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When a valid wake-up message is received while the controller is in Sleep mode, the controller shall enter Active mode within 100 ms.",
+      "reference": {
+        "given": "The controller is in Sleep mode.",
+        "when": "A valid wake-up message is received.",
+        "then": "The controller enters Active mode within 100 ms."
+      },
+      "generated": {
+        "given": "The controller is in Sleep mode.",
+        "when": "A valid wake-up message is received.",
+        "then": "The controller enters Active mode within 100 ms of receiving the valid wake-up message."
+      }
+    },
+    {
+      "review_id": "REVIEW-038",
+      "requirement_id": "REQ-013",
+      "strategy": "structured",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Sleep mode establishes the wake-up context.",
+        "trigger_correctness": "When receives a valid wake-up message.",
+        "expected_behavior_correctness": "Then enters Active within 100 ms of that message.",
+        "condition_boundary_coverage": "The valid-message guard and response deadline remain explicit.",
+        "unsupported_behavior": "No additional wake-up action or deadline is invented."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When a valid wake-up message is received while the controller is in Sleep mode, the controller shall enter Active mode within 100 ms.",
+      "reference": {
+        "given": "The controller is in Sleep mode.",
+        "when": "A valid wake-up message is received.",
+        "then": "The controller enters Active mode within 100 ms."
+      },
+      "generated": {
+        "given": "The controller is in Sleep mode.",
+        "when": "A valid wake-up message is received.",
+        "then": "The controller enters Active mode within 100 ms of receiving the valid wake-up message."
+      }
+    },
+    {
+      "review_id": "REVIEW-039",
+      "requirement_id": "REQ-013",
+      "strategy": "few_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Sleep mode establishes the wake-up context.",
+        "trigger_correctness": "When receives a valid wake-up message.",
+        "expected_behavior_correctness": "Then enters Active within 100 ms of that message.",
+        "condition_boundary_coverage": "The valid-message guard and response deadline remain explicit.",
+        "unsupported_behavior": "No additional wake-up action or deadline is invented."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When a valid wake-up message is received while the controller is in Sleep mode, the controller shall enter Active mode within 100 ms.",
+      "reference": {
+        "given": "The controller is in Sleep mode.",
+        "when": "A valid wake-up message is received.",
+        "then": "The controller enters Active mode within 100 ms."
+      },
+      "generated": {
+        "given": "The controller is in Sleep mode.",
+        "when": "A valid wake-up message is received.",
+        "then": "The controller enters Active mode within 100 ms of receiving the message."
+      }
+    },
+    {
+      "review_id": "REVIEW-040",
+      "requirement_id": "REQ-014",
+      "strategy": "zero_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "A defined valid range is sufficient setup; an initially clear fault is an optional observation choice.",
+        "trigger_correctness": "When keeps the signal outside its valid range for more than 2 seconds.",
+        "expected_behavior_correctness": "Then sets the corresponding diagnostic fault.",
+        "condition_boundary_coverage": "The out-of-range condition and strict sustained duration remain explicit.",
+        "unsupported_behavior": "No numerical sensor range or unrelated fault behavior is invented."
+      },
+      "reference_notes": "The reference starts the signal within range and fault unset. A coherent sustained out-of-range event also qualifies without all that setup.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When a sensor signal remains outside its valid range for more than 2 seconds, the system shall set the corresponding diagnostic fault.",
+      "reference": {
+        "given": "The sensor signal is within its valid range and no corresponding fault is set.",
+        "when": "The sensor signal remains outside its valid range for more than 2 seconds.",
+        "then": "The system sets the corresponding diagnostic fault."
+      },
+      "generated": {
+        "given": "The sensor signal has a defined valid range.",
+        "when": "The sensor signal remains continuously outside its valid range for more than 2 seconds.",
+        "then": "The system sets the corresponding diagnostic fault."
+      }
+    },
+    {
+      "review_id": "REVIEW-041",
+      "requirement_id": "REQ-014",
+      "strategy": "structured",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "A defined valid range is sufficient setup; an initially clear fault is an optional observation choice.",
+        "trigger_correctness": "When keeps the signal outside its valid range for more than 2 seconds.",
+        "expected_behavior_correctness": "Then sets the corresponding diagnostic fault.",
+        "condition_boundary_coverage": "The out-of-range condition and strict sustained duration remain explicit.",
+        "unsupported_behavior": "No numerical sensor range or unrelated fault behavior is invented."
+      },
+      "reference_notes": "The reference starts the signal within range and fault unset. A coherent sustained out-of-range event also qualifies without all that setup.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When a sensor signal remains outside its valid range for more than 2 seconds, the system shall set the corresponding diagnostic fault.",
+      "reference": {
+        "given": "The sensor signal is within its valid range and no corresponding fault is set.",
+        "when": "The sensor signal remains outside its valid range for more than 2 seconds.",
+        "then": "The system sets the corresponding diagnostic fault."
+      },
+      "generated": {
+        "given": "The corresponding diagnostic fault is not set, and the sensor signal is within its valid range.",
+        "when": "The sensor signal transitions outside its valid range and remains continuously outside that range for more than 2 seconds.",
+        "then": "The system sets the corresponding diagnostic fault."
+      }
+    },
+    {
+      "review_id": "REVIEW-042",
+      "requirement_id": "REQ-014",
+      "strategy": "few_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "A defined valid range is sufficient setup; an initially clear fault is an optional observation choice.",
+        "trigger_correctness": "When keeps the signal outside its valid range for more than 2 seconds.",
+        "expected_behavior_correctness": "Then sets the corresponding diagnostic fault.",
+        "condition_boundary_coverage": "The out-of-range condition and strict sustained duration remain explicit.",
+        "unsupported_behavior": "No numerical sensor range or unrelated fault behavior is invented."
+      },
+      "reference_notes": "The reference starts the signal within range and fault unset. A coherent sustained out-of-range event also qualifies without all that setup.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When a sensor signal remains outside its valid range for more than 2 seconds, the system shall set the corresponding diagnostic fault.",
+      "reference": {
+        "given": "The sensor signal is within its valid range and no corresponding fault is set.",
+        "when": "The sensor signal remains outside its valid range for more than 2 seconds.",
+        "then": "The system sets the corresponding diagnostic fault."
+      },
+      "generated": {
+        "given": "The sensor signal is within its valid range and the corresponding diagnostic fault is not set.",
+        "when": "The sensor signal remains outside its valid range for more than 2 seconds.",
+        "then": "The system sets the corresponding diagnostic fault."
+      }
+    },
+    {
+      "review_id": "REVIEW-043",
+      "requirement_id": "REQ-015",
+      "strategy": "zero_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Monitoring or a clear fault provides context; the third-miss formulation implies the prior two misses.",
+        "trigger_correctness": "When identifies three consecutive misses or the third consecutive miss.",
+        "expected_behavior_correctness": "Then sets a communication timeout fault.",
+        "condition_boundary_coverage": "The count of three and consecutive qualifier are preserved.",
+        "unsupported_behavior": "No CAN period, message identifier or unsupported timeout threshold is added."
+      },
+      "reference_notes": "The third-miss formulation and an event containing three consecutive misses are equivalent; no CAN period is specified.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "If three consecutive CAN messages are missed, the system shall set a communication timeout fault.",
+      "reference": {
+        "given": "The expected CAN message is being monitored and no timeout fault is active.",
+        "when": "Three consecutive expected CAN messages are missed.",
+        "then": "The system sets a communication timeout fault."
+      },
+      "generated": {
+        "given": "The system is monitoring expected CAN messages and fewer than three consecutive CAN messages have been missed",
+        "when": "The third consecutive CAN message is missed",
+        "then": "The system sets a communication timeout fault"
+      }
+    },
+    {
+      "review_id": "REVIEW-044",
+      "requirement_id": "REQ-015",
+      "strategy": "structured",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Monitoring or a clear fault provides context; the third-miss formulation implies the prior two misses.",
+        "trigger_correctness": "When identifies three consecutive misses or the third consecutive miss.",
+        "expected_behavior_correctness": "Then sets a communication timeout fault.",
+        "condition_boundary_coverage": "The count of three and consecutive qualifier are preserved.",
+        "unsupported_behavior": "No CAN period, message identifier or unsupported timeout threshold is added."
+      },
+      "reference_notes": "The third-miss formulation and an event containing three consecutive misses are equivalent; no CAN period is specified.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "If three consecutive CAN messages are missed, the system shall set a communication timeout fault.",
+      "reference": {
+        "given": "The expected CAN message is being monitored and no timeout fault is active.",
+        "when": "Three consecutive expected CAN messages are missed.",
+        "then": "The system sets a communication timeout fault."
+      },
+      "generated": {
+        "given": "The communication timeout fault is not set, and two consecutive CAN messages have been missed.",
+        "when": "A third consecutive CAN message is missed.",
+        "then": "The system sets the communication timeout fault."
+      }
+    },
+    {
+      "review_id": "REVIEW-045",
+      "requirement_id": "REQ-015",
+      "strategy": "few_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Monitoring or a clear fault provides context; the third-miss formulation implies the prior two misses.",
+        "trigger_correctness": "When identifies three consecutive misses or the third consecutive miss.",
+        "expected_behavior_correctness": "Then sets a communication timeout fault.",
+        "condition_boundary_coverage": "The count of three and consecutive qualifier are preserved.",
+        "unsupported_behavior": "No CAN period, message identifier or unsupported timeout threshold is added."
+      },
+      "reference_notes": "The third-miss formulation and an event containing three consecutive misses are equivalent; no CAN period is specified.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "If three consecutive CAN messages are missed, the system shall set a communication timeout fault.",
+      "reference": {
+        "given": "The expected CAN message is being monitored and no timeout fault is active.",
+        "when": "Three consecutive expected CAN messages are missed.",
+        "then": "The system sets a communication timeout fault."
+      },
+      "generated": {
+        "given": "The communication timeout fault is not set.",
+        "when": "Three consecutive CAN messages are missed.",
+        "then": "The system sets the communication timeout fault."
+      }
+    },
+    {
+      "review_id": "REVIEW-046",
+      "requirement_id": "REQ-016",
+      "strategy": "zero_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Open driver door and speed not above 3 km/h establish the guarded crossing.",
+        "trigger_correctness": "When exceeds 3 km/h.",
+        "expected_behavior_correctness": "Then issues an audible warning.",
+        "condition_boundary_coverage": "Both door-open state and strict speed threshold are explicit.",
+        "unsupported_behavior": "No warning pattern or additional behavior is invented."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When the driver door is open and vehicle speed exceeds 3 km/h, the system shall issue an audible warning.",
+      "reference": {
+        "given": "The driver door is open and vehicle speed is at or below 3 km/h.",
+        "when": "Vehicle speed increases above 3 km/h.",
+        "then": "The system issues an audible warning."
+      },
+      "generated": {
+        "given": "The driver door is open and the vehicle speed is at or below 3 km/h",
+        "when": "The vehicle speed exceeds 3 km/h",
+        "then": "The system issues an audible warning"
+      }
+    },
+    {
+      "review_id": "REVIEW-047",
+      "requirement_id": "REQ-016",
+      "strategy": "structured",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Open driver door and speed not above 3 km/h establish the guarded crossing.",
+        "trigger_correctness": "When exceeds 3 km/h.",
+        "expected_behavior_correctness": "Then issues an audible warning.",
+        "condition_boundary_coverage": "Both door-open state and strict speed threshold are explicit.",
+        "unsupported_behavior": "No warning pattern or additional behavior is invented."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When the driver door is open and vehicle speed exceeds 3 km/h, the system shall issue an audible warning.",
+      "reference": {
+        "given": "The driver door is open and vehicle speed is at or below 3 km/h.",
+        "when": "Vehicle speed increases above 3 km/h.",
+        "then": "The system issues an audible warning."
+      },
+      "generated": {
+        "given": "The driver door is open and the vehicle speed does not exceed 3 km/h.",
+        "when": "The vehicle speed increases to greater than 3 km/h.",
+        "then": "The system issues an audible warning."
+      }
+    },
+    {
+      "review_id": "REVIEW-048",
+      "requirement_id": "REQ-016",
+      "strategy": "few_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Open driver door and speed not above 3 km/h establish the guarded crossing.",
+        "trigger_correctness": "When exceeds 3 km/h.",
+        "expected_behavior_correctness": "Then issues an audible warning.",
+        "condition_boundary_coverage": "Both door-open state and strict speed threshold are explicit.",
+        "unsupported_behavior": "No warning pattern or additional behavior is invented."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When the driver door is open and vehicle speed exceeds 3 km/h, the system shall issue an audible warning.",
+      "reference": {
+        "given": "The driver door is open and vehicle speed is at or below 3 km/h.",
+        "when": "Vehicle speed increases above 3 km/h.",
+        "then": "The system issues an audible warning."
+      },
+      "generated": {
+        "given": "The driver door is open and vehicle speed is at or below 3 km/h.",
+        "when": "Vehicle speed exceeds 3 km/h.",
+        "then": "The system issues an audible warning."
+      }
+    },
+    {
+      "review_id": "REVIEW-049",
+      "requirement_id": "REQ-017",
+      "strategy": "zero_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Connector state provides usable setup for an inhibition test.",
+        "trigger_correctness": "A connection-detection event or a propulsion request while connected exercises the obligation.",
+        "expected_behavior_correctness": "Then inhibits propulsion; no propulsion is an equivalent observable consequence.",
+        "condition_boundary_coverage": "The connected guard and inhibition relation remain explicit.",
+        "unsupported_behavior": "A propulsion request is a compatible way to exercise inhibition, not an invented system response."
+      },
+      "reference_notes": "The reference uses becoming connected. A propulsion request while already connected also exercises inhibition.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "The system shall inhibit propulsion when the charging connector is detected as connected.",
+      "reference": {
+        "given": "The charging connector is not connected and propulsion is available.",
+        "when": "The charging connector becomes connected.",
+        "then": "The system inhibits propulsion."
+      },
+      "generated": {
+        "given": "The charging connector is not detected as connected",
+        "when": "The charging connector is detected as connected",
+        "then": "The system inhibits propulsion"
+      }
+    },
+    {
+      "review_id": "REVIEW-050",
+      "requirement_id": "REQ-017",
+      "strategy": "structured",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Connector state provides usable setup for an inhibition test.",
+        "trigger_correctness": "A connection-detection event or a propulsion request while connected exercises the obligation.",
+        "expected_behavior_correctness": "Then inhibits propulsion; no propulsion is an equivalent observable consequence.",
+        "condition_boundary_coverage": "The connected guard and inhibition relation remain explicit.",
+        "unsupported_behavior": "A propulsion request is a compatible way to exercise inhibition, not an invented system response."
+      },
+      "reference_notes": "The reference uses becoming connected. A propulsion request while already connected also exercises inhibition.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "The system shall inhibit propulsion when the charging connector is detected as connected.",
+      "reference": {
+        "given": "The charging connector is not connected and propulsion is available.",
+        "when": "The charging connector becomes connected.",
+        "then": "The system inhibits propulsion."
+      },
+      "generated": {
+        "given": "The charging connector is detected as connected.",
+        "when": "Propulsion is requested.",
+        "then": "The system inhibits propulsion, and no propulsion occurs."
+      }
+    },
+    {
+      "review_id": "REVIEW-051",
+      "requirement_id": "REQ-017",
+      "strategy": "few_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Connector state provides usable setup for an inhibition test.",
+        "trigger_correctness": "A connection-detection event or a propulsion request while connected exercises the obligation.",
+        "expected_behavior_correctness": "Then inhibits propulsion; no propulsion is an equivalent observable consequence.",
+        "condition_boundary_coverage": "The connected guard and inhibition relation remain explicit.",
+        "unsupported_behavior": "A propulsion request is a compatible way to exercise inhibition, not an invented system response."
+      },
+      "reference_notes": "The reference uses becoming connected. A propulsion request while already connected also exercises inhibition.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "The system shall inhibit propulsion when the charging connector is detected as connected.",
+      "reference": {
+        "given": "The charging connector is not connected and propulsion is available.",
+        "when": "The charging connector becomes connected.",
+        "then": "The system inhibits propulsion."
+      },
+      "generated": {
+        "given": "The charging connector is not detected as connected.",
+        "when": "The charging connector is detected as connected.",
+        "then": "The system inhibits propulsion."
+      }
+    },
+    {
+      "review_id": "REVIEW-052",
+      "requirement_id": "REQ-018",
+      "strategy": "zero_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 1,
+        "trigger_correctness": 1,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 1
+      },
+      "rationales": {
+        "precondition_correctness": "Given already states \"A charging request has been received\", moving the request event out of When; the scenario remains reconstructable.",
+        "trigger_correctness": "When says only \"The system processes the charging request\", rather than a concrete request-receipt or locking event.",
+        "expected_behavior_correctness": "Then enables charging as required.",
+        "condition_boundary_coverage": "Both request receipt and successful locking are present across the fields.",
+        "unsupported_behavior": "The extra \"processes the charging request\" step is an incidental workflow assumption not specified by the requirement; no material extra response is asserted."
+      },
+      "reference_notes": "The reference adds attached/valid connector details and uses a joint event. Request receipt with successful locking already established is also valid; the original text imposes no unique ordering.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When a charging request is received and the connector is locked successfully, the system shall enable charging.",
+      "reference": {
+        "given": "A valid charging connector is attached, charging is disabled, and the connector is not yet locked.",
+        "when": "A charging request is received and the connector locks successfully.",
+        "then": "The system enables charging."
+      },
+      "generated": {
+        "given": "A charging request has been received and the connector is locked successfully",
+        "when": "The system processes the charging request",
+        "then": "The system enables charging"
+      }
+    },
+    {
+      "review_id": "REVIEW-053",
+      "requirement_id": "REQ-018",
+      "strategy": "structured",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "The locking/request setup is compatible with a scenario in which both qualifying conditions hold.",
+        "trigger_correctness": "When supplies a charging request or the joint receipt and successful-locking event.",
+        "expected_behavior_correctness": "Then enables charging as required.",
+        "condition_boundary_coverage": "Both request receipt and successful locking are present across the fields.",
+        "unsupported_behavior": "Initial disabled charging or unlocked setup, where used, permits observing enablement without adding a response."
+      },
+      "reference_notes": "The reference adds attached/valid connector details and uses a joint event. Request receipt with successful locking already established is also valid; the original text imposes no unique ordering.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When a charging request is received and the connector is locked successfully, the system shall enable charging.",
+      "reference": {
+        "given": "A valid charging connector is attached, charging is disabled, and the connector is not yet locked.",
+        "when": "A charging request is received and the connector locks successfully.",
+        "then": "The system enables charging."
+      },
+      "generated": {
+        "given": "The connector is locked successfully.",
+        "when": "A charging request is received.",
+        "then": "The system enables charging."
+      }
+    },
+    {
+      "review_id": "REVIEW-054",
+      "requirement_id": "REQ-018",
+      "strategy": "few_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "The locking/request setup is compatible with a scenario in which both qualifying conditions hold.",
+        "trigger_correctness": "When supplies a charging request or the joint receipt and successful-locking event.",
+        "expected_behavior_correctness": "Then enables charging as required.",
+        "condition_boundary_coverage": "Both request receipt and successful locking are present across the fields.",
+        "unsupported_behavior": "Initial disabled charging or unlocked setup, where used, permits observing enablement without adding a response."
+      },
+      "reference_notes": "The reference adds attached/valid connector details and uses a joint event. Request receipt with successful locking already established is also valid; the original text imposes no unique ordering.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When a charging request is received and the connector is locked successfully, the system shall enable charging.",
+      "reference": {
+        "given": "A valid charging connector is attached, charging is disabled, and the connector is not yet locked.",
+        "when": "A charging request is received and the connector locks successfully.",
+        "then": "The system enables charging."
+      },
+      "generated": {
+        "given": "Charging is not enabled, and the connector is unlocked.",
+        "when": "A charging request is received and the connector is locked successfully.",
+        "then": "The system enables charging."
+      }
+    },
+    {
+      "review_id": "REVIEW-055",
+      "requirement_id": "REQ-019",
+      "strategy": "zero_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 1
+      },
+      "rationales": {
+        "precondition_correctness": "Temperature at or below 90 C supports a rise above the torque-reduction threshold.",
+        "trigger_correctness": "When exceeds 90 C.",
+        "expected_behavior_correctness": "Then reduces maximum available motor torque.",
+        "condition_boundary_coverage": "The strict temperature limit and maximum-available-torque target are preserved.",
+        "unsupported_behavior": "Given requires \"the current maximum available motor torque is known\"; this unnecessary knowledge restriction is not an operating guard in the requirement."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When inverter temperature exceeds 90°C, the system shall reduce the maximum available motor torque.",
+      "reference": {
+        "given": "Inverter temperature is at or below 90°C and maximum motor torque is available.",
+        "when": "Inverter temperature rises above 90°C.",
+        "then": "The system reduces the maximum available motor torque."
+      },
+      "generated": {
+        "given": "The inverter temperature is at or below 90°C and the current maximum available motor torque is known",
+        "when": "The inverter temperature exceeds 90°C",
+        "then": "The system reduces the maximum available motor torque"
+      }
+    },
+    {
+      "review_id": "REVIEW-056",
+      "requirement_id": "REQ-019",
+      "strategy": "structured",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Temperature at or below 90 C supports a rise above the torque-reduction threshold.",
+        "trigger_correctness": "When exceeds 90 C.",
+        "expected_behavior_correctness": "Then reduces maximum available motor torque.",
+        "condition_boundary_coverage": "The strict temperature limit and maximum-available-torque target are preserved.",
+        "unsupported_behavior": "No reduction magnitude, deadline or recovery behavior is invented."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When inverter temperature exceeds 90°C, the system shall reduce the maximum available motor torque.",
+      "reference": {
+        "given": "Inverter temperature is at or below 90°C and maximum motor torque is available.",
+        "when": "Inverter temperature rises above 90°C.",
+        "then": "The system reduces the maximum available motor torque."
+      },
+      "generated": {
+        "given": "The inverter temperature is at or below 90°C.",
+        "when": "The inverter temperature exceeds 90°C.",
+        "then": "The system reduces the maximum available motor torque."
+      }
+    },
+    {
+      "review_id": "REVIEW-057",
+      "requirement_id": "REQ-019",
+      "strategy": "few_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Temperature at or below 90 C supports a rise above the torque-reduction threshold.",
+        "trigger_correctness": "When exceeds 90 C.",
+        "expected_behavior_correctness": "Then reduces maximum available motor torque.",
+        "condition_boundary_coverage": "The strict temperature limit and maximum-available-torque target are preserved.",
+        "unsupported_behavior": "No reduction magnitude, deadline or recovery behavior is invented."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When inverter temperature exceeds 90°C, the system shall reduce the maximum available motor torque.",
+      "reference": {
+        "given": "Inverter temperature is at or below 90°C and maximum motor torque is available.",
+        "when": "Inverter temperature rises above 90°C.",
+        "then": "The system reduces the maximum available motor torque."
+      },
+      "generated": {
+        "given": "Inverter temperature is at or below 90°C.",
+        "when": "Inverter temperature rises above 90°C.",
+        "then": "The system reduces the maximum available motor torque."
+      }
+    },
+    {
+      "review_id": "REVIEW-058",
+      "requirement_id": "REQ-020",
+      "strategy": "zero_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Occupied driver seat, latched belt and speed above 10 km/h provide a valid alternative initial state.",
+        "trigger_correctness": "Unlatching the belt at qualifying speed is a valid event under the requirement.",
+        "expected_behavior_correctness": "Then activates the seat-belt reminder.",
+        "condition_boundary_coverage": "Occupied seat, unlatched belt after the event and speed above 10 km/h all hold.",
+        "unsupported_behavior": "The alternative belt transition does not add a new required system response."
+      },
+      "reference_notes": "The reference crosses the speed threshold while unlatched. All generated cases instead unlatch at qualifying speed; both satisfy the conjunctive condition.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "If the seat belt is unlatched while the occupied driver seat is detected and vehicle speed exceeds 10 km/h, the system shall activate the seat-belt reminder.",
+      "reference": {
+        "given": "The driver seat is occupied, the seat belt is unlatched, and vehicle speed is at or below 10 km/h.",
+        "when": "Vehicle speed increases above 10 km/h.",
+        "then": "The system activates the seat-belt reminder."
+      },
+      "generated": {
+        "given": "The driver seat is occupied, the seat belt is latched, and the vehicle speed exceeds 10 km/h",
+        "when": "The seat belt is unlatched",
+        "then": "The system activates the seat-belt reminder"
+      }
+    },
+    {
+      "review_id": "REVIEW-059",
+      "requirement_id": "REQ-020",
+      "strategy": "structured",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Occupied driver seat, latched belt and speed above 10 km/h provide a valid alternative initial state.",
+        "trigger_correctness": "Unlatching the belt at qualifying speed is a valid event under the requirement.",
+        "expected_behavior_correctness": "Then activates the seat-belt reminder.",
+        "condition_boundary_coverage": "Occupied seat, unlatched belt after the event and speed above 10 km/h all hold.",
+        "unsupported_behavior": "The alternative belt transition does not add a new required system response."
+      },
+      "reference_notes": "The reference crosses the speed threshold while unlatched. All generated cases instead unlatch at qualifying speed; both satisfy the conjunctive condition.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "If the seat belt is unlatched while the occupied driver seat is detected and vehicle speed exceeds 10 km/h, the system shall activate the seat-belt reminder.",
+      "reference": {
+        "given": "The driver seat is occupied, the seat belt is unlatched, and vehicle speed is at or below 10 km/h.",
+        "when": "Vehicle speed increases above 10 km/h.",
+        "then": "The system activates the seat-belt reminder."
+      },
+      "generated": {
+        "given": "The driver seat is detected as occupied, the vehicle speed is greater than 10 km/h, and the driver seat belt is latched.",
+        "when": "The driver seat belt transitions to the unlatched state.",
+        "then": "The system activates the seat-belt reminder."
+      }
+    },
+    {
+      "review_id": "REVIEW-060",
+      "requirement_id": "REQ-020",
+      "strategy": "few_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Occupied driver seat, latched belt and speed above 10 km/h provide a valid alternative initial state.",
+        "trigger_correctness": "Unlatching the belt at qualifying speed is a valid event under the requirement.",
+        "expected_behavior_correctness": "Then activates the seat-belt reminder.",
+        "condition_boundary_coverage": "Occupied seat, unlatched belt after the event and speed above 10 km/h all hold.",
+        "unsupported_behavior": "The alternative belt transition does not add a new required system response."
+      },
+      "reference_notes": "The reference crosses the speed threshold while unlatched. All generated cases instead unlatch at qualifying speed; both satisfy the conjunctive condition.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "If the seat belt is unlatched while the occupied driver seat is detected and vehicle speed exceeds 10 km/h, the system shall activate the seat-belt reminder.",
+      "reference": {
+        "given": "The driver seat is occupied, the seat belt is unlatched, and vehicle speed is at or below 10 km/h.",
+        "when": "Vehicle speed increases above 10 km/h.",
+        "then": "The system activates the seat-belt reminder."
+      },
+      "generated": {
+        "given": "The driver seat is occupied, the seat belt is latched, and vehicle speed exceeds 10 km/h.",
+        "when": "The seat belt is unlatched.",
+        "then": "The system activates the seat-belt reminder."
+      }
+    },
+    {
+      "review_id": "REVIEW-061",
+      "requirement_id": "REQ-021",
+      "strategy": "zero_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Active HV system and an unset fault provide the required guard and an observable initial state.",
+        "trigger_correctness": "When holds voltage below 300 V for at least 500 ms.",
+        "expected_behavior_correctness": "Then sets the low-voltage diagnostic fault.",
+        "condition_boundary_coverage": "The HV guard, strict voltage bound and inclusive continuous duration are preserved.",
+        "unsupported_behavior": "The clear initial fault is acceptable setup; no new voltage limit is introduced."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "If battery voltage is below 300 V for at least 500 ms while the high-voltage system is active, the system shall set a low-voltage diagnostic fault.",
+      "reference": {
+        "given": "The high-voltage system is active, battery voltage is at or above 300 V, and the low-voltage fault is not active.",
+        "when": "Battery voltage remains below 300 V for at least 500 ms.",
+        "then": "The system sets the low-voltage diagnostic fault."
+      },
+      "generated": {
+        "given": "The high-voltage system is active and no low-voltage diagnostic fault is set.",
+        "when": "The battery voltage remains below 300 V for at least 500 ms.",
+        "then": "The system sets a low-voltage diagnostic fault."
+      }
+    },
+    {
+      "review_id": "REVIEW-062",
+      "requirement_id": "REQ-021",
+      "strategy": "structured",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Active HV system and an unset fault provide the required guard and an observable initial state.",
+        "trigger_correctness": "When holds voltage below 300 V for at least 500 ms.",
+        "expected_behavior_correctness": "Then sets the low-voltage diagnostic fault.",
+        "condition_boundary_coverage": "The HV guard, strict voltage bound and inclusive continuous duration are preserved.",
+        "unsupported_behavior": "The clear initial fault is acceptable setup; no new voltage limit is introduced."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "If battery voltage is below 300 V for at least 500 ms while the high-voltage system is active, the system shall set a low-voltage diagnostic fault.",
+      "reference": {
+        "given": "The high-voltage system is active, battery voltage is at or above 300 V, and the low-voltage fault is not active.",
+        "when": "Battery voltage remains below 300 V for at least 500 ms.",
+        "then": "The system sets the low-voltage diagnostic fault."
+      },
+      "generated": {
+        "given": "The high-voltage system is active, and the low-voltage diagnostic fault is not set.",
+        "when": "The battery voltage remains continuously below 300 V for at least 500 ms.",
+        "then": "The system sets the low-voltage diagnostic fault."
+      }
+    },
+    {
+      "review_id": "REVIEW-063",
+      "requirement_id": "REQ-021",
+      "strategy": "few_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Active HV system and an unset fault provide the required guard and an observable initial state.",
+        "trigger_correctness": "When holds voltage below 300 V for at least 500 ms.",
+        "expected_behavior_correctness": "Then sets the low-voltage diagnostic fault.",
+        "condition_boundary_coverage": "The HV guard, strict voltage bound and inclusive continuous duration are preserved.",
+        "unsupported_behavior": "The clear initial fault is acceptable setup; no new voltage limit is introduced."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "If battery voltage is below 300 V for at least 500 ms while the high-voltage system is active, the system shall set a low-voltage diagnostic fault.",
+      "reference": {
+        "given": "The high-voltage system is active, battery voltage is at or above 300 V, and the low-voltage fault is not active.",
+        "when": "Battery voltage remains below 300 V for at least 500 ms.",
+        "then": "The system sets the low-voltage diagnostic fault."
+      },
+      "generated": {
+        "given": "The high-voltage system is active and the low-voltage diagnostic fault is not set.",
+        "when": "Battery voltage remains below 300 V continuously for at least 500 ms.",
+        "then": "The system sets the low-voltage diagnostic fault."
+      }
+    },
+    {
+      "review_id": "REVIEW-064",
+      "requirement_id": "REQ-022",
+      "strategy": "zero_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "An active low-voltage debounce or a voltage-dip event establishes the relevant context.",
+        "trigger_correctness": "When returns voltage to at least 300 V before 500 ms.",
+        "expected_behavior_correctness": "Then leaves the low-voltage fault unset.",
+        "condition_boundary_coverage": "The inclusive recovery voltage and exclusive time boundary remain explicit.",
+        "unsupported_behavior": "No HV-active guard from the neighboring requirement is silently required."
+      },
+      "reference_notes": "The reference adds HV active; this standalone requirement does not. All outputs are judged without requiring that extra guard.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "A low-voltage diagnostic fault shall not be set if battery voltage returns to 300 V or higher before the 500 ms debounce period expires.",
+      "reference": {
+        "given": "The high-voltage system is active and battery voltage falls below 300 V.",
+        "when": "Battery voltage returns to 300 V or higher before 500 ms has elapsed.",
+        "then": "The system does not set the low-voltage diagnostic fault."
+      },
+      "generated": {
+        "given": "Battery voltage is below 300 V and the 500 ms low-voltage debounce period is in progress",
+        "when": "Battery voltage returns to 300 V or higher before the 500 ms debounce period expires",
+        "then": "The low-voltage diagnostic fault is not set"
+      }
+    },
+    {
+      "review_id": "REVIEW-065",
+      "requirement_id": "REQ-022",
+      "strategy": "structured",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "An active low-voltage debounce or a voltage-dip event establishes the relevant context.",
+        "trigger_correctness": "When returns voltage to at least 300 V before 500 ms.",
+        "expected_behavior_correctness": "Then leaves the low-voltage fault unset.",
+        "condition_boundary_coverage": "The inclusive recovery voltage and exclusive time boundary remain explicit.",
+        "unsupported_behavior": "No HV-active guard from the neighboring requirement is silently required."
+      },
+      "reference_notes": "The reference adds HV active; this standalone requirement does not. All outputs are judged without requiring that extra guard.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "A low-voltage diagnostic fault shall not be set if battery voltage returns to 300 V or higher before the 500 ms debounce period expires.",
+      "reference": {
+        "given": "The high-voltage system is active and battery voltage falls below 300 V.",
+        "when": "Battery voltage returns to 300 V or higher before 500 ms has elapsed.",
+        "then": "The system does not set the low-voltage diagnostic fault."
+      },
+      "generated": {
+        "given": "The low-voltage diagnostic fault is not set.",
+        "when": "Battery voltage falls below 300 V and then returns to 300 V or higher before 500 ms has elapsed.",
+        "then": "The low-voltage diagnostic fault remains not set."
+      }
+    },
+    {
+      "review_id": "REVIEW-066",
+      "requirement_id": "REQ-022",
+      "strategy": "few_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "An active low-voltage debounce or a voltage-dip event establishes the relevant context.",
+        "trigger_correctness": "When returns voltage to at least 300 V before 500 ms.",
+        "expected_behavior_correctness": "Then leaves the low-voltage fault unset.",
+        "condition_boundary_coverage": "The inclusive recovery voltage and exclusive time boundary remain explicit.",
+        "unsupported_behavior": "No HV-active guard from the neighboring requirement is silently required."
+      },
+      "reference_notes": "The reference adds HV active; this standalone requirement does not. All outputs are judged without requiring that extra guard.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "A low-voltage diagnostic fault shall not be set if battery voltage returns to 300 V or higher before the 500 ms debounce period expires.",
+      "reference": {
+        "given": "The high-voltage system is active and battery voltage falls below 300 V.",
+        "when": "Battery voltage returns to 300 V or higher before 500 ms has elapsed.",
+        "then": "The system does not set the low-voltage diagnostic fault."
+      },
+      "generated": {
+        "given": "Battery voltage is below 300 V, the 500 ms debounce period is active, and the low-voltage diagnostic fault is not set.",
+        "when": "Battery voltage returns to 300 V or higher before the 500 ms debounce period expires.",
+        "then": "The low-voltage diagnostic fault remains not set."
+      }
+    },
+    {
+      "review_id": "REVIEW-067",
+      "requirement_id": "REQ-023",
+      "strategy": "zero_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 0,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 0
+      },
+      "rationales": {
+        "precondition_correctness": "The command conditions provide a compatible scenario for evaluating acceptance constraints.",
+        "trigger_correctness": "Receiving or evaluating the command is concrete; the negative boundary also exercises validation.",
+        "expected_behavior_correctness": "Then says \"The system accepts the command\" for a valid/young command. Only-if establishes necessary conditions, so this guaranteed acceptance is not entailed.",
+        "condition_boundary_coverage": "The checksum and age constraint are represented for the selected scenario.",
+        "unsupported_behavior": "The positive acceptance assertion introduces a sufficient-condition assumption absent from the requirement."
+      },
+      "reference_notes": "The reference guarantees acceptance when checksum is valid and age <100 ms. This reverses the only-if implication. The requirement supports rejection for an invalid checksum or age >=100 ms; agreement with the positive reference does not establish correctness.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "The system shall accept a received command only if its checksum is valid and its message age is less than 100 ms.",
+      "reference": {
+        "given": "A command message is available for validation.",
+        "when": "The system evaluates a command with a valid checksum and message age below 100 ms.",
+        "then": "The system accepts the received command."
+      },
+      "generated": {
+        "given": "A received command has a valid checksum and a message age of less than 100 ms",
+        "when": "The system evaluates the received command",
+        "then": "The system accepts the command"
+      }
+    },
+    {
+      "review_id": "REVIEW-068",
+      "requirement_id": "REQ-023",
+      "strategy": "structured",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Given says no additional preconditions are specified; a standalone incoming command validation needs no prior system mode.",
+        "trigger_correctness": "When receives a valid-checksum command aged exactly 100 ms, exercising the strict age boundary.",
+        "expected_behavior_correctness": "Then rejects the command at 100 ms, which follows from acceptance requiring age strictly less than 100 ms.",
+        "condition_boundary_coverage": "The valid checksum isolates the failing age condition at the exact excluded boundary; no additional branch is required for one-case coverage.",
+        "unsupported_behavior": "The rejection is entailed by failure of a necessary condition; no sufficient-condition assumption is introduced."
+      },
+      "reference_notes": "The reference guarantees acceptance when checksum is valid and age <100 ms. This reverses the only-if implication. The requirement supports rejection for an invalid checksum or age >=100 ms; agreement with the positive reference does not establish correctness.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "The system shall accept a received command only if its checksum is valid and its message age is less than 100 ms.",
+      "reference": {
+        "given": "A command message is available for validation.",
+        "when": "The system evaluates a command with a valid checksum and message age below 100 ms.",
+        "then": "The system accepts the received command."
+      },
+      "generated": {
+        "given": "No additional preconditions are specified.",
+        "when": "The system receives a command with a valid checksum and a message age of exactly 100 ms.",
+        "then": "The system shall not accept the command."
+      }
+    },
+    {
+      "review_id": "REVIEW-069",
+      "requirement_id": "REQ-023",
+      "strategy": "few_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 0,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 0
+      },
+      "rationales": {
+        "precondition_correctness": "The command conditions provide a compatible scenario for evaluating acceptance constraints.",
+        "trigger_correctness": "Receiving or evaluating the command is concrete; the negative boundary also exercises validation.",
+        "expected_behavior_correctness": "Then says \"The system accepts the command\" when both necessary conditions hold; their conjunction alone does not guarantee acceptance.",
+        "condition_boundary_coverage": "The checksum and age constraint are represented for the selected scenario.",
+        "unsupported_behavior": "The positive acceptance assertion invents sufficiency, repeating the manual reference's unsupported assumption."
+      },
+      "reference_notes": "The reference guarantees acceptance when checksum is valid and age <100 ms. This reverses the only-if implication. The requirement supports rejection for an invalid checksum or age >=100 ms; agreement with the positive reference does not establish correctness.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "The system shall accept a received command only if its checksum is valid and its message age is less than 100 ms.",
+      "reference": {
+        "given": "A command message is available for validation.",
+        "when": "The system evaluates a command with a valid checksum and message age below 100 ms.",
+        "then": "The system accepts the received command."
+      },
+      "generated": {
+        "given": "A command has a valid checksum and a message age of less than 100 ms.",
+        "when": "The command is received by the system.",
+        "then": "The system accepts the command."
+      }
+    },
+    {
+      "review_id": "REVIEW-070",
+      "requirement_id": "REQ-024",
+      "strategy": "zero_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Enabled propulsion supports observing its disablement on fault detection.",
+        "trigger_correctness": "When detects an isolation fault.",
+        "expected_behavior_correctness": "Then both disables propulsion and requests HV shutdown.",
+        "condition_boundary_coverage": "The enabled-state guard and both required actions are preserved.",
+        "unsupported_behavior": "Initially absent fault, where stated, is compatible detection setup."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "If an isolation fault is detected while propulsion is enabled, the system shall disable propulsion and request high-voltage shutdown.",
+      "reference": {
+        "given": "Propulsion is enabled and no isolation fault is active.",
+        "when": "An isolation fault is detected.",
+        "then": "The system disables propulsion and requests high-voltage shutdown."
+      },
+      "generated": {
+        "given": "Propulsion is enabled",
+        "when": "An isolation fault is detected",
+        "then": "The system disables propulsion and requests high-voltage shutdown"
+      }
+    },
+    {
+      "review_id": "REVIEW-071",
+      "requirement_id": "REQ-024",
+      "strategy": "structured",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Enabled propulsion supports observing its disablement on fault detection.",
+        "trigger_correctness": "When detects an isolation fault.",
+        "expected_behavior_correctness": "Then both disables propulsion and requests HV shutdown.",
+        "condition_boundary_coverage": "The enabled-state guard and both required actions are preserved.",
+        "unsupported_behavior": "Initially absent fault, where stated, is compatible detection setup."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "If an isolation fault is detected while propulsion is enabled, the system shall disable propulsion and request high-voltage shutdown.",
+      "reference": {
+        "given": "Propulsion is enabled and no isolation fault is active.",
+        "when": "An isolation fault is detected.",
+        "then": "The system disables propulsion and requests high-voltage shutdown."
+      },
+      "generated": {
+        "given": "Propulsion is enabled and no isolation fault has been detected.",
+        "when": "An isolation fault is detected.",
+        "then": "The system disables propulsion and requests high-voltage shutdown."
+      }
+    },
+    {
+      "review_id": "REVIEW-072",
+      "requirement_id": "REQ-024",
+      "strategy": "few_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Enabled propulsion supports observing its disablement on fault detection.",
+        "trigger_correctness": "When detects an isolation fault.",
+        "expected_behavior_correctness": "Then both disables propulsion and requests HV shutdown.",
+        "condition_boundary_coverage": "The enabled-state guard and both required actions are preserved.",
+        "unsupported_behavior": "Initially absent fault, where stated, is compatible detection setup."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "If an isolation fault is detected while propulsion is enabled, the system shall disable propulsion and request high-voltage shutdown.",
+      "reference": {
+        "given": "Propulsion is enabled and no isolation fault is active.",
+        "when": "An isolation fault is detected.",
+        "then": "The system disables propulsion and requests high-voltage shutdown."
+      },
+      "generated": {
+        "given": "Propulsion is enabled and no isolation fault is detected.",
+        "when": "An isolation fault is detected.",
+        "then": "The system disables propulsion and requests high-voltage shutdown."
+      }
+    },
+    {
+      "review_id": "REVIEW-073",
+      "requirement_id": "REQ-025",
+      "strategy": "zero_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Temperature below -20 C and inhibited DC charging establish the guarded scenario.",
+        "trigger_correctness": "A valid charging request exercises the DC charging prohibition in context.",
+        "expected_behavior_correctness": "Then keeps DC fast charging inhibited; not starting is equivalent here.",
+        "condition_boundary_coverage": "The strict temperature guard and valid request are retained.",
+        "unsupported_behavior": "No behavior at exactly -20 C or extra shutdown action is invented."
+      },
+      "reference_notes": "A valid request is interpreted in the stated DC fast charging context; no behavior at exactly -20 C is inferred.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "If battery temperature is below -20°C, DC fast charging shall remain inhibited even when a valid charging request is present.",
+      "reference": {
+        "given": "Battery temperature is below -20°C and DC fast charging is disabled.",
+        "when": "A valid DC fast charging request is received.",
+        "then": "DC fast charging remains inhibited."
+      },
+      "generated": {
+        "given": "Battery temperature is below -20°C and DC fast charging is inhibited",
+        "when": "A valid DC fast charging request is present",
+        "then": "DC fast charging remains inhibited"
+      }
+    },
+    {
+      "review_id": "REVIEW-074",
+      "requirement_id": "REQ-025",
+      "strategy": "structured",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Temperature below -20 C and inhibited DC charging establish the guarded scenario.",
+        "trigger_correctness": "A valid charging request exercises the DC charging prohibition in context.",
+        "expected_behavior_correctness": "Then keeps DC fast charging inhibited; not starting is equivalent here.",
+        "condition_boundary_coverage": "The strict temperature guard and valid request are retained.",
+        "unsupported_behavior": "No behavior at exactly -20 C or extra shutdown action is invented."
+      },
+      "reference_notes": "A valid request is interpreted in the stated DC fast charging context; no behavior at exactly -20 C is inferred.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "If battery temperature is below -20°C, DC fast charging shall remain inhibited even when a valid charging request is present.",
+      "reference": {
+        "given": "Battery temperature is below -20°C and DC fast charging is disabled.",
+        "when": "A valid DC fast charging request is received.",
+        "then": "DC fast charging remains inhibited."
+      },
+      "generated": {
+        "given": "The battery temperature is below -20°C and DC fast charging is inhibited.",
+        "when": "A valid DC fast charging request is present.",
+        "then": "DC fast charging remains inhibited and does not start."
+      }
+    },
+    {
+      "review_id": "REVIEW-075",
+      "requirement_id": "REQ-025",
+      "strategy": "few_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Temperature below -20 C and inhibited DC charging establish the guarded scenario.",
+        "trigger_correctness": "A valid charging request exercises the DC charging prohibition in context.",
+        "expected_behavior_correctness": "Then keeps DC fast charging inhibited; not starting is equivalent here.",
+        "condition_boundary_coverage": "The strict temperature guard and valid request are retained.",
+        "unsupported_behavior": "No behavior at exactly -20 C or extra shutdown action is invented."
+      },
+      "reference_notes": "A valid request is interpreted in the stated DC fast charging context; no behavior at exactly -20 C is inferred.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "If battery temperature is below -20°C, DC fast charging shall remain inhibited even when a valid charging request is present.",
+      "reference": {
+        "given": "Battery temperature is below -20°C and DC fast charging is disabled.",
+        "when": "A valid DC fast charging request is received.",
+        "then": "DC fast charging remains inhibited."
+      },
+      "generated": {
+        "given": "Battery temperature is below -20°C and DC fast charging is inhibited.",
+        "when": "A valid charging request is received.",
+        "then": "DC fast charging remains inhibited."
+      }
+    },
+    {
+      "review_id": "REVIEW-076",
+      "requirement_id": "REQ-026",
+      "strategy": "zero_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "An enabled actuator output permits observing disablement.",
+        "trigger_correctness": "When receives a valid shutdown request.",
+        "expected_behavior_correctness": "Then disables the output within 50 ms of the request.",
+        "condition_boundary_coverage": "Request validity and the response deadline are explicit.",
+        "unsupported_behavior": "An initially absent shutdown request, where stated, is minimal event setup."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "After receiving a valid shutdown request, the system shall disable the actuator output within 50 ms.",
+      "reference": {
+        "given": "The actuator output is enabled.",
+        "when": "A valid shutdown request is received.",
+        "then": "The system disables the actuator output within 50 ms."
+      },
+      "generated": {
+        "given": "The actuator output is enabled",
+        "when": "The system receives a valid shutdown request",
+        "then": "The system disables the actuator output within 50 ms of receiving the request"
+      }
+    },
+    {
+      "review_id": "REVIEW-077",
+      "requirement_id": "REQ-026",
+      "strategy": "structured",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "An enabled actuator output permits observing disablement.",
+        "trigger_correctness": "When receives a valid shutdown request.",
+        "expected_behavior_correctness": "Then disables the output within 50 ms of the request.",
+        "condition_boundary_coverage": "Request validity and the response deadline are explicit.",
+        "unsupported_behavior": "An initially absent shutdown request, where stated, is minimal event setup."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "After receiving a valid shutdown request, the system shall disable the actuator output within 50 ms.",
+      "reference": {
+        "given": "The actuator output is enabled.",
+        "when": "A valid shutdown request is received.",
+        "then": "The system disables the actuator output within 50 ms."
+      },
+      "generated": {
+        "given": "The actuator output is enabled.",
+        "when": "The system receives a valid shutdown request.",
+        "then": "The system disables the actuator output within 50 ms of receiving the valid shutdown request."
+      }
+    },
+    {
+      "review_id": "REVIEW-078",
+      "requirement_id": "REQ-026",
+      "strategy": "few_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "An enabled actuator output permits observing disablement.",
+        "trigger_correctness": "When receives a valid shutdown request.",
+        "expected_behavior_correctness": "Then disables the output within 50 ms of the request.",
+        "condition_boundary_coverage": "Request validity and the response deadline are explicit.",
+        "unsupported_behavior": "An initially absent shutdown request, where stated, is minimal event setup."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "After receiving a valid shutdown request, the system shall disable the actuator output within 50 ms.",
+      "reference": {
+        "given": "The actuator output is enabled.",
+        "when": "A valid shutdown request is received.",
+        "then": "The system disables the actuator output within 50 ms."
+      },
+      "generated": {
+        "given": "The actuator output is enabled and no shutdown request has been received.",
+        "when": "A valid shutdown request is received.",
+        "then": "The system disables the actuator output within 50 ms of receiving the request."
+      }
+    },
+    {
+      "review_id": "REVIEW-079",
+      "requirement_id": "REQ-027",
+      "strategy": "zero_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "An unset fault or established sensor difference provides a coherent duration-test setup.",
+        "trigger_correctness": "When sustains a difference above 10% for longer than 100 ms.",
+        "expected_behavior_correctness": "Then sets the pedal plausibility fault.",
+        "condition_boundary_coverage": "Both strict difference and strict duration limits are preserved.",
+        "unsupported_behavior": "No numerical individual sensor values or extra plausibility criteria are introduced."
+      },
+      "reference_notes": "An already excessive difference followed by elapsed time is valid; a new threshold crossing is not mandatory. The reference's otherwise-valid individual sensors are not required.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "If accelerator pedal sensor 1 and sensor 2 differ by more than 10% for longer than 100 ms, the system shall set a pedal plausibility fault.",
+      "reference": {
+        "given": "Both accelerator pedal sensors are valid and their difference is 10% or less.",
+        "when": "The sensor difference exceeds 10% continuously for more than 100 ms.",
+        "then": "The system sets a pedal plausibility fault."
+      },
+      "generated": {
+        "given": "Accelerator pedal sensor 1 and sensor 2 differ by more than 10%",
+        "when": "The difference persists for longer than 100 ms",
+        "then": "The system sets a pedal plausibility fault"
+      }
+    },
+    {
+      "review_id": "REVIEW-080",
+      "requirement_id": "REQ-027",
+      "strategy": "structured",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "An unset fault or established sensor difference provides a coherent duration-test setup.",
+        "trigger_correctness": "When sustains a difference above 10% for longer than 100 ms.",
+        "expected_behavior_correctness": "Then sets the pedal plausibility fault.",
+        "condition_boundary_coverage": "Both strict difference and strict duration limits are preserved.",
+        "unsupported_behavior": "No numerical individual sensor values or extra plausibility criteria are introduced."
+      },
+      "reference_notes": "An already excessive difference followed by elapsed time is valid; a new threshold crossing is not mandatory. The reference's otherwise-valid individual sensors are not required.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "If accelerator pedal sensor 1 and sensor 2 differ by more than 10% for longer than 100 ms, the system shall set a pedal plausibility fault.",
+      "reference": {
+        "given": "Both accelerator pedal sensors are valid and their difference is 10% or less.",
+        "when": "The sensor difference exceeds 10% continuously for more than 100 ms.",
+        "then": "The system sets a pedal plausibility fault."
+      },
+      "generated": {
+        "given": "The pedal plausibility fault is not set, and accelerator pedal sensor 1 and sensor 2 do not differ by more than 10%.",
+        "when": "The difference between accelerator pedal sensor 1 and sensor 2 becomes greater than 10% and remains continuously greater than 10% for longer than 100 ms.",
+        "then": "The system sets the pedal plausibility fault."
+      }
+    },
+    {
+      "review_id": "REVIEW-081",
+      "requirement_id": "REQ-027",
+      "strategy": "few_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "An unset fault or established sensor difference provides a coherent duration-test setup.",
+        "trigger_correctness": "When sustains a difference above 10% for longer than 100 ms.",
+        "expected_behavior_correctness": "Then sets the pedal plausibility fault.",
+        "condition_boundary_coverage": "Both strict difference and strict duration limits are preserved.",
+        "unsupported_behavior": "No numerical individual sensor values or extra plausibility criteria are introduced."
+      },
+      "reference_notes": "An already excessive difference followed by elapsed time is valid; a new threshold crossing is not mandatory. The reference's otherwise-valid individual sensors are not required.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "If accelerator pedal sensor 1 and sensor 2 differ by more than 10% for longer than 100 ms, the system shall set a pedal plausibility fault.",
+      "reference": {
+        "given": "Both accelerator pedal sensors are valid and their difference is 10% or less.",
+        "when": "The sensor difference exceeds 10% continuously for more than 100 ms.",
+        "then": "The system sets a pedal plausibility fault."
+      },
+      "generated": {
+        "given": "The pedal plausibility fault is not set.",
+        "when": "Accelerator pedal sensor 1 and sensor 2 differ by more than 10% for longer than 100 ms.",
+        "then": "The system sets the pedal plausibility fault."
+      }
+    },
+    {
+      "review_id": "REVIEW-082",
+      "requirement_id": "REQ-028",
+      "strategy": "zero_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "SOC below 15% and unplugged state provide the required request guards.",
+        "trigger_correctness": "When requests cabin preconditioning.",
+        "expected_behavior_correctness": "Then rejects that request; not starting is consistent with rejection.",
+        "condition_boundary_coverage": "Both guards and the request condition remain explicit.",
+        "unsupported_behavior": "An initially absent request, where stated, supports a new request event."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When battery SOC is below 15% and cabin preconditioning is requested while the vehicle is unplugged, the system shall reject the preconditioning request.",
+      "reference": {
+        "given": "Battery SOC is below 15%, the vehicle is unplugged, and cabin preconditioning is inactive.",
+        "when": "A cabin preconditioning request is received.",
+        "then": "The system rejects the preconditioning request."
+      },
+      "generated": {
+        "given": "Battery SOC is below 15% and the vehicle is unplugged",
+        "when": "Cabin preconditioning is requested",
+        "then": "The system rejects the preconditioning request"
+      }
+    },
+    {
+      "review_id": "REVIEW-083",
+      "requirement_id": "REQ-028",
+      "strategy": "structured",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "SOC below 15% and unplugged state provide the required request guards.",
+        "trigger_correctness": "When requests cabin preconditioning.",
+        "expected_behavior_correctness": "Then rejects that request; not starting is consistent with rejection.",
+        "condition_boundary_coverage": "Both guards and the request condition remain explicit.",
+        "unsupported_behavior": "An initially absent request, where stated, supports a new request event."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When battery SOC is below 15% and cabin preconditioning is requested while the vehicle is unplugged, the system shall reject the preconditioning request.",
+      "reference": {
+        "given": "Battery SOC is below 15%, the vehicle is unplugged, and cabin preconditioning is inactive.",
+        "when": "A cabin preconditioning request is received.",
+        "then": "The system rejects the preconditioning request."
+      },
+      "generated": {
+        "given": "The battery SOC is below 15%, the vehicle is unplugged, and no cabin preconditioning request has occurred yet.",
+        "when": "Cabin preconditioning is requested.",
+        "then": "The system rejects the cabin preconditioning request and does not start cabin preconditioning."
+      }
+    },
+    {
+      "review_id": "REVIEW-084",
+      "requirement_id": "REQ-028",
+      "strategy": "few_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "SOC below 15% and unplugged state provide the required request guards.",
+        "trigger_correctness": "When requests cabin preconditioning.",
+        "expected_behavior_correctness": "Then rejects that request; not starting is consistent with rejection.",
+        "condition_boundary_coverage": "Both guards and the request condition remain explicit.",
+        "unsupported_behavior": "An initially absent request, where stated, supports a new request event."
+      },
+      "reference_notes": "The manual reference is compatible; equivalent wording and minimal setup differences are accepted.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When battery SOC is below 15% and cabin preconditioning is requested while the vehicle is unplugged, the system shall reject the preconditioning request.",
+      "reference": {
+        "given": "Battery SOC is below 15%, the vehicle is unplugged, and cabin preconditioning is inactive.",
+        "when": "A cabin preconditioning request is received.",
+        "then": "The system rejects the preconditioning request."
+      },
+      "generated": {
+        "given": "Battery SOC is below 15% and the vehicle is unplugged.",
+        "when": "Cabin preconditioning is requested.",
+        "then": "The system rejects the preconditioning request."
+      }
+    },
+    {
+      "review_id": "REVIEW-085",
+      "requirement_id": "REQ-029",
+      "strategy": "zero_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "An active fault and available signal values support confirmation-time capture.",
+        "trigger_correctness": "When confirms the active diagnostic fault.",
+        "expected_behavior_correctness": "Then stores voltage, SOC, speed and controller temperature from confirmation time.",
+        "condition_boundary_coverage": "All four fields and the confirmation-time relationship are preserved.",
+        "unsupported_behavior": "Known or available signal values support storage and do not prescribe extra behavior."
+      },
+      "reference_notes": "Known/available signal values support the required capture; neither wording adds periodic logging or another response.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When a diagnostic fault is active, the system shall store a freeze-frame containing battery voltage, battery SOC, vehicle speed, and controller temperature at the time the fault is confirmed.",
+      "reference": {
+        "given": "The monitored diagnostic fault is not yet confirmed.",
+        "when": "The diagnostic fault becomes confirmed.",
+        "then": "The system stores a freeze-frame containing battery voltage, battery SOC, vehicle speed, and controller temperature from the confirmation time."
+      },
+      "generated": {
+        "given": "A diagnostic fault is active, and battery voltage, battery SOC, vehicle speed, and controller temperature have known values",
+        "when": "The diagnostic fault is confirmed",
+        "then": "The system stores a freeze-frame containing the battery voltage, battery SOC, vehicle speed, and controller temperature values captured at the time the fault is confirmed"
+      }
+    },
+    {
+      "review_id": "REVIEW-086",
+      "requirement_id": "REQ-029",
+      "strategy": "structured",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "An active fault and available signal values support confirmation-time capture.",
+        "trigger_correctness": "When confirms the active diagnostic fault.",
+        "expected_behavior_correctness": "Then stores voltage, SOC, speed and controller temperature from confirmation time.",
+        "condition_boundary_coverage": "All four fields and the confirmation-time relationship are preserved.",
+        "unsupported_behavior": "Known or available signal values support storage and do not prescribe extra behavior."
+      },
+      "reference_notes": "Known/available signal values support the required capture; neither wording adds periodic logging or another response.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When a diagnostic fault is active, the system shall store a freeze-frame containing battery voltage, battery SOC, vehicle speed, and controller temperature at the time the fault is confirmed.",
+      "reference": {
+        "given": "The monitored diagnostic fault is not yet confirmed.",
+        "when": "The diagnostic fault becomes confirmed.",
+        "then": "The system stores a freeze-frame containing battery voltage, battery SOC, vehicle speed, and controller temperature from the confirmation time."
+      },
+      "generated": {
+        "given": "A diagnostic fault is active, and battery voltage, battery SOC, vehicle speed, and controller temperature are available for capture.",
+        "when": "The active diagnostic fault is confirmed.",
+        "then": "The system stores a freeze-frame containing the battery voltage, battery SOC, vehicle speed, and controller temperature values at the time the fault is confirmed."
+      }
+    },
+    {
+      "review_id": "REVIEW-087",
+      "requirement_id": "REQ-029",
+      "strategy": "few_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "An active fault and available signal values support confirmation-time capture.",
+        "trigger_correctness": "When confirms the active diagnostic fault.",
+        "expected_behavior_correctness": "Then stores voltage, SOC, speed and controller temperature from confirmation time.",
+        "condition_boundary_coverage": "All four fields and the confirmation-time relationship are preserved.",
+        "unsupported_behavior": "Known or available signal values support storage and do not prescribe extra behavior."
+      },
+      "reference_notes": "Known/available signal values support the required capture; neither wording adds periodic logging or another response.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "When a diagnostic fault is active, the system shall store a freeze-frame containing battery voltage, battery SOC, vehicle speed, and controller temperature at the time the fault is confirmed.",
+      "reference": {
+        "given": "The monitored diagnostic fault is not yet confirmed.",
+        "when": "The diagnostic fault becomes confirmed.",
+        "then": "The system stores a freeze-frame containing battery voltage, battery SOC, vehicle speed, and controller temperature from the confirmation time."
+      },
+      "generated": {
+        "given": "A diagnostic fault is active and the current battery voltage, battery SOC, vehicle speed, and controller temperature are available.",
+        "when": "The diagnostic fault is confirmed.",
+        "then": "The system stores a freeze-frame containing the battery voltage, battery SOC, vehicle speed, and controller temperature values from the time the fault is confirmed."
+      }
+    },
+    {
+      "review_id": "REVIEW-088",
+      "requirement_id": "REQ-030",
+      "strategy": "zero_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Closing in progress and unconfirmed closure establish the required interval.",
+        "trigger_correctness": "When any enablement prerequisite becomes invalid.",
+        "expected_behavior_correctness": "Then aborts the closing sequence.",
+        "condition_boundary_coverage": "The unconfirmed-closure guard and any-prerequisite scope remain explicit.",
+        "unsupported_behavior": "No specific service-disconnect, interlock or isolation prerequisite is invented."
+      },
+      "reference_notes": "The reference names service disconnect, interlock and isolation prerequisites absent from the requirement. The generated abstract any-prerequisite event correctly avoids those additions.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "If any prerequisite for high-voltage contactor enablement becomes invalid before contactor closure is confirmed, the system shall abort the contactor closing sequence.",
+      "reference": {
+        "given": "The high-voltage contactor closing sequence has started but closure is not yet confirmed.",
+        "when": "The service disconnect opens, the interlock loop becomes invalid, or an isolation fault is detected.",
+        "then": "The system aborts the contactor closing sequence."
+      },
+      "generated": {
+        "given": "The high-voltage contactor closing sequence is in progress, contactor closure has not been confirmed, and all enablement prerequisites are valid",
+        "when": "Any prerequisite for high-voltage contactor enablement becomes invalid",
+        "then": "The system aborts the contactor closing sequence"
+      }
+    },
+    {
+      "review_id": "REVIEW-089",
+      "requirement_id": "REQ-030",
+      "strategy": "structured",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Closing in progress and unconfirmed closure establish the required interval.",
+        "trigger_correctness": "When any enablement prerequisite becomes invalid.",
+        "expected_behavior_correctness": "Then aborts the closing sequence.",
+        "condition_boundary_coverage": "The unconfirmed-closure guard and any-prerequisite scope remain explicit.",
+        "unsupported_behavior": "No specific service-disconnect, interlock or isolation prerequisite is invented."
+      },
+      "reference_notes": "The reference names service disconnect, interlock and isolation prerequisites absent from the requirement. The generated abstract any-prerequisite event correctly avoids those additions.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "If any prerequisite for high-voltage contactor enablement becomes invalid before contactor closure is confirmed, the system shall abort the contactor closing sequence.",
+      "reference": {
+        "given": "The high-voltage contactor closing sequence has started but closure is not yet confirmed.",
+        "when": "The service disconnect opens, the interlock loop becomes invalid, or an isolation fault is detected.",
+        "then": "The system aborts the contactor closing sequence."
+      },
+      "generated": {
+        "given": "The high-voltage contactor closing sequence has started, all enablement prerequisites are valid, and contactor closure has not been confirmed.",
+        "when": "Any prerequisite for high-voltage contactor enablement becomes invalid.",
+        "then": "The system aborts the contactor closing sequence."
+      }
+    },
+    {
+      "review_id": "REVIEW-090",
+      "requirement_id": "REQ-030",
+      "strategy": "few_shot",
+      "rubric_version": "1.0",
+      "scores": {
+        "precondition_correctness": 2,
+        "trigger_correctness": 2,
+        "expected_behavior_correctness": 2,
+        "condition_boundary_coverage": 2,
+        "unsupported_behavior": 2
+      },
+      "rationales": {
+        "precondition_correctness": "Closing in progress and unconfirmed closure establish the required interval.",
+        "trigger_correctness": "When any enablement prerequisite becomes invalid.",
+        "expected_behavior_correctness": "Then aborts the closing sequence.",
+        "condition_boundary_coverage": "The unconfirmed-closure guard and any-prerequisite scope remain explicit.",
+        "unsupported_behavior": "No specific service-disconnect, interlock or isolation prerequisite is invented."
+      },
+      "reference_notes": "The reference names service disconnect, interlock and isolation prerequisites absent from the requirement. The generated abstract any-prerequisite event correctly avoids those additions.",
+      "reviewer": "OpenAI assistant in this project session",
+      "reviewer_type": "ai_assisted",
+      "review_date": "2026-11-18",
+      "requirement": "If any prerequisite for high-voltage contactor enablement becomes invalid before contactor closure is confirmed, the system shall abort the contactor closing sequence.",
+      "reference": {
+        "given": "The high-voltage contactor closing sequence has started but closure is not yet confirmed.",
+        "when": "The service disconnect opens, the interlock loop becomes invalid, or an isolation fault is detected.",
+        "then": "The system aborts the contactor closing sequence."
+      },
+      "generated": {
+        "given": "The high-voltage contactor closing sequence is in progress, all enablement prerequisites are valid, and contactor closure is not confirmed.",
+        "when": "Any prerequisite for high-voltage contactor enablement becomes invalid.",
+        "then": "The system aborts the contactor closing sequence."
+      }
+    }
+  ]
+}

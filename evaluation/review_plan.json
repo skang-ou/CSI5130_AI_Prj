@@ -2,9 +2,9 @@
   "plan_version": "1.0",
   "rubric_file": "evaluation/rubric.json",
   "rubric_version": "1.0",
-  "rubric_sha256": "234d6c3c95027c096392af9ed6fe5b7ee9724ade9414334bf00ead40b02b1ed4",
+  "rubric_sha256": "246801e136ee31484add340289ba4a410f0a540f6a22d973e03943f0015cc5c7",
   "rubric_document_sha256": "8e610cf862c2bc6293914a60dfc4bbc16474561d9211722b03497192546a3949",
-  "scope": "Identical scoring policy assigned to all outputs; semantic scoring is pending task #4.",
+  "scope": "Identical rubric applied to all 90 outputs; authored semantic ratings complete in evaluation/reviews.json.",
   "source_sha256": {
     "data/requirements.csv": "a9ebe95ec0559ea41dbda73400e689f2266a618ad9ebc094005e80a430c159a2",
     "results/zero_shot_results.csv": "dc7654a0facd1129ad7232808125c6f5f7321c42a6d2258856e273568050269e",
@@ -45,7 +45,7 @@
       "difficulty": "Easy",
       "strategy": "zero_shot",
       "result_file": "results/zero_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-002",
@@ -53,7 +53,7 @@
       "difficulty": "Easy",
       "strategy": "structured",
       "result_file": "results/structured_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-003",
@@ -61,7 +61,7 @@
       "difficulty": "Easy",
       "strategy": "few_shot",
       "result_file": "results/few_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-004",
@@ -69,7 +69,7 @@
       "difficulty": "Easy",
       "strategy": "zero_shot",
       "result_file": "results/zero_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-005",
@@ -77,7 +77,7 @@
       "difficulty": "Easy",
       "strategy": "structured",
       "result_file": "results/structured_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-006",
@@ -85,7 +85,7 @@
       "difficulty": "Easy",
       "strategy": "few_shot",
       "result_file": "results/few_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-007",
@@ -93,7 +93,7 @@
       "difficulty": "Easy",
       "strategy": "zero_shot",
       "result_file": "results/zero_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-008",
@@ -101,7 +101,7 @@
       "difficulty": "Easy",
       "strategy": "structured",
       "result_file": "results/structured_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-009",
@@ -109,7 +109,7 @@
       "difficulty": "Easy",
       "strategy": "few_shot",
       "result_file": "results/few_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-010",
@@ -117,7 +117,7 @@
       "difficulty": "Easy",
       "strategy": "zero_shot",
       "result_file": "results/zero_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-011",
@@ -125,7 +125,7 @@
       "difficulty": "Easy",
       "strategy": "structured",
       "result_file": "results/structured_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-012",
@@ -133,7 +133,7 @@
       "difficulty": "Easy",
       "strategy": "few_shot",
       "result_file": "results/few_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-013",
@@ -141,7 +141,7 @@
       "difficulty": "Easy",
       "strategy": "zero_shot",
       "result_file": "results/zero_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-014",
@@ -149,7 +149,7 @@
       "difficulty": "Easy",
       "strategy": "structured",
       "result_file": "results/structured_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-015",
@@ -157,7 +157,7 @@
       "difficulty": "Easy",
       "strategy": "few_shot",
       "result_file": "results/few_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-016",
@@ -165,7 +165,7 @@
       "difficulty": "Easy",
       "strategy": "zero_shot",
       "result_file": "results/zero_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-017",
@@ -173,7 +173,7 @@
       "difficulty": "Easy",
       "strategy": "structured",
       "result_file": "results/structured_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-018",
@@ -181,7 +181,7 @@
       "difficulty": "Easy",
       "strategy": "few_shot",
       "result_file": "results/few_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-019",
@@ -189,7 +189,7 @@
       "difficulty": "Easy",
       "strategy": "zero_shot",
       "result_file": "results/zero_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-020",
@@ -197,7 +197,7 @@
       "difficulty": "Easy",
       "strategy": "structured",
       "result_file": "results/structured_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-021",
@@ -205,7 +205,7 @@
       "difficulty": "Easy",
       "strategy": "few_shot",
       "result_file": "results/few_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-022",
@@ -213,7 +213,7 @@
       "difficulty": "Easy",
       "strategy": "zero_shot",
       "result_file": "results/zero_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-023",
@@ -221,7 +221,7 @@
       "difficulty": "Easy",
       "strategy": "structured",
       "result_file": "results/structured_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-024",
@@ -229,7 +229,7 @@
       "difficulty": "Easy",
       "strategy": "few_shot",
       "result_file": "results/few_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-025",
@@ -237,7 +237,7 @@
       "difficulty": "Easy",
       "strategy": "zero_shot",
       "result_file": "results/zero_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-026",
@@ -245,7 +245,7 @@
       "difficulty": "Easy",
       "strategy": "structured",
       "result_file": "results/structured_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-027",
@@ -253,7 +253,7 @@
       "difficulty": "Easy",
       "strategy": "few_shot",
       "result_file": "results/few_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-028",
@@ -261,7 +261,7 @@
       "difficulty": "Easy",
       "strategy": "zero_shot",
       "result_file": "results/zero_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-029",
@@ -269,7 +269,7 @@
       "difficulty": "Easy",
       "strategy": "structured",
       "result_file": "results/structured_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-030",
@@ -277,7 +277,7 @@
       "difficulty": "Easy",
       "strategy": "few_shot",
       "result_file": "results/few_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-031",
@@ -285,7 +285,7 @@
       "difficulty": "Medium",
       "strategy": "zero_shot",
       "result_file": "results/zero_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-032",
@@ -293,7 +293,7 @@
       "difficulty": "Medium",
       "strategy": "structured",
       "result_file": "results/structured_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-033",
@@ -301,7 +301,7 @@
       "difficulty": "Medium",
       "strategy": "few_shot",
       "result_file": "results/few_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-034",
@@ -309,7 +309,7 @@
       "difficulty": "Medium",
       "strategy": "zero_shot",
       "result_file": "results/zero_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-035",
@@ -317,7 +317,7 @@
       "difficulty": "Medium",
       "strategy": "structured",
       "result_file": "results/structured_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-036",
@@ -325,7 +325,7 @@
       "difficulty": "Medium",
       "strategy": "few_shot",
       "result_file": "results/few_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-037",
@@ -333,7 +333,7 @@
       "difficulty": "Medium",
       "strategy": "zero_shot",
       "result_file": "results/zero_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-038",
@@ -341,7 +341,7 @@
       "difficulty": "Medium",
       "strategy": "structured",
       "result_file": "results/structured_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-039",
@@ -349,7 +349,7 @@
       "difficulty": "Medium",
       "strategy": "few_shot",
       "result_file": "results/few_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-040",
@@ -357,7 +357,7 @@
       "difficulty": "Medium",
       "strategy": "zero_shot",
       "result_file": "results/zero_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-041",
@@ -365,7 +365,7 @@
       "difficulty": "Medium",
       "strategy": "structured",
       "result_file": "results/structured_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-042",
@@ -373,7 +373,7 @@
       "difficulty": "Medium",
       "strategy": "few_shot",
       "result_file": "results/few_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-043",
@@ -381,7 +381,7 @@
       "difficulty": "Medium",
       "strategy": "zero_shot",
       "result_file": "results/zero_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-044",
@@ -389,7 +389,7 @@
       "difficulty": "Medium",
       "strategy": "structured",
       "result_file": "results/structured_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-045",
@@ -397,7 +397,7 @@
       "difficulty": "Medium",
       "strategy": "few_shot",
       "result_file": "results/few_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-046",
@@ -405,7 +405,7 @@
       "difficulty": "Medium",
       "strategy": "zero_shot",
       "result_file": "results/zero_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-047",
@@ -413,7 +413,7 @@
       "difficulty": "Medium",
       "strategy": "structured",
       "result_file": "results/structured_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-048",
@@ -421,7 +421,7 @@
       "difficulty": "Medium",
       "strategy": "few_shot",
       "result_file": "results/few_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-049",
@@ -429,7 +429,7 @@
       "difficulty": "Medium",
       "strategy": "zero_shot",
       "result_file": "results/zero_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-050",
@@ -437,7 +437,7 @@
       "difficulty": "Medium",
       "strategy": "structured",
       "result_file": "results/structured_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-051",
@@ -445,7 +445,7 @@
       "difficulty": "Medium",
       "strategy": "few_shot",
       "result_file": "results/few_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-052",
@@ -453,7 +453,7 @@
       "difficulty": "Medium",
       "strategy": "zero_shot",
       "result_file": "results/zero_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-053",
@@ -461,7 +461,7 @@
       "difficulty": "Medium",
       "strategy": "structured",
       "result_file": "results/structured_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-054",
@@ -469,7 +469,7 @@
       "difficulty": "Medium",
       "strategy": "few_shot",
       "result_file": "results/few_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-055",
@@ -477,7 +477,7 @@
       "difficulty": "Medium",
       "strategy": "zero_shot",
       "result_file": "results/zero_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-056",
@@ -485,7 +485,7 @@
       "difficulty": "Medium",
       "strategy": "structured",
       "result_file": "results/structured_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-057",
@@ -493,7 +493,7 @@
       "difficulty": "Medium",
       "strategy": "few_shot",
       "result_file": "results/few_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-058",
@@ -501,7 +501,7 @@
       "difficulty": "Medium",
       "strategy": "zero_shot",
       "result_file": "results/zero_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-059",
@@ -509,7 +509,7 @@
       "difficulty": "Medium",
       "strategy": "structured",
       "result_file": "results/structured_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-060",
@@ -517,7 +517,7 @@
       "difficulty": "Medium",
       "strategy": "few_shot",
       "result_file": "results/few_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-061",
@@ -525,7 +525,7 @@
       "difficulty": "Hard",
       "strategy": "zero_shot",
       "result_file": "results/zero_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-062",
@@ -533,7 +533,7 @@
       "difficulty": "Hard",
       "strategy": "structured",
       "result_file": "results/structured_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-063",
@@ -541,7 +541,7 @@
       "difficulty": "Hard",
       "strategy": "few_shot",
       "result_file": "results/few_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-064",
@@ -549,7 +549,7 @@
       "difficulty": "Hard",
       "strategy": "zero_shot",
       "result_file": "results/zero_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-065",
@@ -557,7 +557,7 @@
       "difficulty": "Hard",
       "strategy": "structured",
       "result_file": "results/structured_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-066",
@@ -565,7 +565,7 @@
       "difficulty": "Hard",
       "strategy": "few_shot",
       "result_file": "results/few_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-067",
@@ -573,7 +573,7 @@
       "difficulty": "Hard",
       "strategy": "zero_shot",
       "result_file": "results/zero_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-068",
@@ -581,7 +581,7 @@
       "difficulty": "Hard",
       "strategy": "structured",
       "result_file": "results/structured_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-069",
@@ -589,7 +589,7 @@
       "difficulty": "Hard",
       "strategy": "few_shot",
       "result_file": "results/few_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-070",
@@ -597,7 +597,7 @@
       "difficulty": "Hard",
       "strategy": "zero_shot",
       "result_file": "results/zero_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-071",
@@ -605,7 +605,7 @@
       "difficulty": "Hard",
       "strategy": "structured",
       "result_file": "results/structured_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-072",
@@ -613,7 +613,7 @@
       "difficulty": "Hard",
       "strategy": "few_shot",
       "result_file": "results/few_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-073",
@@ -621,7 +621,7 @@
       "difficulty": "Hard",
       "strategy": "zero_shot",
       "result_file": "results/zero_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-074",
@@ -629,7 +629,7 @@
       "difficulty": "Hard",
       "strategy": "structured",
       "result_file": "results/structured_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-075",
@@ -637,7 +637,7 @@
       "difficulty": "Hard",
       "strategy": "few_shot",
       "result_file": "results/few_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-076",
@@ -645,7 +645,7 @@
       "difficulty": "Hard",
       "strategy": "zero_shot",
       "result_file": "results/zero_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-077",
@@ -653,7 +653,7 @@
       "difficulty": "Hard",
       "strategy": "structured",
       "result_file": "results/structured_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-078",
@@ -661,7 +661,7 @@
       "difficulty": "Hard",
       "strategy": "few_shot",
       "result_file": "results/few_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-079",
@@ -669,7 +669,7 @@
       "difficulty": "Hard",
       "strategy": "zero_shot",
       "result_file": "results/zero_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-080",
@@ -677,7 +677,7 @@
       "difficulty": "Hard",
       "strategy": "structured",
       "result_file": "results/structured_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-081",
@@ -685,7 +685,7 @@
       "difficulty": "Hard",
       "strategy": "few_shot",
       "result_file": "results/few_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-082",
@@ -693,7 +693,7 @@
       "difficulty": "Hard",
       "strategy": "zero_shot",
       "result_file": "results/zero_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-083",
@@ -701,7 +701,7 @@
       "difficulty": "Hard",
       "strategy": "structured",
       "result_file": "results/structured_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-084",
@@ -709,7 +709,7 @@
       "difficulty": "Hard",
       "strategy": "few_shot",
       "result_file": "results/few_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-085",
@@ -717,7 +717,7 @@
       "difficulty": "Hard",
       "strategy": "zero_shot",
       "result_file": "results/zero_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-086",
@@ -725,7 +725,7 @@
       "difficulty": "Hard",
       "strategy": "structured",
       "result_file": "results/structured_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-087",
@@ -733,7 +733,7 @@
       "difficulty": "Hard",
       "strategy": "few_shot",
       "result_file": "results/few_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-088",
@@ -741,7 +741,7 @@
       "difficulty": "Hard",
       "strategy": "zero_shot",
       "result_file": "results/zero_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-089",
@@ -749,7 +749,7 @@
       "difficulty": "Hard",
       "strategy": "structured",
       "result_file": "results/structured_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     },
     {
       "review_id": "REVIEW-090",
@@ -757,7 +757,21 @@
       "difficulty": "Hard",
       "strategy": "few_shot",
       "result_file": "results/few_shot_results.csv",
-      "status": "pending"
+      "status": "reviewed"
     }
-  ]
+  ],
+  "metadata_repairs": [
+    {
+      "field": "criteria[*].name",
+      "reason": "Repair display labels accidentally containing preceding Markdown sections; criterion IDs, anchors, weights and policies unchanged.",
+      "previous_rubric_sha256": "234d6c3c95027c096392af9ed6fe5b7ee9724ade9414334bf00ead40b02b1ed4"
+    }
+  ],
+  "review_artifact": "evaluation/reviews.json",
+  "results_artifacts": [
+    "results/evaluation_scores.csv",
+    "results/evaluation_summary.json",
+    "results/evaluation_report.md"
+  ],
+  "review_method": "AI-generated single-reviewer ratings, unblinded, no independent human validation."
 }
