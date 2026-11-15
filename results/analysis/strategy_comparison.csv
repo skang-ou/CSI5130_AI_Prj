@@ -1,0 +1,4 @@
+strategy,scored_count,mean_total,full_score_count,precondition_correctness,trigger_correctness,expected_behavior_correctness,condition_boundary_coverage,unsupported_behavior
+zero_shot,30,9.7,26,1.9666666666666666,1.9666666666666666,1.9333333333333333,2.0,1.8333333333333333
+structured,30,10.0,30,2.0,2.0,2.0,2.0,2.0
+few_shot,30,9.866666666666667,29,2.0,2.0,1.9333333333333333,2.0,1.9333333333333333

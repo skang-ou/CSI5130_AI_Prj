@@ -1,0 +1,2 @@
+# Optional dependency for reproducible static analysis charts.
+matplotlib==3.9.4

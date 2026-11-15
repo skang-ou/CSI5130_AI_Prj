@@ -1,0 +1,10 @@
+strategy,difficulty,scored_count,mean_total
+zero_shot,Easy,10,9.9
+zero_shot,Medium,10,9.6
+zero_shot,Hard,10,9.6
+structured,Easy,10,10.0
+structured,Medium,10,10.0
+structured,Hard,10,10.0
+few_shot,Easy,10,10.0
+few_shot,Medium,10,10.0
+few_shot,Hard,10,9.6

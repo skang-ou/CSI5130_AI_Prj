@@ -1,0 +1,6 @@
+requirement_id,strategy,difficulty,total_score,points_below_maximum,precondition_correctness_loss,trigger_correctness_loss,expected_behavior_correctness_loss,condition_boundary_coverage_loss,unsupported_behavior_loss
+REQ-010,zero_shot,Easy,9,1,0,0,0,0,1
+REQ-018,zero_shot,Medium,7,3,1,1,0,0,1
+REQ-019,zero_shot,Medium,9,1,0,0,0,0,1
+REQ-023,zero_shot,Hard,6,4,0,0,2,0,2
+REQ-023,few_shot,Hard,6,4,0,0,2,0,2

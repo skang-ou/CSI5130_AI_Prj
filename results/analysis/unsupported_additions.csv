@@ -1,0 +1,4 @@
+strategy,no_unsupported_count,minor_count,material_count,scored_count
+zero_shot,26,3,1,30
+structured,30,0,0,30
+few_shot,29,0,1,30

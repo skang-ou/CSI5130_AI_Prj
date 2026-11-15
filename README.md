@@ -235,8 +235,9 @@ requirements and do not use their reference answers.
 
 **All 90 planned requirement/strategy outputs are now saved.** This confirms
 generation completion, not measured accuracy. Common-rubric scoring is now complete;
-charts and deeper comparative analysis remain. See `experiments/few_shot_run.md`
-for the generation record and the evaluation summary below for the scored results.
+tables, charts, paired comparisons, and sensitivity checks are also complete.
+See `experiments/few_shot_run.md` for the generation record and the evaluation
+and analysis sections below for the scored results.
 
 ### Rubric-Based Evaluation Results
 
@@ -275,9 +276,50 @@ Recompute results offline:
 python src/evaluator.py
 ```
 
-All 16 offline tests pass. Generation outputs, source requirements, rubric anchors
+All 19 offline tests pass. Generation outputs, source requirements, rubric anchors
 and weights remain unchanged. A display-label repair in `rubric.json` is recorded
 in `review_plan.json`; it does not change the scoring policy.
+
+### Analysis and Visualization
+
+[Analysis report](results/analysis/analysis_report.md) provides the strategy,
+criterion, difficulty, unsupported-addition, paired-comparison, and sensitivity
+results. It includes eight CSV tables and five figures, each available as PNG
+and vector SVG under [results/analysis/charts](results/analysis/charts).
+
+![Mean total rubric scores](results/analysis/charts/strategy_means.png)
+
+Key findings from these single-reviewer AI ratings:
+
+- Structured exceeds Zero-Shot on 4 requirements and ties on 26; the mean paired
+  difference is +0.3000 points out of 10.
+- Few-Shot exceeds Zero-Shot on 3 requirements and ties on 27; its mean paired
+  difference is +0.1667 points.
+- Structured and Few-Shot tie on 29 requirements. Their +0.1333 mean difference
+  comes entirely from REQ-023; removing it for sensitivity analysis makes them tie.
+  The primary results retain all 30 requirements.
+- Zero-Shot REQ-018 accounts for the only partial trigger score. Zero-Shot and
+  Few-Shot REQ-023 account for both expected-behavior score-0 cases and both
+  material unsupported-addition ratings.
+- All 90 condition/boundary scores are 2/2. This ceiling concerns one-scenario
+  fidelity; it does not demonstrate exhaustive boundary coverage.
+- Unsupported additions are separated by severity: Zero-Shot has 3 minor and
+  1 material, Structured has none, and Few-Shot has 1 material addition.
+
+These differences depend on a few judgments, including assumptions in the manual
+reference tests. They do not establish statistical significance, independently
+validated accuracy, or broad strategy superiority.
+
+Recreate the analysis without API calls, in an environment with Matplotlib:
+
+```bash
+python -m pip install -r requirements-analysis.txt
+python src/analyze_results.py
+```
+
+The analysis validates source fingerprints and preserves all ratings and generation
+files. Three analysis tests check ID-based pairing, incomplete-pair rejection,
+and leave-one-requirement-out arithmetic; the full suite has 19 passing tests.
 
 ## Expected Outcome
 
@@ -355,7 +397,8 @@ requirement-test-generator/
 │   └── few_shot_examples.json
 ├── src/
 │   ├── generator.py
-│   └── evaluator.py
+│   ├── evaluator.py
+│   └── analyze_results.py
 ├── experiments/
 │   ├── structured_sample_requirements.csv
 │   ├── structured_sample_results.csv
@@ -369,7 +412,12 @@ requirement-test-generator/
 │   ├── few_shot_results.csv
 │   ├── evaluation_scores.csv
 │   ├── evaluation_summary.json
-│   └── evaluation_report.md
+│   ├── evaluation_report.md
+│   └── analysis/
+│       ├── analysis_report.md
+│       ├── analysis_summary.json
+│       ├── charts/              # Five PNG/SVG figure pairs
+│       └── *.csv                # Eight analysis tables
 ├── evaluation/
 │   ├── rubric.md
 │   ├── rubric.json
@@ -381,7 +429,7 @@ requirement-test-generator/
 
 ## Project Status
 
-**Current Phase: Results Analysis and Visualization**
+**Current Phase: Demonstration and Reporting**
 
 Numbered tasks keep their original numbers when moved from Next Steps to Completed.
 
@@ -429,13 +477,16 @@ Numbered tasks keep their original numbers when moved from Next Steps to Complet
     -   [x] Preserved source artifacts and disclosed the unblinded AI-review limitations.
     -   [x] Implemented an offline evaluator; all 16 regression tests pass.
 
+5.  **Analyze and Visualize Results** — Completed
+    -   [x] Compared average scores and paired requirement-level differences.
+    -   [x] Analyzed trigger and expected-behavior correctness with examples.
+    -   [x] Analyzed condition/boundary ceilings and unsupported additions by severity.
+    -   [x] Created eight tables and five charts in PNG and SVG formats.
+    -   [x] Documented sensitivity checks and single-reviewer limitations.
+    -   [x] Added reproducible analysis code; all 19 offline tests pass.
+
 ### Next Steps
 
-5.  **Analyze and Visualize Results**
-    -   Compare average quality scores.
-    -   Analyze trigger and expected-behavior correctness.
-    -   Analyze boundary/condition coverage and hallucination.
-    -   Create tables and charts.
 6.  **Develop the Demonstration**
     -   Create a lightweight interface for requirement input.
     -   Allow prompting-strategy selection.

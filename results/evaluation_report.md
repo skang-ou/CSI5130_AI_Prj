@@ -164,7 +164,8 @@ Reference comparison: The manual reference is compatible; equivalent wording and
   and 30 synthetic requirements with one output per pair limit generalization.
 - A full score does not require a test suite, executable hardware tests, or every
   positive/negative branch. It means this one scenario satisfies rubric v1.0.
-- Charts and deeper paired strategy analysis remain task #5.
+- Charts, paired comparisons and sensitivity checks are available in
+  [the analysis report](analysis/analysis_report.md).
 
 ## Reproduction
 
