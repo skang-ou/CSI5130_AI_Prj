@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Requirement to Test Case</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header><span class="wordmark">REQUIREMENT / TEST</span><span>CSI-4130/5130 · Embedded systems</span></header>
+  <main>
+    <div class="intro"><p class="eyebrow">LLM test-case generator</p><h1>A requirement.<br>A test you can review.</h1><p>Explore how prompting changes the translation into Given, When, and Then.</p></div>
+    <div class="workspace">
+      <section class="input-section" aria-labelledby="input-title">
+        <h2 id="input-title">01 <span>Define the scenario</span></h2>
+        <form id="form">
+          <div class="row">
+            <div><label for="mode">Source</label><select id="mode" disabled><option value="saved">Saved experiment</option><option value="live">Live API</option></select></div>
+            <div><label for="strategy">Prompting strategy</label><select id="strategy" disabled><option value="zero_shot">Zero-Shot</option><option value="structured">Structured</option><option value="few_shot">Few-Shot</option></select></div>
+          </div>
+          <p id="mode-help" class="help">Replay recorded outputs. No API call is made.</p>
+          <label for="sample">Sample requirement</label><select id="sample" disabled><option value="">Loading samples…</option></select>
+          <label for="requirement">Requirement text</label><textarea disabled id="requirement" maxlength="5000" rows="7" required aria-describedby="requirement-help"></textarea>
+          <p id="requirement-help" class="help">Choose a sample in saved mode, or enter your own requirement in live mode.</p>
+          <label for="model">Model</label><input disabled id="model" type="text" maxlength="100" value="gpt-5.6" readonly>
+          <p id="model-help" class="help">The saved result retains its original model label.</p>
+          <button id="submit" type="submit" disabled>Show saved test <span aria-hidden="true">↗</span></button>
+        </form>
+        <p id="status" role="status" aria-live="polite">Loading the dataset…</p>
+      </section>
+      <section class="output-section" aria-labelledby="output-title">
+        <h2 id="output-title">02 <span>Review the test</span></h2>
+        <div id="placeholder"><p class="placeholder-mark" aria-hidden="true">G / W / T</p><h3>The conditions become a scenario.</h3><p>Select a strategy, then show a recorded test or generate a new one.</p></div>
+        <div id="result" hidden>
+          <p id="result-meta" class="result-meta"></p>
+          <p id="result-requirement" class="result-requirement"></p>
+          <div class="test-field"><h3>Given <span>Initial conditions</span></h3><p id="given"></p></div>
+          <div class="test-field"><h3>When <span>Event under test</span></h3><p id="when"></p></div>
+          <div class="test-field"><h3>Then <span>Expected behavior</span></h3><p id="then"></p></div>
+          <a id="download" class="download" download="demo_test_case.json">Download JSON ↓</a>
+        </div>
+        <p class="review-note">Review against the original requirement. A generated scenario is a draft, and one case does not establish complete coverage.</p>
+      </section>
+    </div>
+    <footer><p>Saved mode covers 30 requirements across all three strategies.</p><p>Local demonstration · Experiment files stay unchanged</p></footer>
+  </main>
+</body>
+</html>

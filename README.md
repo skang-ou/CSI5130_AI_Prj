@@ -276,7 +276,7 @@ Recompute results offline:
 python src/evaluator.py
 ```
 
-All 19 offline tests pass. Generation outputs, source requirements, rubric anchors
+All 28 offline tests pass. Generation outputs, source requirements, rubric anchors
 and weights remain unchanged. A display-label repair in `rubric.json` is recorded
 in `review_plan.json`; it does not change the scoring policy.
 
@@ -319,7 +319,7 @@ python src/analyze_results.py
 
 The analysis validates source fingerprints and preserves all ratings and generation
 files. Three analysis tests check ID-based pairing, incomplete-pair rejection,
-and leave-one-requirement-out arithmetic; the full suite has 19 passing tests.
+and leave-one-requirement-out arithmetic; the full suite has 28 passing tests.
 
 ## Expected Outcome
 
@@ -331,9 +331,10 @@ and identify situations in which generated test cases are accurate and
 useful, as well as cases where they may be incomplete, poorly
 structured, or introduce unsupported assumptions.
 
-A simple interactive demonstration may also allow a user to enter a
-requirement, select a prompting strategy, and view the generated
-Given-When-Then test case.
+The local interactive demonstration accepts requirement input, supports all
+three prompting strategies, and displays Given-When-Then output. It can replay
+the saved experiments without an API connection or generate a new case using
+a server-side API key.
 
 ## Technologies
 
@@ -343,12 +344,13 @@ Given-When-Then test case.
 -   CSV-based experiment datasets
 -   Python scripts for generation and evaluation
 -   Git and GitHub
--   Optional Streamlit interface for the final demonstration
+-   Local browser demonstration with Python HTTP server and HTML/CSS/JavaScript
 
 ## Running the Generator
 
 Run commands from the repository root using a Python environment with the
-`openai` package installed. Set `OPENAI_API_KEY` privately in that environment.
+`openai` package installed (`python -m pip install -r requirements.txt`).
+Set `OPENAI_API_KEY` privately in that environment.
 Do not commit or display the key.
 
 ```bash
@@ -387,6 +389,31 @@ Offline regression checks:
 python -m unittest discover -s tests -v
 ```
 
+## Interactive Demonstration
+
+Start the local browser interface from the repository root:
+
+```bash
+python -m pip install -r requirements.txt
+python demo/app.py
+```
+
+Open [http://127.0.0.1:8765](http://127.0.0.1:8765). The default **Saved experiment**
+mode replays all 30 requirements under any of the three strategies without an
+API key. **Live API** accepts custom requirement text and uses the existing
+prompts when `OPENAI_API_KEY` is set in the server environment before startup.
+The app does not automatically load local key files. Live calls can incur charges.
+
+The interface displays Given, When, Then, the strategy, model, and whether the
+output is saved or newly generated. JSON downloads are separate from the frozen
+experiment files. See [demo/README.md](demo/README.md) for setup, a two-minute
+class walkthrough, and verification details.
+
+Verification: all 28 Python tests pass, UI state checks pass with a DOM substitute,
+and local HTTP smoke checks pass for the three saved strategies. Live requests
+were tested with a mocked API; no new paid model calls were made. Browser preview
+was unavailable, so rendered layout needs a user-side check.
+
 ## Repository Structure
 
 ``` text
@@ -424,12 +451,18 @@ requirement-test-generator/
 │   ├── review_plan.json
 │   └── reviews.json
 ├── demo/
+│   ├── app.py
+│   ├── index.html
+│   ├── app.js
+│   ├── style.css
+│   └── README.md
+├── requirements.txt
 └── report/
 ```
 
 ## Project Status
 
-**Current Phase: Demonstration and Reporting**
+**Current Phase: Final Report and Presentation Preparation**
 
 Numbered tasks keep their original numbers when moved from Next Steps to Completed.
 
@@ -485,12 +518,17 @@ Numbered tasks keep their original numbers when moved from Next Steps to Complet
     -   [x] Documented sensitivity checks and single-reviewer limitations.
     -   [x] Added reproducible analysis code; all 19 offline tests pass.
 
+6.  **Develop the Demonstration** — Completed
+    -   [x] Created a local browser interface with requirement input.
+    -   [x] Added selection for Zero-Shot, Structured, and Few-Shot prompting.
+    -   [x] Displayed Given/When/Then output with source and model metadata.
+    -   [x] Added offline saved-result replay and JSON download.
+    -   [x] Reused the generator for live requests without changing experiment files.
+    -   [x] Passed 28 Python tests, UI state checks, and local HTTP smoke checks.
+    -   Browser-rendered layout still needs a user-side check; preview was unavailable.
+
 ### Next Steps
 
-6.  **Develop the Demonstration**
-    -   Create a lightweight interface for requirement input.
-    -   Allow prompting-strategy selection.
-    -   Display generated Given-When-Then output.
 7.  **Prepare the Final Report**
     -   Document data, methods, experiments, results, limitations, and
         conclusions.

@@ -1,0 +1,2 @@
+# Existing generator SDK, also used by the local demonstration.
+openai==2.48.0
