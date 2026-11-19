@@ -222,3 +222,5 @@ __marimo__/
 # Mac
 .DS_Store
 .OpenaiApikey
+ProjectDescription.md
+/presentation
