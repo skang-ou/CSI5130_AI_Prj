@@ -1,0 +1,7 @@
+# Optional dependencies for report generation and rendered-page inspection.
+reportlab==4.4.3
+pymupdf==1.26.5
+pypdf==6.21.4
+
+# Rebuild the compact report figure with the same plotting version.
+-r requirements-analysis.txt

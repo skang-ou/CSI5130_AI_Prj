@@ -414,6 +414,27 @@ and local HTTP smoke checks pass for the three saved strategies. Live requests
 were tested with a mocked API; no new paid model calls were made. Browser preview
 was unavailable, so rendered layout needs a user-side check.
 
+## Final Report
+
+The eight-page English [final report PDF](report/final_report.pdf) is prepared
+with **Sangkook Kang** as author. It includes the academic report sections,
+quantitative tables, three figures, qualitative examples, related work,
+limitations, conclusions, citations, and an explicit AI-assistance disclosure.
+Its rubric scores remain unblinded AI judgments without independent human validation.
+
+The [editable Markdown source](report/final_report.md) and
+[build instructions](report/README.md) are included. All eight rendered pages
+were visually inspected, and reported numbers were checked against the saved
+summaries. No generation outputs or review scores were changed.
+
+```bash
+python -m pip install -r requirements-report.txt
+python report/plot_report_figure.py
+python report/build_report.py
+```
+
+Review the report before submission. Creating it here does not submit it to Moodle.
+
 ## Repository Structure
 
 ``` text
@@ -458,11 +479,17 @@ requirement-test-generator/
 │   └── README.md
 ├── requirements.txt
 └── report/
+    ├── final_report.pdf
+    ├── final_report.md
+    ├── build_report.py
+    ├── plot_report_figure.py
+    ├── figures/
+    └── README.md
 ```
 
 ## Project Status
 
-**Current Phase: Final Report and Presentation Preparation**
+**Current Phase: Final Presentation and Submission Preparation**
 
 Numbered tasks keep their original numbers when moved from Next Steps to Completed.
 
@@ -527,12 +554,16 @@ Numbered tasks keep their original numbers when moved from Next Steps to Complet
     -   [x] Passed 28 Python tests, UI state checks, and local HTTP smoke checks.
     -   Browser-rendered layout still needs a user-side check; preview was unavailable.
 
+7.  **Prepare the Final Report** — Completed
+    -   [x] Prepared an eight-page English academic report with Sangkook Kang as author.
+    -   [x] Documented data, methods, experiments, results, limitations, and conclusions.
+    -   [x] Included quantitative tables, three figures, and qualitative examples.
+    -   [x] Added related work, citations, and AI-assistance acknowledgement.
+    -   [x] Saved PDF and editable Markdown with reproducible build instructions.
+    -   [x] Inspected all rendered pages and checked consistency with the saved results.
+
 ### Next Steps
 
-7.  **Prepare the Final Report**
-    -   Document data, methods, experiments, results, limitations, and
-        conclusions.
-    -   Include quantitative and qualitative analysis.
 8.  **Prepare the Final Presentation and Demo**
     -   Present the problem, solution, prompting strategies, results,
         and limitations.
@@ -540,10 +571,20 @@ Numbered tasks keep their original numbers when moved from Next Steps to Complet
 
 ## Citations and Acknowledgements
 
-References to external models, libraries, research papers, datasets, and
-other resources used in this project will be documented here as the
-project develops.
+- Brown et al. (2020), [Language Models are Few-Shot Learners](https://arxiv.org/abs/2005.14165).
+- Yuan et al. (2023, revised 2024), [No More Manual Tests? Evaluating and Improving ChatGPT for Unit Test Generation](https://arxiv.org/abs/2305.04207).
+- Cucumber, [Gherkin Reference](https://cucumber.io/docs/gherkin/reference/), for Given/When/Then terminology.
+- OpenAI, [official Python API library](https://github.com/openai/openai-python), used for generation.
+- Matplotlib, [project documentation](https://matplotlib.org/), used for analysis figures.
+- ReportLab, [official documentation](https://docs.reportlab.com/), used to build the report PDF.
+- PyMuPDF, [official documentation](https://pymupdf.readthedocs.io/en/latest/), used for PDF rendering and inspection.
 
-OpenAI models and APIs are used for LLM-based test-case generation.
-Additional libraries, tools, and research references will be added as
-they are incorporated into the project.
+The dataset and Few-Shot examples are synthetic project artifacts. Python and
+its standard library support data processing, evaluation, tests, and the local demo.
+Detailed references and access dates appear in the final report.
+
+An OpenAI assistant helped with implementation, prompt and reference handling,
+documentation, all 90 semantic ratings, analysis, and report preparation. The
+AI-authored ratings have not received independent human validation. The report
+names Sangkook Kang as project author without implying an independent correctness
+review of the assistant's contributions.
