@@ -223,4 +223,10 @@ __marimo__/
 .DS_Store
 .OpenaiApikey
 ProjectDescription.md
-/presentation
+
+# Local presentation translations and preparation records
+/presentation/*_ko*
+/presentation/demo_rehearsal.json
+/presentation/recording_plan.md
+/presentation/speaker_notes.md
+/presentation/README.md

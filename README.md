@@ -435,6 +435,38 @@ python report/build_report.py
 
 Review the report before submission. Creating it here does not submit it to Moodle.
 
+## Final Presentation and Demo Preparation
+
+The final presentation kit includes a 14-slide [browser deck](presentation/project_presentation.html),
+[PDF deck](presentation/project_presentation.pdf), and
+[two-minute demo guide](presentation/demo_guide.md).
+There are 12 main slides plus two appendices, with a nine-minute timing budget
+including the demo. The slides present the final scores, representative cases,
+source references, and single-reviewer evaluation limitations.
+
+The English PDF deck was rendered and inspected. The slides, editable content,
+demo guide and build instructions are committed under `presentation/`.
+The builder generates local `speaker_notes.md`; speaker notes, Korean
+translations and preparation records are ignored by Git.
+
+A saved-only terminal rehearsal verified nine cases (REQ-002, REQ-018, REQ-023
+under all three strategies). Browser-deck navigation checks and the running
+local demo's HTTP smoke checks pass. No new model call was made.
+
+```bash
+python demo/app.py
+python demo/rehearse.py
+node tests/test_presentation.js
+```
+
+Managed PPTX/Spaces authoring and browser visual preview were unavailable. The
+PDF decks provide an inspected offline option; browser-specific rendering still
+needs a presenter-side check.
+
+**Preparation is complete; recording and delivery are not.** No video has been
+created or uploaded, no video link has been submitted, and the class presentation
+has not been delivered by this task. These remain in the checklist below.
+
 ## Repository Structure
 
 ``` text
@@ -473,11 +505,18 @@ requirement-test-generator/
 │   └── reviews.json
 ├── demo/
 │   ├── app.py
+│   ├── rehearse.py
 │   ├── index.html
 │   ├── app.js
 │   ├── style.css
 │   └── README.md
 ├── requirements.txt
+├── presentation/
+│   ├── project_presentation.html
+│   ├── project_presentation.pdf
+│   ├── content.json
+│   ├── demo_guide.md
+│   └── build_presentations.py
 └── report/
     ├── final_report.pdf
     ├── final_report.md
@@ -489,7 +528,7 @@ requirement-test-generator/
 
 ## Project Status
 
-**Current Phase: Final Presentation and Submission Preparation**
+**Current Phase: Presenter Rehearsal Recording and Submission**
 
 Numbered tasks keep their original numbers when moved from Next Steps to Completed.
 
@@ -562,12 +601,25 @@ Numbered tasks keep their original numbers when moved from Next Steps to Complet
     -   [x] Saved PDF and editable Markdown with reproducible build instructions.
     -   [x] Inspected all rendered pages and checked consistency with the saved results.
 
+8.  **Prepare the Final Presentation and Demo** — Materials Prepared
+    -   [x] Prepared final slides covering the problem, solution, strategies, results, and limitations.
+    -   [x] Added speaker notes, source references, and a nine-minute delivery budget.
+    -   [x] Prepared a two-minute generator demonstration and a saved-output fallback.
+    -   [x] Verified nine saved demo cases and the running local HTTP endpoints.
+    -   [x] Rendered and inspected English/Korean PDF decks and checked navigation controls.
+    -   [x] Added recording instructions while keeping video creation and class delivery explicitly pending.
+
 ### Next Steps
 
-8.  **Prepare the Final Presentation and Demo**
-    -   Present the problem, solution, prompting strategies, results,
-        and limitations.
-    -   Demonstrate the working generator.
+-   [ ] Presenter rehearses and checks browser layout on the presentation machine.
+-   [ ] Record and review the presentation video.
+-   [ ] Upload the recording and add its verified link to this repository.
+-   [ ] Confirm the assigned class slot and deliver the presentation and demo.
+-   [ ] Review and submit the final report and repository through the course workflow.
+
+No recording URL is available yet; do not substitute a placeholder link for the
+course requirement. Preparation of task #8 does not mark these delivery actions
+as completed.
 
 ## Citations and Acknowledgements
 

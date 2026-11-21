@@ -1,0 +1,659 @@
+{
+  "language": "en",
+  "author": "Sangkook Kang",
+  "course": "CSI-4130/5130",
+  "snapshot_date": "2026-11-18",
+  "main_slide_count": 12,
+  "slides": [
+    {
+      "title": "Requirements to test cases",
+      "blocks": [
+        {
+          "type": "lead",
+          "text": "LLM-assisted generation for embedded systems"
+        },
+        {
+          "type": "text",
+          "text": "Sangkook Kang"
+        },
+        {
+          "type": "text",
+          "text": "CSI-4130/5130 Artificial Intelligence"
+        },
+        {
+          "type": "small",
+          "text": "Final presentation materials · November 18, 2026"
+        }
+      ],
+      "notes": "This project asks whether an LLM can translate embedded-system requirements into Given–When–Then test drafts. I built a generator and compared three prompts on the same dataset. I will show both the outputs and the limits of the evaluation.",
+      "seconds": 20,
+      "sources": [
+        "README.md",
+        "report/final_report.md"
+      ]
+    },
+    {
+      "title": "The testing problem",
+      "blocks": [
+        {
+          "type": "lead",
+          "text": "REQ-002: SOC falls below 10% while the vehicle is in Drive."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Field",
+            "Saved Zero-Shot output"
+          ],
+          "rows": [
+            [
+              "Given",
+              "Vehicle is in Drive and SOC is at or above 10%."
+            ],
+            [
+              "When",
+              "SOC falls below 10%."
+            ],
+            [
+              "Then",
+              "Display a low-battery warning."
+            ]
+          ]
+        },
+        {
+          "type": "accent",
+          "text": "The test must retain the state guard and the threshold."
+        }
+      ],
+      "notes": "A requirement combines context with a triggering condition and an expected response. REQ-002 is a successful example: Drive is the guard, the downward SOC crossing is the event, and the warning is the response. The slide shortens the saved wording for readability. It does not show an executable hardware test.",
+      "seconds": 35,
+      "sources": [
+        "data/requirements.csv: REQ-002",
+        "results/zero_shot_results.csv: REQ-002"
+      ]
+    },
+    {
+      "title": "Dataset and generation workflow",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Difficulty",
+            "Requirements",
+            "Example"
+          ],
+          "rows": [
+            [
+              "Easy",
+              "10",
+              "Threshold warnings"
+            ],
+            [
+              "Medium",
+              "10",
+              "State guards and response deadlines"
+            ],
+            [
+              "Hard",
+              "10",
+              "Debounce conditions and logical restrictions"
+            ]
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Load requirement, build prompt, call the API, parse JSON, save output."
+        },
+        {
+          "type": "accent",
+          "text": "30 requirements × 3 strategies = 90 main outputs."
+        },
+        {
+          "type": "small",
+          "text": "Synthetic data. Evaluation reference fields stay out of prompts."
+        }
+      ],
+      "notes": "The dataset contains 30 synthetic requirements, balanced by difficulty. Each has a manual reference. The Python pipeline saves one scenario per requirement and strategy. All 90 main outputs have successful generation records. The four-case Structured and Few-Shot checks are preliminary calls, not additional evaluation cases.",
+      "seconds": 40,
+      "sources": [
+        "data/requirements.csv",
+        "src/generator.py",
+        "experiments/structured_run.md",
+        "experiments/few_shot_run.md"
+      ]
+    },
+    {
+      "title": "Three prompting strategies",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Strategy",
+            "Prompt content"
+          ],
+          "rows": [
+            [
+              "Zero-Shot",
+              "Task and JSON format, without worked examples"
+            ],
+            [
+              "Structured",
+              "Seven rules for states, triggers, logic and timing"
+            ],
+            [
+              "Few-Shot",
+              "Four independent demonstrations before the target task"
+            ]
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Same requirement set, system instruction and output format."
+        },
+        {
+          "type": "accent",
+          "text": "Recorded model argument: gpt-5.6."
+        },
+        {
+          "type": "small",
+          "text": "Few-Shot examples are separate from all 30 evaluation requirements."
+        }
+      ],
+      "notes": "Only the task prompt differs. Structured adds explicit rules. Few-Shot adds fixed independent examples and retains the baseline target task. The stored model argument is gpt-5.6, but resolved provider snapshots were not retained. This compares prompt configurations, not model architectures.",
+      "seconds": 40,
+      "sources": [
+        "src/generator.py",
+        "data/few_shot_examples.json",
+        "report/final_report.md: Methods"
+      ]
+    },
+    {
+      "title": "Evaluation rubric",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Criterion",
+            "Review target"
+          ],
+          "rows": [
+            [
+              "Preconditions",
+              "Usable initial state and required guards"
+            ],
+            [
+              "Trigger",
+              "Concrete event or elapsed condition"
+            ],
+            [
+              "Expected behavior",
+              "Required actions and response deadlines"
+            ],
+            [
+              "Conditions / boundaries",
+              "Fidelity within the chosen scenario"
+            ],
+            [
+              "Unsupported behavior",
+              "No unjustified assumptions or responses"
+            ]
+          ]
+        },
+        {
+          "type": "accent",
+          "text": "Each criterion: 0, 1 or 2. Equal-weight total: 0–10."
+        },
+        {
+          "type": "small",
+          "text": "One unblinded AI reviewer. No independent human validation."
+        }
+      ],
+      "notes": "All 90 cases receive the same rubric, with five scores and rationales each. Higher is better for every criterion: unsupported behavior scores two when there is none. The original requirement is authoritative, so a faulty reference does not define correctness. I must emphasize that the ratings are authored by one unblinded AI assistant that also helped develop the project.",
+      "seconds": 45,
+      "sources": [
+        "evaluation/rubric.md",
+        "evaluation/reviews.json"
+      ]
+    },
+    {
+      "title": "Recorded quality scores",
+      "blocks": [
+        {
+          "type": "chart",
+          "path": "results/analysis/charts/strategy_means.png"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Strategy",
+            "Mean /10",
+            "Full score"
+          ],
+          "rows": [
+            [
+              "Zero-Shot",
+              "9.7000",
+              "26/30"
+            ],
+            [
+              "Structured",
+              "10.0000",
+              "30/30"
+            ],
+            [
+              "Few-Shot",
+              "9.8667",
+              "29/30"
+            ]
+          ]
+        },
+        {
+          "type": "small",
+          "text": "30/30 cases scored for every strategy."
+        },
+        {
+          "type": "accent",
+          "text": "These are rubric judgments, not validated accuracy rates."
+        }
+      ],
+      "notes": "The means are 9.70 for Zero-Shot, 10.00 for Structured and 9.8667 for Few-Shot. Structured receives full credit on this dataset, creating a ceiling effect. All strategies generated 30 successful rows, but API success and rubric quality are different measurements. The small numerical gaps require case-level explanation.",
+      "seconds": 40,
+      "sources": [
+        "results/evaluation_summary.json",
+        "results/analysis/charts/strategy_means.png"
+      ]
+    },
+    {
+      "title": "Trigger placement in REQ-018",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Charging requires a request and successful connector locking."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Strategy",
+            "Saved When field"
+          ],
+          "rows": [
+            [
+              "Zero-Shot",
+              "The system processes the charging request"
+            ],
+            [
+              "Structured",
+              "A charging request is received."
+            ],
+            [
+              "Few-Shot",
+              "A charging request is received and the connector is locked successfully."
+            ]
+          ]
+        },
+        {
+          "type": "accent",
+          "text": "Zero-Shot: 7/10. Structured and Few-Shot: 10/10."
+        },
+        {
+          "type": "small",
+          "text": "The requirement does not impose a unique request/locking order."
+        }
+      ],
+      "notes": "Zero-Shot already places request receipt and lock success in Given. The remaining trigger is vague and adds an incidental processing step. Its three deductions concern field placement, trigger clarity, and that extra assumption. They are different dimensions of one case, not three independent failures. The alternative event orderings in the other two tests are valid under the original wording.",
+      "seconds": 45,
+      "sources": [
+        "data/requirements.csv: REQ-018",
+        "results/zero_shot_results.csv",
+        "results/structured_results.csv",
+        "results/few_shot_results.csv",
+        "evaluation/reviews.json"
+      ]
+    },
+    {
+      "title": "Necessary conditions in REQ-023",
+      "blocks": [
+        {
+          "type": "lead",
+          "text": "Accept only if checksum is valid AND message age is less than 100 ms."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Strategy",
+            "Selected scenario and outcome",
+            "Total"
+          ],
+          "rows": [
+            [
+              "Zero-Shot",
+              "Valid checksum + young command: accepts",
+              "6/10"
+            ],
+            [
+              "Few-Shot",
+              "Valid checksum + young command: accepts",
+              "6/10"
+            ],
+            [
+              "Structured",
+              "Valid checksum + age exactly 100 ms: rejects",
+              "10/10"
+            ]
+          ]
+        },
+        {
+          "type": "accent",
+          "text": "The manual reference also assumes guaranteed acceptance."
+        },
+        {
+          "type": "small",
+          "text": "Necessary conditions do not, by themselves, guarantee acceptance."
+        }
+      ],
+      "notes": "This is the central logical error. Acceptance implies both conditions hold. The converse is not supplied by the requirement. Zero-Shot and Few-Shot receive zero for expected behavior and unsupported behavior, although their input constraints are correctly stated. Structured tests a failing necessary condition at exactly 100 ms and expects rejection. This is why reference agreement alone is not a correctness metric.",
+      "seconds": 50,
+      "sources": [
+        "data/requirements.csv: REQ-023",
+        "evaluation/rubric.md",
+        "evaluation/reviews.json"
+      ]
+    },
+    {
+      "title": "Condition fidelity and unsupported additions",
+      "blocks": [
+        {
+          "type": "chart",
+          "path": "report/figures/unsupported_additions.png"
+        },
+        {
+          "type": "lead",
+          "text": "Condition/boundary score: 2/2 for all 90 cases."
+        },
+        {
+          "type": "text",
+          "text": "This measures one scenario, not exhaustive branch coverage."
+        },
+        {
+          "type": "accent",
+          "text": "Material additions: both occur in REQ-023."
+        },
+        {
+          "type": "small",
+          "text": "Minor setup restrictions and material logical inventions remain separate."
+        }
+      ],
+      "notes": "Zero-Shot has three minor unsupported additions and one material addition. Few-Shot has one material addition; Structured has none in this review. Every condition score is full, so the criterion does not distinguish strategies here. The same REQ-023 error affects two criteria, but does not count as two independent hallucination events. Korean chart labels remain in their original English form, with translated explanation on the slide.",
+      "seconds": 40,
+      "sources": [
+        "results/evaluation_summary.json",
+        "report/figures/unsupported_additions.png",
+        "results/analysis/analysis_report.md"
+      ]
+    },
+    {
+      "title": "Working generator demonstration",
+      "blocks": [
+        {
+          "type": "lead",
+          "text": "Local demo: http://127.0.0.1:8765"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Step",
+            "Action"
+          ],
+          "rows": [
+            [
+              "1",
+              "Saved experiment: REQ-002, Zero-Shot"
+            ],
+            [
+              "2",
+              "REQ-018: compare all three strategies"
+            ],
+            [
+              "3",
+              "REQ-023: inspect Structured and download JSON"
+            ],
+            [
+              "Optional",
+              "Live API: enter a new synthetic requirement"
+            ]
+          ]
+        },
+        {
+          "type": "accent",
+          "text": "Saved mode needs no API key. Live mode uses a server-side key."
+        }
+      ],
+      "notes": "Switch to the running demo and follow the two-minute runbook. Show the source label so the audience understands that saved mode replays recorded output. Compare REQ-018, then show the logical boundary in REQ-023. Downloading creates a separate file, not an experimental result. Only make a live request if the environment is ready. If anything fails, use the saved CLI fallback in the runbook. Return to slide 11.",
+      "seconds": 120,
+      "sources": [
+        "demo/README.md",
+        "demo/app.py",
+        "demo/index.html"
+      ]
+    },
+    {
+      "title": "Interpretation and limitations",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Comparison",
+            "Higher / equal / lower"
+          ],
+          "rows": [
+            [
+              "Structured minus Zero-Shot",
+              "4 / 26 / 0"
+            ],
+            [
+              "Few-Shot minus Zero-Shot",
+              "3 / 27 / 0"
+            ],
+            [
+              "Structured minus Few-Shot",
+              "1 / 29 / 0"
+            ]
+          ]
+        },
+        {
+          "type": "accent",
+          "text": "Without REQ-023, Structured and Few-Shot tie at 10/10."
+        },
+        {
+          "type": "text",
+          "text": "One unblinded AI reviewer. Synthetic data. One generation per pair."
+        },
+        {
+          "type": "small",
+          "text": "No independent human validation, hardware execution or measured speedup."
+        }
+      ],
+      "notes": "The paired comparison shows how concentrated the differences are. Excluding REQ-023 is only a sensitivity check; the primary analysis keeps all 30 cases. The rubric followed output inspection, and the reviewer helped develop the project. Therefore these data do not establish statistical significance, broad strategy superiority, or accuracy on industrial specifications.",
+      "seconds": 40,
+      "sources": [
+        "results/analysis/paired_comparisons.csv",
+        "results/analysis/leave_one_requirement_out.csv",
+        "report/final_report.md: Limitations"
+      ]
+    },
+    {
+      "title": "Conclusion and next research steps",
+      "blocks": [
+        {
+          "type": "lead",
+          "text": "The prototype generates reviewable Given–When–Then drafts."
+        },
+        {
+          "type": "text",
+          "text": "90 recorded outputs, shared scoring rules, analysis and a working local demo."
+        },
+        {
+          "type": "text",
+          "text": "Clearer structure can coexist with logical and reference errors."
+        },
+        {
+          "type": "accent",
+          "text": "Next research: independent human review, repeated runs and broader requirements."
+        },
+        {
+          "type": "lead",
+          "text": "Questions"
+        }
+      ],
+      "notes": "The contribution is a working and auditable pilot. The saved outputs often map requirements clearly, but formal implication and reference defects still matter. Human review and a larger repeated study are the next research steps. Thank you. I welcome questions; detailed results and sources are in the appendix.",
+      "seconds": 25,
+      "sources": [
+        "report/final_report.md: Conclusion",
+        "README.md"
+      ]
+    },
+    {
+      "title": "Appendix A  Sources and attribution",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Source",
+            "Role"
+          ],
+          "rows": [
+            [
+              "Brown et al., 2020",
+              "Few-shot learning through textual demonstrations"
+            ],
+            [
+              "Yuan et al., 2023 / revised 2024",
+              "LLM unit-test generation and correctness concerns"
+            ],
+            [
+              "Cucumber Gherkin reference",
+              "Given, When and Then terminology"
+            ],
+            [
+              "Project artifacts",
+              "Requirements, outputs, ratings and figures"
+            ]
+          ]
+        },
+        {
+          "type": "small",
+          "text": "OpenAI assistant assistance includes code, ratings, analysis and report preparation."
+        },
+        {
+          "type": "small",
+          "text": "Complete references and links appear in the notes and final report."
+        }
+      ],
+      "notes": "Sources: Brown et al., Language Models are Few-Shot Learners, https://arxiv.org/abs/2005.14165. Yuan et al., No More Manual Tests? Evaluating and Improving ChatGPT for Unit Test Generation, https://arxiv.org/abs/2305.04207. Gherkin reference: https://cucumber.io/docs/gherkin/reference/. This project generates textual scenarios rather than executable unit-test code. Figures use project scores and Matplotlib. The report contains full SDK and library attributions. AI assistance is explicitly disclosed.",
+      "seconds": 0,
+      "sources": [
+        "report/final_report.md: References",
+        "https://arxiv.org/abs/2005.14165",
+        "https://arxiv.org/abs/2305.04207",
+        "https://cucumber.io/docs/gherkin/reference/"
+      ]
+    },
+    {
+      "title": "Appendix B  Detailed scores",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Mean /2",
+            "Zero-Shot",
+            "Structured",
+            "Few-Shot"
+          ],
+          "rows": [
+            [
+              "Preconditions",
+              "1.9667",
+              "2.0000",
+              "2.0000"
+            ],
+            [
+              "Trigger",
+              "1.9667",
+              "2.0000",
+              "2.0000"
+            ],
+            [
+              "Expected behavior",
+              "1.9333",
+              "2.0000",
+              "1.9333"
+            ],
+            [
+              "Conditions / boundaries",
+              "2.0000",
+              "2.0000",
+              "2.0000"
+            ],
+            [
+              "No unsupported behavior",
+              "1.8333",
+              "2.0000",
+              "1.9333"
+            ]
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Mean total /10",
+            "Easy",
+            "Medium",
+            "Hard"
+          ],
+          "rows": [
+            [
+              "Zero-Shot",
+              "9.90",
+              "9.60",
+              "9.60"
+            ],
+            [
+              "Structured",
+              "10.00",
+              "10.00",
+              "10.00"
+            ],
+            [
+              "Few-Shot",
+              "10.00",
+              "10.00",
+              "9.60"
+            ]
+          ]
+        },
+        {
+          "type": "small",
+          "text": "Each difficulty group contains 10 requirements. Higher is better throughout."
+        }
+      ],
+      "notes": "Use this appendix only if asked about criterion-level or difficulty-level results. Condition fidelity is at a ceiling. The total score aggregates correlated judgments, so counts of deductions are not independent errors. Exact scores and all 450 rationales are in the committed evaluation artifacts.",
+      "seconds": 0,
+      "sources": [
+        "results/evaluation_summary.json",
+        "evaluation/reviews.json"
+      ]
+    }
+  ],
+  "ui": {
+    "previous": "Previous slide",
+    "next": "Next slide",
+    "notes": "Speaker notes",
+    "fullscreen": "Fullscreen",
+    "print": "Print / PDF",
+    "help": "Arrow keys: slides · N: notes · F: fullscreen",
+    "fullscreenFallback": "Use browser fullscreen",
+    "time": "Suggested time",
+    "sources": "Sources",
+    "timingNote": "12 main slides plus 2 appendices. Suggested duration: 9 minutes including a 2-minute demonstration. Appendix slides are for questions."
+  }
+}
