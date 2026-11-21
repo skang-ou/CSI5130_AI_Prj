@@ -1,0 +1,766 @@
+{
+  "language": "en",
+  "author": "Sangkook Kang",
+  "course": "CSI-4130/5130",
+  "snapshot_date": "2026-11-18",
+  "main_slide_count": 12,
+  "slides": [
+    {
+      "title": "Requirements to test cases",
+      "blocks": [
+        {
+          "type": "lead",
+          "text": "LLM-assisted generation for embedded systems"
+        },
+        {
+          "type": "text",
+          "text": "Sangkook Kang"
+        },
+        {
+          "type": "text",
+          "text": "CSI-4130/5130 Artificial Intelligence"
+        },
+        {
+          "type": "small",
+          "text": "Final presentation materials · November 18, 2026"
+        }
+      ],
+      "notes": "My project uses an LLM to turn embedded-system requirements into Given, When, and Then test drafts. I compared three prompting strategies on the same requirements. I will show the saved results, explain two important errors, and discuss what the evaluation can tell us.",
+      "seconds": 20,
+      "sources": [
+        "README.md",
+        "report/final_report.md"
+      ],
+      "preparation": {
+        "background": "The project starts with a small part of software testing: turning a written requirement into a clear test scenario. A requirement tells us what the system should do. A test draft makes that statement more concrete by separating the starting state, the event, and the expected response. The generator uses an LLM to propose this draft. A person would still need to review it and implement the steps before executing it against a real controller. The research question is whether different instructions lead to better drafts on the same requirements.",
+        "example": "Imagine a requirement saying that a controller must turn on a warning when the battery becomes low. A useful draft says how to set up the controller, how to make the battery cross the cutoff, and what warning to look for. The project generates those written steps; it does not connect to a battery or vehicle.",
+        "question": "Are these ready-to-run automated tests?",
+        "answer": "They are written test drafts. Executing them would require a test harness, a connection to the software or hardware, and checks that the expected behavior is correct."
+      }
+    },
+    {
+      "title": "The testing problem",
+      "blocks": [
+        {
+          "type": "lead",
+          "text": "REQ-002: SOC falls below 10% while the vehicle is in Drive."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Field",
+            "Saved Zero-Shot output"
+          ],
+          "rows": [
+            [
+              "Given",
+              "Vehicle is in Drive and SOC is at or above 10%."
+            ],
+            [
+              "When",
+              "SOC falls below 10%."
+            ],
+            [
+              "Then",
+              "Display a low-battery warning."
+            ]
+          ]
+        },
+        {
+          "type": "accent",
+          "text": "The test must retain the state guard and the threshold."
+        }
+      ],
+      "notes": "This example shows the three fields clearly. Given: the vehicle is in Drive and the battery is at or above 10%. When: the battery falls below 10%. Then: the system displays a low-battery warning. The test keeps both the operating mode and the threshold.",
+      "seconds": 35,
+      "sources": [
+        "data/requirements.csv: REQ-002",
+        "results/zero_shot_results.csv: REQ-002"
+      ],
+      "preparation": {
+        "background": "Given, When, and Then answer three different questions. Given: what is already true? When: what changes or happens? Then: what should the system do? A guard limits when a requirement applies. In REQ-002, being in Drive is a guard. The event is the battery level falling below 10%. A test should start at or above 10% so that a downward crossing can occur. Simply starting with a battery that is already low would make the crossing less clear.",
+        "example": "An illustrative setup is Drive mode with SOC at 12%. Reduce SOC to 9%, then check for the low-battery warning. The values 12% and 9% are examples to understand the crossing, not additional values recorded in the saved test. The actual saved output uses the general expressions at or above 10% and falls below 10%.",
+        "question": "Why is Drive in Given instead of When?",
+        "answer": "For this scenario, Drive is the state that already holds when the battery crosses the threshold. The battery crossing is the event we want to test."
+      }
+    },
+    {
+      "title": "Dataset and generation workflow",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Difficulty",
+            "Requirements",
+            "Example"
+          ],
+          "rows": [
+            [
+              "Easy",
+              "10",
+              "Threshold warnings"
+            ],
+            [
+              "Medium",
+              "10",
+              "State guards and response deadlines"
+            ],
+            [
+              "Hard",
+              "10",
+              "Debounce conditions and logical restrictions"
+            ]
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Load requirement, build prompt, call the API, parse JSON, save output."
+        },
+        {
+          "type": "accent",
+          "text": "30 requirements × 3 strategies = 90 main outputs."
+        },
+        {
+          "type": "small",
+          "text": "Synthetic data. Evaluation reference fields stay out of prompts."
+        }
+      ],
+      "notes": "I used 30 synthetic requirements, with 10 in each difficulty group. Each of the three strategies generated one draft for every requirement, giving 90 main outputs. The program reads the requirement, builds the prompt, calls the API, parses the JSON, and saves the result. Reference answers stay out of the prompt.",
+      "seconds": 40,
+      "sources": [
+        "data/requirements.csv",
+        "src/generator.py",
+        "experiments/structured_run.md",
+        "experiments/few_shot_run.md"
+      ],
+      "preparation": {
+        "background": "The dataset has 30 project-written requirements: 10 Easy, 10 Medium, and 10 Hard. Each strategy receives all 30 requirements, so there are 90 main generated outputs. One output is one scenario, rather than a complete suite. The pipeline reads a requirement, builds the selected prompt, sends the request, parses the returned JSON, and saves the fields. JSON is a structured text format that lets the program read given, when, and then separately. The manual reference answers are held back from the generation prompts. Otherwise the model could simply copy the expected answer.",
+        "example": "REQ-002 appears once in each strategy file, giving three drafts for that same requirement. Repeating this for 30 requirements gives 30 times 3, or 90 outputs. The preliminary four-case checks for Structured and Few-Shot are separate from the main comparison.",
+        "question": "Does a successful generation mean the test is correct?",
+        "answer": "It means the request and output parsing completed successfully. The draft can still misunderstand the requirement, which is why the separate quality review is needed."
+      }
+    },
+    {
+      "title": "Three prompting strategies",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Strategy",
+            "Prompt content"
+          ],
+          "rows": [
+            [
+              "Zero-Shot",
+              "Task and JSON format, without worked examples"
+            ],
+            [
+              "Structured",
+              "Seven rules for states, triggers, logic and timing"
+            ],
+            [
+              "Few-Shot",
+              "Four independent demonstrations before the target task"
+            ]
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Same requirement set, system instruction and output format."
+        },
+        {
+          "type": "accent",
+          "text": "Recorded model argument: gpt-5.6."
+        },
+        {
+          "type": "small",
+          "text": "Few-Shot examples are separate from all 30 evaluation requirements."
+        }
+      ],
+      "notes": "The strategies differ in the information added to the prompt. Zero-Shot gives the task and format. Structured adds seven rules about fields, logic, and timing. Few-Shot adds four independent examples. All three use the same requirement set and output format, so this compares prompt configurations rather than different models.",
+      "seconds": 40,
+      "sources": [
+        "src/generator.py",
+        "data/few_shot_examples.json",
+        "report/final_report.md: Methods"
+      ],
+      "preparation": {
+        "background": "Zero-Shot supplies the task and output format without worked examples. Structured adds seven explicit rules, including separating states from events, keeping timing and logical conditions, and avoiding unsupported behavior. Few-Shot shows four independent examples before asking for the target draft. Those examples teach the format and test-design patterns without supplying answers to the evaluation requirements. These are different prompt configurations sent through the same generator. They are not three separately trained models. The saved model argument is gpt-5.6, but the exact provider-resolved model snapshots were not retained.",
+        "example": "Think of asking someone to solve a problem. Zero-Shot gives the question and the answer format. Structured also gives a checklist. Few-Shot shows worked examples first. This analogy explains the prompt design; it does not claim that the model learns in the same way as a person.",
+        "question": "Are the Few-Shot examples copied from the evaluation answers?",
+        "answer": "No. They are separate examples, and the loader checks for exact overlap after normalizing case and whitespace. That check does not rule out every kind of semantic similarity."
+      }
+    },
+    {
+      "title": "Evaluation rubric",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Criterion",
+            "Review target"
+          ],
+          "rows": [
+            [
+              "Preconditions",
+              "Usable initial state and required guards"
+            ],
+            [
+              "Trigger",
+              "Concrete event or elapsed condition"
+            ],
+            [
+              "Expected behavior",
+              "Required actions and response deadlines"
+            ],
+            [
+              "Conditions / boundaries",
+              "Fidelity within the chosen scenario"
+            ],
+            [
+              "Unsupported behavior",
+              "No unjustified assumptions or responses"
+            ]
+          ]
+        },
+        {
+          "type": "accent",
+          "text": "Each criterion: 0, 1 or 2. Equal-weight total: 0–10."
+        },
+        {
+          "type": "small",
+          "text": "One unblinded AI reviewer. No independent human validation."
+        }
+      ],
+      "notes": "I reviewed every draft using the same five criteria. Each criterion receives zero, one, or two points, for a total out of 10. Higher is better for all five criteria. The original requirement decides correctness. These ratings come from one AI reviewer who also helped develop the project, so independent human validation is still needed.",
+      "seconds": 45,
+      "sources": [
+        "evaluation/rubric.md",
+        "evaluation/reviews.json"
+      ],
+      "preparation": {
+        "background": "A rubric makes the review questions explicit. Each draft receives five scores: preconditions, trigger, expected behavior, condition/boundary fidelity, and unsupported behavior. Each score can be 0, 1, or 2. A 2 fully satisfies the criterion for that scenario; a 1 needs a local correction; a 0 indicates a material failure. Add the five scores to get a total out of 10. The original requirement takes priority over the manual reference, because a reference can contain an error. One AI assistant performed the review and also helped develop the project. The scores therefore need independent human checking before stronger conclusions.",
+        "example": "Five scores of 2, 2, 2, 2, and 2 produce 10/10. Scores of 1, 1, 2, 2, and 1 produce 7/10, as in the Zero-Shot REQ-018 review. For unsupported behavior, 2 is the good score: it means the draft adds no unjustified behavior.",
+        "question": "Who assigned the scores, and did the evaluator program judge the meaning?",
+        "answer": "One unblinded OpenAI assistant authored the ratings and explanations. The evaluator program checks their completeness and consistency and computes summaries. It does not independently judge the meaning of each test."
+      }
+    },
+    {
+      "title": "Recorded quality scores",
+      "blocks": [
+        {
+          "type": "chart",
+          "path": "results/analysis/charts/strategy_means.png"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Strategy",
+            "Mean /10",
+            "Full score"
+          ],
+          "rows": [
+            [
+              "Zero-Shot",
+              "9.7000",
+              "26/30"
+            ],
+            [
+              "Structured",
+              "10.0000",
+              "30/30"
+            ],
+            [
+              "Few-Shot",
+              "9.8667",
+              "29/30"
+            ]
+          ]
+        },
+        {
+          "type": "small",
+          "text": "30/30 cases scored for every strategy."
+        },
+        {
+          "type": "accent",
+          "text": "These are rubric judgments, not validated accuracy rates."
+        }
+      ],
+      "notes": "The average scores are 9.70 for Zero-Shot, 10.00 for Structured, and about 9.87 for Few-Shot. The gaps are small. Structured received full credit in this review, but that is a rubric result, not a validated accuracy rate. The next examples show where the differences come from.",
+      "seconds": 40,
+      "sources": [
+        "results/evaluation_summary.json",
+        "results/analysis/charts/strategy_means.png"
+      ],
+      "preparation": {
+        "background": "The chart reports the average rubric total across 30 drafts for each strategy. An average summarizes several scores, so it can hide important individual errors. Structured received 10/10 on every case under this review. That creates a ceiling effect: the rubric gives it no room to score higher and provides little separation among many strong drafts. Full score means full credit under this rubric for one chosen scenario. It does not mean the system has proven industrial accuracy or complete test coverage. The chart starts at zero, so the small gaps should be read using the numerical values and the following case examples.",
+        "example": "Few-Shot has 29 scores of 10 and one score of 6. Its mean is (29 times 10 plus 6) divided by 30, which is 9.8667 after rounding. That single low-scoring case explains the entire difference between Few-Shot and Structured in the main comparison.",
+        "question": "Can I call the Structured result 100 percent accurate?",
+        "answer": "Say that all 30 Structured drafts received 10/10 under this rubric and reviewer. A validated accuracy claim would require an independent standard and broader evidence."
+      }
+    },
+    {
+      "title": "Trigger placement in REQ-018",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Charging requires a request and successful connector locking."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Strategy",
+            "Saved When field"
+          ],
+          "rows": [
+            [
+              "Zero-Shot",
+              "The system processes the charging request"
+            ],
+            [
+              "Structured",
+              "A charging request is received."
+            ],
+            [
+              "Few-Shot",
+              "A charging request is received and the connector is locked successfully."
+            ]
+          ]
+        },
+        {
+          "type": "accent",
+          "text": "Zero-Shot: 7/10. Structured and Few-Shot: 10/10."
+        },
+        {
+          "type": "small",
+          "text": "The requirement does not impose a unique request/locking order."
+        }
+      ],
+      "notes": "This case shows a field-placement problem. Zero-Shot puts the request and successful locking in Given, then uses the vague event processes the request. Structured and Few-Shot give clearer triggers. Both alternative event arrangements are valid under the requirement. Zero-Shot scores 7/10, while the other two score 10/10.",
+      "seconds": 45,
+      "sources": [
+        "data/requirements.csv: REQ-018",
+        "results/zero_shot_results.csv",
+        "results/structured_results.csv",
+        "results/few_shot_results.csv",
+        "evaluation/reviews.json"
+      ],
+      "preparation": {
+        "background": "REQ-018 requires both a charging request and successful connector locking before charging is enabled. The Zero-Shot draft puts both facts in Given, then says that the system processes the request. That When field is vague: it does not clearly identify a reproducible event. Structured starts with the connector already locked and uses receipt of the request as the event. Few-Shot describes the request and successful locking together in When. The requirement does not specify a unique order between those two conditions, so both alternatives can be valid. The review deducts points for different aspects of the Zero-Shot draft, not for three separate incidents.",
+        "example": "Suppose the connector is already locked. Receiving a charging request is then a clear event to exercise. In a different valid scenario, the request and successful locking are described as a combined event. In contrast, processes the request leaves the test reader wondering what exact action to perform or observe.",
+        "question": "Why does the same case lose points in more than one criterion?",
+        "answer": "The rubric separately considers the setup, the clarity of the event, and unsupported additions. One underlying problem can affect several criteria, so three deductions should not be described as three independent failures."
+      }
+    },
+    {
+      "title": "Necessary conditions in REQ-023",
+      "blocks": [
+        {
+          "type": "lead",
+          "text": "Accept only if checksum is valid AND message age is less than 100 ms."
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Strategy",
+            "Selected scenario and outcome",
+            "Total"
+          ],
+          "rows": [
+            [
+              "Zero-Shot",
+              "Valid checksum + young command: accepts",
+              "6/10"
+            ],
+            [
+              "Few-Shot",
+              "Valid checksum + young command: accepts",
+              "6/10"
+            ],
+            [
+              "Structured",
+              "Valid checksum + age exactly 100 ms: rejects",
+              "10/10"
+            ]
+          ]
+        },
+        {
+          "type": "accent",
+          "text": "The manual reference also assumes guaranteed acceptance."
+        },
+        {
+          "type": "small",
+          "text": "Necessary conditions do not, by themselves, guarantee acceptance."
+        }
+      ],
+      "notes": "The key words are only if. Acceptance requires a valid checksum and an age below 100 milliseconds. The requirement does not promise acceptance just because those conditions hold. Zero-Shot, Few-Shot, and the manual reference assume that promise. Structured tests exactly 100 milliseconds, which fails the strict limit, and correctly expects non-acceptance.",
+      "seconds": 50,
+      "sources": [
+        "data/requirements.csv: REQ-023",
+        "evaluation/rubric.md",
+        "evaluation/reviews.json"
+      ],
+      "preparation": {
+        "background": "This slide is about the direction of a logical rule. In the project review, accept only if the checksum is valid and the age is less than 100 ms means that an accepted command must meet both conditions. It does not, by itself, promise acceptance whenever those conditions hold. The Zero-Shot and Few-Shot drafts assume that promise, and the manual reference makes the same assumption. Structured chooses a command whose age is exactly 100 ms. Since exactly 100 is not less than 100, that command fails a required condition and must not be accepted under the stated rule. This is an expected outcome in a text test, not an observed hardware result.",
+        "example": "As a logic analogy, entering a building only if you have a badge makes a badge necessary. Having a badge alone does not promise entry; another rule could still block it. For REQ-023, 99 ms satisfies the age condition but does not establish all reasons for acceptance. Exactly 100 ms fails the strict age condition, so non-acceptance follows.",
+        "question": "Why can a draft match the reference and still receive a low score?",
+        "answer": "The reference is a comparison aid and can contain a logical mistake. The rubric treats the original requirement as authoritative. In this review, both the expected response and the unsupported-behavior criterion lose credit for the unjustified acceptance claim."
+      }
+    },
+    {
+      "title": "Condition fidelity and unsupported additions",
+      "blocks": [
+        {
+          "type": "chart",
+          "path": "report/figures/unsupported_additions.png"
+        },
+        {
+          "type": "lead",
+          "text": "Condition/boundary score: 2/2 for all 90 cases."
+        },
+        {
+          "type": "text",
+          "text": "This measures one scenario, not exhaustive branch coverage."
+        },
+        {
+          "type": "accent",
+          "text": "Material additions: both occur in REQ-023."
+        },
+        {
+          "type": "small",
+          "text": "Minor setup restrictions and material logical inventions remain separate."
+        }
+      ],
+      "notes": "All 90 drafts received full condition credit for their selected scenario. This does not mean exhaustive test coverage. Zero-Shot has three minor unsupported additions and one material addition. Few-Shot has one material addition, and Structured has none in this review. Both material cases concern the REQ-023 acceptance assumption.",
+      "seconds": 40,
+      "sources": [
+        "results/evaluation_summary.json",
+        "report/figures/unsupported_additions.png",
+        "results/analysis/analysis_report.md"
+      ],
+      "preparation": {
+        "background": "The condition/boundary criterion asks whether the chosen scenario preserves the relevant conditions. It does not ask whether a whole suite tests every branch. A draft can correctly state valid checksum and age below 100 ms, yet still make an unjustified claim about acceptance. That explains how REQ-023 can receive full condition credit while losing expected-behavior and unsupported-behavior credit. The chart counts unsupported-behavior ratings: 2 means no unsupported addition, 1 means a minor unnecessary assumption, and 0 means a material logical or behavioral addition. The two material cases are the Zero-Shot and Few-Shot outputs for the same requirement.",
+        "example": "A complete test suite might separately examine 99 ms, exactly 100 ms, and 101 ms, along with checksum cases. The prompts here request one scenario. Preserving the conditions within that one scenario can earn 2/2 without claiming that all these additional branches were tested.",
+        "question": "Are there two different requirements with material errors?",
+        "answer": "There are two generated outputs with material additions, both for REQ-023 under different strategies. Multiple rubric deductions within an output should also not be counted as separate independent error events."
+      }
+    },
+    {
+      "title": "Working generator demonstration",
+      "blocks": [
+        {
+          "type": "lead",
+          "text": "Local demo: http://127.0.0.1:8765"
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Step",
+            "Action"
+          ],
+          "rows": [
+            [
+              "1",
+              "Saved experiment: REQ-002, Zero-Shot"
+            ],
+            [
+              "2",
+              "REQ-018: compare all three strategies"
+            ],
+            [
+              "3",
+              "REQ-023: inspect Structured and download JSON"
+            ],
+            [
+              "Optional",
+              "Live API: enter a new synthetic requirement"
+            ]
+          ]
+        },
+        {
+          "type": "accent",
+          "text": "Saved mode needs no API key. Live mode uses a server-side key."
+        }
+      ],
+      "notes": "I will now show the working demo in Saved experiment mode. These are the recorded outputs, so this walkthrough needs no API call. First, here is the clear REQ-002 example. Next, I will compare the triggers for REQ-018. Finally, I will show the exact-boundary REQ-023 case and download its JSON. Then I will return to the limitations slide.",
+      "seconds": 120,
+      "sources": [
+        "demo/README.md",
+        "demo/app.py",
+        "demo/index.html"
+      ],
+      "preparation": {
+        "background": "The demo has two modes. Saved experiment mode retrieves the already-recorded outputs used in the study. It gives a reliable walkthrough and needs no API key. Live API mode requests a new output from the configured provider and needs a server-side key. A new live answer may differ from the saved results and is not part of the frozen comparison. Start the local server before presenting, keep the demo tab ready, and leave Saved experiment selected. A JSON download is a separate file; it does not replace the saved experiment CSVs. The core demonstration does not require a live request.",
+        "example": "Before the talk, run python demo/app.py from the repository root and open http://127.0.0.1:8765. First show REQ-002 with Zero-Shot, then compare the REQ-018 triggers, then show the Structured REQ-023 boundary case. Keep the source label visible. If the browser demonstration fails, python demo/rehearse.py provides the saved-output terminal fallback.",
+        "question": "Does the saved demo prove that a new API call works right now?",
+        "answer": "It demonstrates the replay interface and saved experiment outputs. Only a successful, separately labeled live request would demonstrate a new generation during the talk. If a live call fails, return to saved mode and explain that it is unavailable."
+      }
+    },
+    {
+      "title": "Interpretation and limitations",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Comparison",
+            "Higher / equal / lower"
+          ],
+          "rows": [
+            [
+              "Structured minus Zero-Shot",
+              "4 / 26 / 0"
+            ],
+            [
+              "Few-Shot minus Zero-Shot",
+              "3 / 27 / 0"
+            ],
+            [
+              "Structured minus Few-Shot",
+              "1 / 29 / 0"
+            ]
+          ]
+        },
+        {
+          "type": "accent",
+          "text": "Without REQ-023, Structured and Few-Shot tie at 10/10."
+        },
+        {
+          "type": "text",
+          "text": "One unblinded AI reviewer. Synthetic data. One generation per pair."
+        },
+        {
+          "type": "small",
+          "text": "No independent human validation, hardware execution or measured speedup."
+        }
+      ],
+      "notes": "Most paired scores are equal. Structured scores higher than Few-Shot on only one requirement, REQ-023. Without that case, they tie at 10/10. The main analysis still keeps all 30 requirements. Because this is a small synthetic study with one AI reviewer and one generation per pair, I cannot claim broad superiority or statistical significance.",
+      "seconds": 40,
+      "sources": [
+        "results/analysis/paired_comparisons.csv",
+        "results/analysis/leave_one_requirement_out.csv",
+        "report/final_report.md: Limitations"
+      ],
+      "preparation": {
+        "background": "A paired comparison aligns the same requirement across two strategies. The numbers higher, equal, and lower count how often the first strategy scored above, the same as, or below the second. Structured exceeds Zero-Shot on four requirements, ties on 26, and is lower on none. Structured exceeds Few-Shot only on REQ-023. Temporarily leaving out that requirement makes both strategies average 10/10 on the remaining 29 cases. This sensitivity check shows how concentrated the difference is. The primary analysis still includes all 30 requirements. One reviewer, synthetic data, and one generation per requirement/strategy pair limit how widely the result can be generalized.",
+        "example": "The row 4 / 26 / 0 describes counts of requirements, not point differences or percentages. Also, removing REQ-023 for the sensitivity check does not erase it from the study. It answers a narrower question: how much does this one requirement affect the ranking?",
+        "question": "What would make the comparison stronger?",
+        "answer": "Independent human review, review without strategy labels, repeated generations, and broader requirements would address several limitations. Testing implemented scenarios against software or hardware would answer a different question about execution."
+      }
+    },
+    {
+      "title": "Conclusion and next research steps",
+      "blocks": [
+        {
+          "type": "lead",
+          "text": "The prototype generates reviewable Given–When–Then drafts."
+        },
+        {
+          "type": "text",
+          "text": "90 recorded outputs, shared scoring rules, analysis and a working local demo."
+        },
+        {
+          "type": "text",
+          "text": "Clearer structure can coexist with logical and reference errors."
+        },
+        {
+          "type": "accent",
+          "text": "Next research: independent human review, repeated runs and broader requirements."
+        },
+        {
+          "type": "lead",
+          "text": "Questions"
+        }
+      ],
+      "notes": "The project delivers a working prototype and 90 reviewable test drafts. The examples show that clearer structure can still hide logical errors, and that references also need checking. The next steps are independent human review, repeated runs, and broader requirements. Thank you. I am happy to take questions.",
+      "seconds": 25,
+      "sources": [
+        "report/final_report.md: Conclusion",
+        "README.md"
+      ],
+      "preparation": {
+        "background": "The contribution is a small working prototype with traceable saved outputs, ratings, analysis, and a demonstration. Reviewable means that someone can inspect the requirement and each Given, When, and Then field, then identify or correct mistakes. It does not mean that the drafts are automatically trustworthy. The main lesson is that clear structure and high scores can coexist with a logical error or a faulty reference. Future work should improve the evidence: independent reviewers, repeated runs to examine variation, and requirements beyond the current synthetic set. The project did not measure time savings or run controller tests.",
+        "example": "A useful next study could have independent reviewers score drafts without seeing the strategy names and then compare their judgments. Repeating generation for each requirement would show whether the observed differences persist across different model outputs. These are proposed next steps, not completed results.",
+        "question": "What is the main result in one sentence?",
+        "answer": "The prototype can produce clear test drafts, while the small observed strategy differences and the REQ-023 error show why logical review and stronger evaluation are still necessary."
+      }
+    },
+    {
+      "title": "Appendix A  Sources and attribution",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Source",
+            "Role"
+          ],
+          "rows": [
+            [
+              "Brown et al., 2020",
+              "Few-shot learning through textual demonstrations"
+            ],
+            [
+              "Yuan et al., 2023 / revised 2024",
+              "LLM unit-test generation and correctness concerns"
+            ],
+            [
+              "Cucumber Gherkin reference",
+              "Given, When and Then terminology"
+            ],
+            [
+              "Project artifacts",
+              "Requirements, outputs, ratings and figures"
+            ]
+          ]
+        },
+        {
+          "type": "small",
+          "text": "OpenAI assistant assistance includes code, ratings, analysis and report preparation."
+        },
+        {
+          "type": "small",
+          "text": "Complete references and links appear in the notes and final report."
+        }
+      ],
+      "notes": "This appendix lists the background references and project evidence. The experiment scores come from the saved project artifacts. The report contains the full references, and AI assistance is disclosed.",
+      "seconds": 0,
+      "sources": [
+        "report/final_report.md: References",
+        "https://arxiv.org/abs/2005.14165",
+        "https://arxiv.org/abs/2305.04207",
+        "https://cucumber.io/docs/gherkin/reference/"
+      ],
+      "preparation": {
+        "background": "This appendix identifies the sources behind the presentation. Brown and colleagues provide the few-shot-learning background listed in the report. Yuan and colleagues provide related work on LLM test generation and correctness concerns. The Cucumber reference supplies the Given, When, and Then terminology. The actual project numbers come from the saved requirements, outputs, and evaluation files. Related work motivates the project; it does not validate the project scores. The project also discloses AI help with implementation, ratings, analysis, and writing. Keep this appendix available for questions rather than reading every reference during the timed talk.",
+        "example": "If someone asks where 9.70 comes from, point to the project evaluation summary and scored cases. If they ask why the output uses Given, When, and Then, point to the Gherkin reference. These are different kinds of sources: evidence for this experiment and background terminology.",
+        "question": "Does the related work show that these drafts are executable unit tests?",
+        "answer": "This project produces written scenarios. The related unit-test-generation work is context, not evidence that these particular scenarios execute. Full links are in the report: https://arxiv.org/abs/2005.14165, https://arxiv.org/abs/2305.04207, and https://cucumber.io/docs/gherkin/reference/."
+      }
+    },
+    {
+      "title": "Appendix B  Detailed scores",
+      "blocks": [
+        {
+          "type": "table",
+          "headers": [
+            "Mean /2",
+            "Zero-Shot",
+            "Structured",
+            "Few-Shot"
+          ],
+          "rows": [
+            [
+              "Preconditions",
+              "1.9667",
+              "2.0000",
+              "2.0000"
+            ],
+            [
+              "Trigger",
+              "1.9667",
+              "2.0000",
+              "2.0000"
+            ],
+            [
+              "Expected behavior",
+              "1.9333",
+              "2.0000",
+              "1.9333"
+            ],
+            [
+              "Conditions / boundaries",
+              "2.0000",
+              "2.0000",
+              "2.0000"
+            ],
+            [
+              "No unsupported behavior",
+              "1.8333",
+              "2.0000",
+              "1.9333"
+            ]
+          ]
+        },
+        {
+          "type": "table",
+          "headers": [
+            "Mean total /10",
+            "Easy",
+            "Medium",
+            "Hard"
+          ],
+          "rows": [
+            [
+              "Zero-Shot",
+              "9.90",
+              "9.60",
+              "9.60"
+            ],
+            [
+              "Structured",
+              "10.00",
+              "10.00",
+              "10.00"
+            ],
+            [
+              "Few-Shot",
+              "10.00",
+              "10.00",
+              "9.60"
+            ]
+          ]
+        },
+        {
+          "type": "small",
+          "text": "Each difficulty group contains 10 requirements. Higher is better throughout."
+        }
+      ],
+      "notes": "The first table shows criterion averages out of two, and the second shows total-score averages out of ten. Each difficulty group has ten requirements. Condition fidelity is at the maximum for every strategy. The detailed scores and explanations are available in the evaluation files if you would like to inspect a specific case.",
+      "seconds": 0,
+      "sources": [
+        "results/evaluation_summary.json",
+        "evaluation/reviews.json"
+      ],
+      "preparation": {
+        "background": "The first table averages each criterion across 30 outputs per strategy, so its maximum is 2. The second table averages total scores within each difficulty group, so its maximum is 10. Each difficulty group has 10 requirements. Read the headings carefully before comparing values: 1.93 out of 2 and 9.60 out of 10 use different scales. Small rounded differences can come from a very small number of deductions. All condition/boundary means are 2/2, so that criterion does not separate the strategies here. The review contains 90 outputs times five criterion explanations, or 450 rationales. Those rationales concern overlapping aspects of the same outputs, not 450 independent experiments.",
+        "example": "Structured has 2.0000 in every criterion, so its mean total is 10.0000. Few-Shot has 1.9333 for expected behavior because 29 outputs score 2 and the REQ-023 output scores 0: 58 divided by 30 is 1.9333 after rounding. The other deductions and rounding should be checked against the saved summaries rather than inferred from rounded table entries.",
+        "question": "Do these scores establish that harder requirements always produce worse drafts?",
+        "answer": "No. The pattern is not consistently decreasing across difficulty, and each group contains only ten synthetic requirements. The study does not establish a general relationship between difficulty and quality."
+      }
+    }
+  ],
+  "ui": {
+    "previous": "Previous slide",
+    "next": "Next slide",
+    "notes": "Speaker notes",
+    "fullscreen": "Fullscreen",
+    "print": "Print / PDF",
+    "help": "Arrow keys: slides · N: notes · F: fullscreen",
+    "fullscreenFallback": "Use browser fullscreen",
+    "time": "Suggested time",
+    "sources": "Sources",
+    "timingNote": "12 main slides plus 2 appendices. Suggested duration: 9 minutes including a 2-minute demonstration. Appendix slides are for questions."
+  },
+  "study_guide": {
+    "introduction": "Read the background and examples before rehearsing. During the talk, use only the section called What to say during the presentation. The study explanations and answers to questions are extra preparation, so they do not count toward the nine-minute talk. Practice slides 7 and 8 carefully because they explain why the scores differ. The appendix is for questions. The results describe saved text outputs and one AI review; they do not describe tests run on real hardware.",
+    "glossary": {
+      "Embedded system": "Software inside a device, such as a vehicle controller. In this project, the requirements describe how such a controller should respond.",
+      "Requirement": "A statement of what the system must do, and under which conditions.",
+      "Test case": "A specific setup, an action or event, and an expected result that someone could later check.",
+      "LLM": "Large language model. Here it reads a written requirement and produces a written test draft.",
+      "Prompt": "The instructions and information sent to the model for one request. Changing a prompt does not retrain the model.",
+      "Given / When / Then": "Given describes the starting state. When describes the event. Then describes the expected response.",
+      "Guard / precondition": "A condition that must already hold, such as the vehicle being in Drive.",
+      "Trigger": "The event that starts the behavior under test, such as the battery level crossing below a threshold.",
+      "SOC": "State of charge, meaning the battery charge level expressed as a percentage.",
+      "Threshold / boundary": "A cutoff value. Less than 100 ms excludes exactly 100 ms; at most 100 ms would include it.",
+      "Checksum": "A value used to check whether message data passes a consistency check. A valid checksum is one condition in REQ-023.",
+      "Synthetic dataset": "Requirements written for this project, rather than collected from an industrial deployment.",
+      "Rubric": "A shared scoring guide. This one has five criteria worth up to two points each.",
+      "Unsupported behavior": "A test expectation or substantive assumption that the requirement does not justify.",
+      "Unblinded reviewer": "A reviewer who can see which prompting strategy produced the output. That knowledge can affect judgment.",
+      "Ceiling effect": "Many outputs get the maximum score, making it difficult for the scoring system to distinguish them.",
+      "Paired comparison": "Comparing two strategies on the same requirement, rather than comparing unrelated examples.",
+      "Sensitivity check": "Recalculating a result under a stated change to see how much that change affects the conclusion."
+    }
+  }
+}
